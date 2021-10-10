@@ -41,7 +41,6 @@ def train_model(model, dataloaders, criterion, optimizer, filename, device, sche
             for inputs, labels in dataloaders[phase]:
                 inputs = inputs.to(device)
                 labels = labels.to(device)
-
                 # 清零
                 optimizer.zero_grad()
                 # 只有训练的时候计算和更新梯度
@@ -49,7 +48,6 @@ def train_model(model, dataloaders, criterion, optimizer, filename, device, sche
                     outputs = model(inputs)
                     loss = criterion(outputs, labels)
                     _, preds = torch.max(outputs, 1)
-
                     # 训练阶段更新权重
                     if phase == 'train':
                         loss.backward()

@@ -60,7 +60,7 @@ else:
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model_ft, input_size = model.initialize_model('resnet', 2, feature_extract=True, use_pretrained=True)
+model_ft, input_size = model.initialize_model('resnet', 2, feature_extract=False, use_pretrained=True)
 
 params_to_update = []
 for name, param in model_ft.named_parameters():
