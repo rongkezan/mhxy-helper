@@ -28,13 +28,10 @@ valid_dir = data_dir + '/valid'
 data_transforms = {
     'train': transforms.Compose([
         transforms.CenterCrop(224),  # 从中心开始裁剪
-        transforms.ColorJitter(brightness=0.2, contrast=0.1, saturation=0.1, hue=0.1),  # 参数1为亮度，参数2为对比度，参数3为饱和度，参数4为色相
-        transforms.RandomGrayscale(p=0.025),  # 概率转换成灰度率，3通道就是R=G=B
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # 均值，标准差
     ]),
     'valid': transforms.Compose([
-        transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
@@ -60,7 +57,7 @@ else:
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model_ft, input_size = model.initialize_model('resnet', 2, feature_extract=False, use_pretrained=True)
+model_ft, input_size = model.initialize_model('resnet', 2, feature_extract=True, use_pretrained=False)
 
 params_to_update = []
 for name, param in model_ft.named_parameters():
