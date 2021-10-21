@@ -57,7 +57,7 @@ else:
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model_ft, input_size = model.initialize_model('resnet', 2, feature_extract=True, use_pretrained=False)
+model_ft, input_size = model.initialize_model('resnet', 2, feature_extract=False, use_pretrained=False)
 
 params_to_update = []
 for name, param in model_ft.named_parameters():
@@ -66,7 +66,7 @@ for name, param in model_ft.named_parameters():
         print("\t", name)
 
 # 优化器设置
-optimizer_ft = optim.Adam(params_to_update, lr=1e-2)
+optimizer_ft = optim.Adam(params_to_update, lr=1e-5)
 scheduler = optim.lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)  # 学习率每7个epoch衰减成原来的1/10
 # 最后一层已经LogSoftmax()了，所以不能nn.CrossEntropyLoss()来计算了，nn.CrossEntropyLoss()相当于logSoftmax()和nn.NLLLoss()整合
 criterion = nn.NLLLoss()
