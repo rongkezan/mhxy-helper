@@ -12,8 +12,7 @@ driver_dir_path = r'driver'
 ##############
 
 # images
-img_sc_name = 'mhxy.jpg'
-img_sc_path = os.path.join(img_dir_path, img_sc_name)
+img_sc_path = os.path.join(img_dir_path, 'mhxy.jpg')
 
 img_desktop_name = 'desktop.jpg'
 img_desktop_path = os.path.join(img_dir_path, img_desktop_name)
@@ -34,8 +33,7 @@ model_path = os.path.join(model_dir_path, 'mhxy.h5')
 
 # images/sub
 fight_shape = (793, 182, 805, 436)
-fighting_img_name = 'fighting.jpg'
-fighting_img_path = os.path.join(sub_dir_path, fighting_img_name)
+fighting_img_path = os.path.join(sub_dir_path, 'fighting.jpg')
 
 popup_sub_img_path = os.path.join(sub_dir_path, 'pop_sub.jpg')
 
@@ -43,13 +41,10 @@ crop_4_img_names = ['1.jpg', '2.jpg', '3.jpg', '4.jpg']
 crop_4_img_paths = [os.path.join(sub_dir_path, crop_4_img_name) for crop_4_img_name in crop_4_img_names]
 
 # images/flag
-fighting_flag_img_name = 'fighting_flag.jpg'
-fighting_flag_img_path = os.path.join(flag_dir_path, fighting_flag_img_name)
+fighting_flag_img_path = os.path.join(flag_dir_path, 'fighting_flag.jpg')
 
-popup_flag_img_names = ['popup_flag_1.jpg', 'popup_flag_2.jpg']
-
-popup_flag_img_paths = [os.path.join(flag_dir_path, popup_flag_img_name) for popup_flag_img_name in
-                        popup_flag_img_names]
+popup_flag_img_paths = [os.path.join(flag_dir_path, popup_flag_img_name)
+                        for popup_flag_img_name in ['popup_flag_1.jpg', 'popup_flag_2.jpg']]
 
 mouse_flag_img_name = 'mouse_flag.jpg'
 mouse_flag_img_path = os.path.join(flag_dir_path, mouse_flag_img_name)

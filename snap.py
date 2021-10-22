@@ -1,18 +1,19 @@
-import win32gui
+# import win32gui
 import util
 import sys
 import os
 import constants as c
 from PIL import Image
+from skimage.metrics import structural_similarity
 import cv2 as cv
 from PyQt5.QtWidgets import QApplication
 
 hwnd_title = dict()
 
 
-def get_all_hwnd(hwnd, mouse):
-    if win32gui.IsWindow(hwnd) and win32gui.IsWindowEnabled(hwnd) and win32gui.IsWindowVisible(hwnd):
-        hwnd_title.update({hwnd: win32gui.GetWindowText(hwnd)})
+# def get_all_hwnd(hwnd, mouse):
+#     if win32gui.IsWindow(hwnd) and win32gui.IsWindowEnabled(hwnd) and win32gui.IsWindowVisible(hwnd):
+#         hwnd_title.update({hwnd: win32gui.GetWindowText(hwnd)})
 
 
 def fight_crop():
@@ -20,7 +21,7 @@ def fight_crop():
     return crop(c.img_sc_path, c.fighting_img_path, c.fight_shape)
 
 
-def popup_sub_crop():
+def popup_crop():
     util.log_title('弹窗判断')
     shape_dict = {}
     for i in range(len(c.popup_flag_img_paths)):
@@ -71,7 +72,7 @@ def template_match(template_path, src_path):
             top_left = max_loc
         bottom_right = (top_left[0] + w, top_left[1] + h)
         shape = (top_left[0], top_left[1], bottom_right[0], bottom_right[1])
-        if shape_dict.get(shape) == None:
+        if shape_dict.get(shape) is None:
             shape_dict[shape] = 1
         else:
             shape_dict[shape] = shape_dict[shape] + 1
@@ -79,28 +80,28 @@ def template_match(template_path, src_path):
     return max_shape, shape_dict[max_shape]
 
 
-def shot():
-    util.log_title('截图')
-    win32gui.EnumWindows(get_all_hwnd, 0)
-    title = ''
-    for h, t in hwnd_title.items():
-        if t.startswith('梦幻西游 ONLINE'):
-            title = t
-            print(title)
-            hwnd = win32gui.FindWindow(None, title)
-            app = QApplication(sys.argv)
-            desktop_id = app.desktop().winId()
-            screen = QApplication.primaryScreen()
-            img_desk = screen.grabWindow(desktop_id).toImage()
-            img_sc = screen.grabWindow(hwnd).toImage()
-            img_desk.save(c.img_desktop_path)
-            img_sc.save(c.img_sc_path)
-            print(f'img_desktop save to -> {os.path.abspath(c.img_desktop_path)}')
-            print(f'img_mhxy save to -> {os.path.abspath(c.img_sc_path)}')
-    if title == '':
-        print('mhxy not start')
-        return False
-    return True
+# def shot():
+#     util.log_title('截图')
+#     win32gui.EnumWindows(get_all_hwnd, 0)
+#     title = ''
+#     for h, t in hwnd_title.items():
+#         if t.startswith('梦幻西游 ONLINE'):
+#             title = t
+#             print(title)
+#             hwnd = win32gui.FindWindow(None, title)
+#             app = QApplication(sys.argv)
+#             desktop_id = app.desktop().winId()
+#             screen = QApplication.primaryScreen()
+#             img_desk = screen.grabWindow(desktop_id).toImage()
+#             img_sc = screen.grabWindow(hwnd).toImage()
+#             img_desk.save(c.img_desktop_path)
+#             img_sc.save(c.img_sc_path)
+#             print(f'img_desktop save to -> {os.path.abspath(c.img_desktop_path)}')
+#             print(f'img_mhxy save to -> {os.path.abspath(c.img_sc_path)}')
+#     if title == '':
+#         print('mhxy not start')
+#         return False
+#     return True
 
 
 def image_check(img_path, size):
@@ -109,7 +110,7 @@ def image_check(img_path, size):
         if img.size == size:
             print(f'\t\tsize={size}\t\tok')
             return True
-    print('Imgae Size Error')
+    print('Image Size Error')
     return False
 
 
@@ -124,6 +125,15 @@ def is_fight():
         return False
 
 
+def compare_image(path_image1, path_image2):
+    imageA = cv.imread(path_image1)
+    imageB = cv.imread(path_image2)
+    grayA = cv.cvtColor(imageA, cv.COLOR_BGR2GRAY)
+    grayB = cv.cvtColor(imageB, cv.COLOR_BGR2GRAY)
+    score, diff = structural_similarity(grayA, grayB, full=True)
+    return score
+
+
 def crop_4():
     util.log_title('弹窗人物切分')
     w = 90
@@ -133,13 +143,18 @@ def crop_4():
         crop(c.popup_sub_img_path, c.crop_4_img_paths[i], shape)
 
 
+def locate(screen, wanted, show=0):
+    loc_pos = []
+
+
 if __name__ == '__main__':
-    print()
-    if shot():  ## 截图
-        if image_check(c.img_sc_path, c.screen_size):  ## 检查截图大小
-            fight_crop()  ## 战斗标识截图
-            if is_fight():  ## 判断是否在战斗
-                if popup_sub_crop():  ## 弹窗识别 与 人物区域切出
-                    if image_check(c.popup_sub_img_path, c.sub_size):  ## 弹窗人物截图检查
-                        crop_4()  ## 弹窗人物切分
-                        print()
+    shape, score = template_match(r'images/flag/popup_flag_1.jpg', r'images/flag/1.png')
+    print(shape, score)
+    # if shot():  # 截图
+    #     if image_check(c.img_sc_path, c.screen_size):  # 检查截图大小
+    #         fight_crop()  # 战斗标识截图
+    #         if is_fight():  # 判断是否在战斗
+    #             if popup_sub_crop():  # 弹窗识别 与 人物区域切出
+    #                 if image_check(c.popup_sub_img_path, c.sub_size):  # 弹窗人物截图检查
+    #                     crop_4()  # 弹窗人物切分
+    #                     print()
