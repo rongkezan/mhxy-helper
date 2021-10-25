@@ -1,7 +1,7 @@
 import os
 
 # path = input('请输入文件路径(结尾加上/)：')
-path = "dataset/valid/front"
+path = "dataset/val/front"
 
 # 获取该目录下所有文件，存入列表中
 files = os.listdir(path)
