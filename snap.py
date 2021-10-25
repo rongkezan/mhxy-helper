@@ -75,7 +75,6 @@ def shot():
     for h, t in hwnd_title.items():
         if t.startswith('梦幻西游 ONLINE'):
             title = t
-            print(title)
             hwnd = win32gui.FindWindow(None, title)
             app = QApplication(sys.argv)
             desktop_id = app.desktop().winId()
@@ -84,29 +83,15 @@ def shot():
             img_sc = screen.grabWindow(hwnd).toImage()
             img_desk.save(c.desktop_img)
             img_sc.save(c.sc_img)
-            print(f'img_desktop save to -> {os.path.abspath(c.desktop_img)}')
-            print(f'img_mhxy save to -> {os.path.abspath(c.sc_img)}')
     if title == '':
         print('mhxy not start')
-        return False
-    if image_check(c.sc_img, c.screen_size):
         return False
     return True
 
 
-def image_check(img_path, size):
-    util.log_title('截图检查')
-    with Image.open(img_path) as img:
-        if img.size == size:
-            print(f'\t\tsize={size}\t\tok')
-            return True
-    print('Image Size Error')
-    return False
-
-
 def is_fight():
     util.log_title('战斗状态判断')
-    crop(c.sc_img, c.fight_img, c.fight_shape) # 战斗标识截图
+    crop(c.sc_img, c.fight_img, c.fight_shape)  # 战斗标识截图
     rate = compare_image(c.fighting_flag_img_path, c.fight_img)
     print(rate)
     if rate > 0.95:
@@ -138,7 +123,7 @@ def crop_4():
 
 def is_same_fight(img):
     if img is None:
-        return True
+        return False
     # 得到最新的一张保存的四小人截图
     files = os.listdir(c.data_dir)
     recent_file = None
@@ -148,10 +133,12 @@ def is_same_fight(img):
         elif convert_to_int(file) > convert_to_int(recent_file):
             recent_file = file
     # 确认刚截的图不是已经保存过的
-    shape, score = template_match(recent_file, img)
-    if score >= 3:
+    if recent_file is None:
         return False
-    return True
+    shape, score = template_match(os.path.join(c.data_dir, recent_file), img)
+    if score >= 3:
+        return True
+    return False
 
 
 def convert_to_int(file_name):
@@ -180,6 +167,7 @@ def task():
 
 
 if __name__ == '__main__':
+
     while True:
         time.sleep(3)
         task()
