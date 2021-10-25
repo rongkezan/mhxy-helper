@@ -4,6 +4,7 @@ import os
 flag_dir = "img/flag/"
 data_dir = "img/data/"
 temp_dir = "img/temp/"
+driver_dir = "driver/"
 
 sc_img = os.path.join(temp_dir, 'temp_game.jpg')
 desktop_img = os.path.join(temp_dir, 'temp_desktop.jpg')
@@ -17,3 +18,8 @@ screen_size = (812, 663)
 sub_size = (360, 134)  # 四小人大小
 popup_move_shape = (-56, 16, 118, 130)  # 弹框偏移
 mouse_move_shape = (16, 15)  # 鼠标偏移
+crop_4_imgs = [os.path.join(temp_dir, name) for name in ['1.jpg', '2.jpg', '3.jpg', '4.jpg']]
+# driver
+driver_name = 'kmclass'
+kmclass_dll_path = os.path.abspath(driver_dir + 'kmclassdll.dll').replace('\\', '\\\\')
+kmclass_driver_path = os.path.abspath(driver_dir + 'kmclass.sys').replace('\\', '\\\\')

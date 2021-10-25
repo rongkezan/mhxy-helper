@@ -30,16 +30,14 @@ def popup_crop():
             shape[3] + c.popup_move_shape[3]
         )
         print(f'弹框区域  {sub_shape}')
-        img_path = os.path.join(c.temp_dir, "popup_data.jpg")
-        crop(c.sc_img, img_path, sub_shape)
-        return img_path
+        return crop(c.sc_img, c.popup_img, sub_shape)
     print(f'没有弹框')
+    return False
 
 
 def crop(source_path, target_path, shape):
-    with Image.open(source_path) as img:
-        img.crop(shape).save(target_path)
-        return True
+    Image.open(source_path).crop(shape).save(target_path)
+    return True
 
 
 def template_match(template_path, src_path):
@@ -106,7 +104,7 @@ def image_check(img_path, size):
 
 def is_fight():
     util.log_title('战斗状态判断')
-    crop(c.sc_img, c.fight_img, c.fight_shape) # 战斗标识截图
+    crop(c.sc_img, c.fight_img, c.fight_shape)  # 战斗标识截图
     rate = compare_image(c.fighting_flag_img_path, c.fight_img)
     print(rate)
     if rate > 0.95:
@@ -130,32 +128,9 @@ def crop_4():
     util.log_title('弹窗人物切分')
     w = 90
     h = 120
-    for i in range(4):
+    for i in range(len(c.crop_4_imgs)):
         shape = (w * i, 0, w * (i + 1), h)
-        img_name = str((i + 1)) + str(int(round(time.time() * 1000))) + ".jpg"
-        crop(c.popup_img, os.path.join(c.data_dir, img_name), shape)
-
-
-def is_same_fight(img):
-    if img is None:
-        return True
-    # 得到最新的一张保存的四小人截图
-    files = os.listdir(c.data_dir)
-    recent_file = None
-    for file in files:
-        if recent_file is None:
-            recent_file = file
-        elif convert_to_int(file) > convert_to_int(recent_file):
-            recent_file = file
-    # 确认刚截的图不是已经保存过的
-    shape, score = template_match(recent_file, img)
-    if score >= 3:
-        return False
-    return True
-
-
-def convert_to_int(file_name):
-    return int(str(file_name).split('.')[0])
+        crop(c.popup_img, os.path.join(c.data_dir, c.crop_4_imgs[i]), shape)
 
 
 def find_xy_desktop(template_path):
@@ -171,15 +146,7 @@ def find_xy_desktop(template_path):
 
 def task():
     if shot() & is_fight():
-        temp_img = popup_crop()
-        if is_same_fight(temp_img):
-            return
-        else:
-            shutil.copy(os.path.join(c.temp_dir, "popup_data.jpg"),
-                        os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
-
-
-if __name__ == '__main__':
-    while True:
-        time.sleep(3)
-        task()
+        if popup_crop():
+            crop_4()
+            return True
+    return False
