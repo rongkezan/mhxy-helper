@@ -20,7 +20,7 @@ def get_all_hwnd(hwnd, mouse):
 
 def popup_crop():
     util.log_title('弹窗判断')
-    shape, score = template_match(c.popup_flag_img, c.sc_img)
+    shape, score = template_match(c.flag_popup, c.temp_game)
     print(f'弹框提示区域 {shape} 最终得分为 {score}')
     if score >= 3:
         sub_shape = (
@@ -30,7 +30,7 @@ def popup_crop():
             shape[3] + c.popup_move_shape[3]
         )
         print(f'弹框区域  {sub_shape}')
-        return crop(c.sc_img, c.popup_img, sub_shape)
+        return crop(c.temp_game, c.temp_popup, sub_shape)
     print(f'没有弹框')
     return False
 
@@ -80,14 +80,14 @@ def shot():
             screen = QApplication.primaryScreen()
             img_desk = screen.grabWindow(desktop_id).toImage()
             img_sc = screen.grabWindow(hwnd).toImage()
-            img_desk.save(c.desktop_img)
-            img_sc.save(c.sc_img)
-            print(f'img_desktop save to -> {os.path.abspath(c.desktop_img)}')
-            print(f'img_mhxy save to -> {os.path.abspath(c.sc_img)}')
+            img_desk.save(c.temp_desktop)
+            img_sc.save(c.temp_game)
+            print(f'img_desktop save to -> {os.path.abspath(c.temp_desktop)}')
+            print(f'img_mhxy save to -> {os.path.abspath(c.temp_game)}')
     if title == '':
         print('mhxy not start')
         return False
-    if image_check(c.sc_img, c.screen_size):
+    if image_check(c.temp_game, c.screen_size):
         return False
     return True
 
@@ -104,8 +104,8 @@ def image_check(img_path, size):
 
 def is_fight():
     util.log_title('战斗状态判断')
-    crop(c.sc_img, c.fight_img, c.fight_shape)  # 战斗标识截图
-    rate = compare_image(c.fighting_flag_img_path, c.fight_img)
+    crop(c.temp_game, c.temp_fight, c.fight_shape)  # 战斗标识截图
+    rate = compare_image(c.flag_fight, c.temp_fight)
     print(rate)
     if rate > 0.95:
         print('战斗状态')
@@ -128,14 +128,14 @@ def crop_4():
     util.log_title('弹窗人物切分')
     w = 90
     h = 120
-    for i in range(len(c.crop_4_imgs)):
+    for i in range(len(c.temp_crop4)):
         shape = (w * i, 0, w * (i + 1), h)
-        crop(c.popup_img, os.path.join(c.data_dir, c.crop_4_imgs[i]), shape)
+        crop(c.temp_popup, os.path.join(c.data_dir, c.temp_crop4[i]), shape)
 
 
 def find_xy_desktop(template_path):
     util.log_title('坐标查找')
-    shape, score = template_match(template_path, c.desktop_img)
+    shape, score = template_match(template_path, c.temp_desktop)
     if score >= 3:
         x = shape[2] + shape[0]
         y = shape[3] + shape[1]
