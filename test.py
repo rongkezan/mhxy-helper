@@ -5,9 +5,9 @@ from PIL import Image
 
 
 def recognize():
-    path = "img/temp_crop/"
+    path = "img/temp/crop/"
     files = os.listdir(path)
-    n = 1
+    n = 0
     for file in files:
         image = Image.open(path + file)
         image = image.convert('RGB')
