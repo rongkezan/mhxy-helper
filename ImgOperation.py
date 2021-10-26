@@ -17,6 +17,7 @@ def get_all_hwnd(hwnd, mouse):
 
 
 def shot():
+    util.log_title("截图")
     win32gui.EnumWindows(get_all_hwnd, 0)
     title = ''
     for h, t in hwnd_title.items():
@@ -39,7 +40,7 @@ def shot():
 def is_fight():
     util.log_title('战斗状态判断')
     Image.open(c.temp_game).crop(c.fight_shape).save(c.temp_fight)
-    score = util.compare_image(c.flag_fight, c.temp_fight)
+    score = compare_image(c.flag_fight, c.temp_fight)
     if score > 0.95:
         print('战斗状态')
         return True
@@ -50,7 +51,7 @@ def is_fight():
 
 def save_temp_popup():
     util.log_title('弹窗判断')
-    shape, score = util.template_match(c.flag_popup, c.temp_game)
+    shape, score = template_match(c.flag_popup, c.temp_game)
     print(f'弹框提示区域 {shape} 最终得分为 {score}')
     if score >= 3:
         sub_shape = (
@@ -113,9 +114,9 @@ def find_xy_desktop(template_path):
 
 
 def find_mouse_in_desktop():
-    img = cv.imread(c.img_desktop_path, 0)
+    img = cv.imread(c.temp_desktop, 0)
     img2 = img.copy()
-    template = cv.imread(c.mouse_flag_img_path, 0)
+    template = cv.imread(c.flag_mouse, 0)
     w, h = template.shape[::-1]
 
     img = img2.copy()

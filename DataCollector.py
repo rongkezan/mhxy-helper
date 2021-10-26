@@ -18,8 +18,11 @@ def is_not_same_fight():
         return True
     # 确认刚截的图不是已经保存过的
     score = compare_image(os.path.join(c.data_dir, recent_file), c.temp_popup)
-    if score > 0.9:
+    if score > 0.8:
+        print("弹框已保存过，Score:", score)
         return False
+    else:
+        print("保存弹框，Score:", score)
     return True
 
 
@@ -28,8 +31,11 @@ def convert_to_int(file_name):
 
 
 def task():
-    if shot() & is_fight() & save_temp_popup() & is_not_same_fight():
-        shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
+    if shot():
+        if is_fight():
+            if save_temp_popup():
+                if is_not_same_fight():
+                    shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
 
 
 if __name__ == '__main__':

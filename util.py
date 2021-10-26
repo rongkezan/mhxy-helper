@@ -42,3 +42,6 @@ def crop(source_dir, target_dir):
 def log_title(title):
     print(f'--------   {title}    ----------')
 
+
+if __name__ == '__main__':
+    crop("dataset/raw/", "dataset/rawCrop/")
