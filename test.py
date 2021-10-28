@@ -1,6 +1,7 @@
 import torch
 import torchvision
 import os
+import constants as c
 from PIL import Image
 
 
@@ -25,7 +26,7 @@ def recognize():
         result = class_names[index]
         print('predicted:', result, ', percentage:', percentage)
         if index == 0:
-            return n
+            return c.position[n]
         n += 1
         return -1
 

@@ -44,4 +44,4 @@ def log_title(title):
 
 
 if __name__ == '__main__':
-    crop("dataset/raw/", "dataset/rawCrop/")
+    crop("dataset/rawUsed/", "dataset/rawCrop/")

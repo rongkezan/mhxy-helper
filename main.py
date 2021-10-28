@@ -3,19 +3,20 @@ import auto
 import ImgOperation
 import test
 import constants as c
+import time
 
 if __name__ == '__main__':
     util.log_title("开始")
     auto.open_driver()
     while True:
-        util.log_title("开始")
+        time.sleep(3)
         if ImgOperation.crop4():
-            n = test.recognize()
-            if n == -1:
+            result = test.recognize()
+            if result == -1:
                 util.log_title("未找到面向你的角色")
                 break
             else:
-                x, y = ImgOperation.find_xy_desktop(c.temp_crop4[n])
+                x, y = result
                 auto.move_to(x, y)
                 if ImgOperation.shot():
                     now_x, now_y = ImgOperation.find_mouse_in_desktop()

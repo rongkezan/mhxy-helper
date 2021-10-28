@@ -20,6 +20,7 @@ flag_mouse = os.path.join(flag_dir, 'mouse_flag.jpg')
 # 尺寸及偏移
 fight_shape = (795, 179, 805, 438)      # 战斗截图Shape
 screen_size = (812, 663)                # 屏幕尺寸
+position = [(310, 340), (430, 340), (550, 340), (670, 340)]
 sub_size = (360, 134)                   # 四小人大小
 popup_move_shape = (-56, 16, 118, 130)  # 弹框偏移
 mouse_move_shape = (16, 15)             # 鼠标偏移
