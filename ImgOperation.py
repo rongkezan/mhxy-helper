@@ -105,39 +105,17 @@ def compare_image(img_path1, img_path2):
 def find_xy_desktop(template_path):
     util.log_title('坐标查找')
     shape, score = template_match(template_path, c.temp_desktop)
+    print(shape)
     if score >= 3:
-        x = shape[2] + shape[0]
-        y = shape[3] + shape[1]
-        print("中心点坐标为:", (x, y))
+        x = shape[0]
+        y = shape[1]
         return x, y
     print("匹配失败")
 
 
 def find_mouse_in_desktop():
-    img = cv.imread(c.temp_desktop, 0)
-    img2 = img.copy()
-    template = cv.imread(c.flag_mouse, 0)
-    w, h = template.shape[::-1]
-
-    img = img2.copy()
-    shape_list = []
-    threshold = 0.85
-    res = cv.matchTemplate(img, template, cv.TM_CCOEFF_NORMED)
-    loc = np.where(res >= threshold)
-    x = 10000
-    y = 10000
-    for pt in zip(*loc[::-1]):
-        top_left = pt
-        bottom_right = (top_left[0] + w, top_left[1] + h)
-        shape = (top_left[0], top_left[1], bottom_right[0], bottom_right[1])
-        shape_list.append(shape)
-        new_x = (shape[2] + shape[0]) // 2
-        if new_x < x:
-            x = new_x
-            y = (shape[3] + shape[1]) // 2
-
-    print(f'中心点坐标为 {(x, y)}')
-    return x, y
+    x, y = find_xy_desktop(c.flag_mouse)
+    return x - 8, y - 8
 
 
 def crop4():
@@ -151,3 +129,7 @@ def crop4():
                 Image.open(c.temp_popup).crop(shape).save(c.temp_crop4[i])
         return True
     return False
+
+
+if __name__ == '__main__':
+    print(find_mouse_in_desktop())

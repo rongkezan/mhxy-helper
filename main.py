@@ -1,5 +1,5 @@
 import util
-import auto
+import Auto
 import ImgOperation
 import test
 import constants as c
@@ -7,7 +7,7 @@ import time
 
 if __name__ == '__main__':
     util.log_title("开始")
-    auto.open_driver()
+    Auto.load_driver()
     while True:
         time.sleep(3)
         if ImgOperation.crop4():
@@ -17,10 +17,10 @@ if __name__ == '__main__':
                 break
             else:
                 x, y = result
-                auto.move_to(x, y)
+                Auto.move_to(x, y)
                 if ImgOperation.shot():
                     now_x, now_y = ImgOperation.find_mouse_in_desktop()
                     move_x = x - now_x + c.mouse_move_shape[0]
                     move_y = y - now_y + c.mouse_move_shape[1]
-                    auto.move_rel_click(move_x, move_y)
+                    Auto.move_rel_click(move_x, move_y)
         util.log_title("结束")
