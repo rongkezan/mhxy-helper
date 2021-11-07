@@ -2,7 +2,7 @@ import os
 import shutil
 import constants as c
 import time
-from ImgOperation import shot, is_fight, save_temp_popup, compare_image
+from ImgOperation import shot1, is_fight, is_popup, compare_image
 
 
 def is_not_same_fight():
@@ -31,9 +31,9 @@ def convert_to_int(file_name):
 
 
 def task():
-    if shot():
+    if shot1():
         if is_fight():
-            if save_temp_popup():
+            if is_popup():
                 if is_not_same_fight():
                     shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
 

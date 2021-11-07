@@ -31,7 +31,7 @@ def fight_done():
         if is_fight():
             while True:
                 time.sleep(3)
-                shot()
+                shot1()
                 shape = (670, 154, 731, 447)
                 Image.open(c.temp_game).crop(shape).save("img/temp/temp_fight_tool.jpg")
                 score = compare_image("img/flag/flag_fight_tool.jpg", "img/temp/temp_fight_tool.jpg")
@@ -83,7 +83,7 @@ def get_mission():
     while True:
         time.sleep(3)
         print("寻找镖头中...")
-        shot()
+        shot1()
         result = find_xy_game("img/flag/biao_tou.png")
         if result is not None:
             x, y = result[0], result[1]
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     print(">>> 从镖局出发，前往大唐国境 >>>")
     while True:
         time.sleep(3)
-        shot()
+        shot1()
         if fight_done():
             ca_to_gj()
         elif is_ca_to_gj():
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     gj_to_jw()
     while True:
         time.sleep(3)
-        shot()
+        shot1()
         if fight_done():
             gj_to_jw()
         elif is_gj_to_jw():

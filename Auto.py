@@ -2,6 +2,7 @@ from ctypes import *
 import time
 from ImgOperation import *
 import pyautogui
+from windows import *
 
 driver = windll.LoadLibrary(c.dd_dll_path)
 
@@ -50,10 +51,11 @@ def move(rect, x, y):
     x_target = rect[0] + x
     y_target = rect[1] + y
     pyautogui.moveTo(x_target, y_target, 0.5)
-    # # 实际移动到的坐标
+    # 实际移动到的坐标
     time.sleep(0.5)
     shot()
     xy_mouse = find_mouse_desktop()
+    print(xy_mouse)
     if xy_mouse is not None:
         time.sleep(0.5)
         # 需要相对移动的坐标

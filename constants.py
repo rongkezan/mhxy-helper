@@ -14,7 +14,8 @@ temp_desktop = os.path.join(temp_dir, 'temp_desktop.jpg')
 temp_popup = os.path.join(temp_dir, 'temp_popup.jpg')
 temp_fight = os.path.join(temp_dir, 'temp_fight.jpg')
 temp_crop4 = [os.path.join(temp_crop_dir, name) for name in ['1.jpg', '2.jpg', '3.jpg', '4.jpg']]
-flag_fight = os.path.join(flag_dir, 'fight_flag.jpg')
+flag_fight = os.path.join(flag_dir, 'flag_fight.png')
+flag_auto_fight = os.path.join(flag_dir, 'flag_auto_fight.png')
 flag_popup = os.path.join(flag_dir, 'popup_flag.jpg')
 flag_mouse = os.path.join(flag_dir, 'mouse_flag.jpg')
 ch_temp_img = os.path.join(ch_temp_dir, "ch.png")
@@ -26,7 +27,7 @@ ch_dict = {
     'ch5': ((615, 0, 760, 20), os.path.join(ch_temp_dir, 'ch5.png'), (696, 40))
 }
 # 尺寸及偏移
-fight_shape = (790, 160, 800, 380)  # 战斗截图Shape
+fight_shape = (795, 190, 805, 430)  # 战斗截图Shape
 screen_size = (812, 663)  # 屏幕尺寸
 position = [(310, 340), (430, 340), (550, 340), (670, 340)]
 sub_size = (360, 134)  # 四小人大小

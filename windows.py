@@ -1,15 +1,5 @@
-import win32gui
-import util
-import sys
-import constants as c
-import cv2 as cv
-from PIL import Image
-from skimage.metrics import structural_similarity
-from PyQt5.QtWidgets import QApplication
-import numpy as np
-import time
-from ImgOperation import *
 from Auto import *
+import random
 
 hwnd_title = dict()
 rect = None
@@ -36,7 +26,7 @@ def shot():
 
 
 def save_temp_ch():
-    shot()
+    shot1()
     Image.open(c.temp_game).crop((20, 33, 780, 53)).save(c.ch_temp_img)
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch1'][0]).save(c.ch_dict['ch1'][1])
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch2'][0]).save(c.ch_dict['ch2'][1])
@@ -45,14 +35,81 @@ def save_temp_ch():
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch5'][0]).save(c.ch_dict['ch5'][1])
 
 
+def is_notify():
+    img = cv.imread(c.ch_dict[k][1])
+    return (img[10][115] == [155, 202, 254]).all()
+
+
+def is_auto_fight():
+    shape, score = template_match(c.flag_auto_fight, c.temp_game)
+    print("自动状态得分:", score)
+    if score >= 4:
+        return True
+    else:
+        return False
+
+
+def leader_is_active():
+    img = cv.imread(c.ch_dict['ch1'][1])
+    return (img[10][115] == [221, 221, 221]).all()
+
+
+def click_auto_fight():
+    shot()
+    while is_fight():
+        if is_auto_fight():
+            print(">>> 已经处于自动状态 >>>")
+            return
+        elif is_popup():
+            # TODO 利用模型训练
+            print("出现弹框 Pass")
+            pass
+        else:
+            print(">>> 点击自动 >>>")
+            move_left_click(rect, 705, 439)  # 点击自动
+
+
+def switch_map():
+    keyboard(300)
+    time.sleep(0.5)
+
+
+def move_around():
+    print(">>> 晃悠中 >>>")
+    switch_map()
+    rd = int(random.random() * 10)
+    if rd < 3:
+        move_left_click(rect, 429, 301)
+    elif rd < 5:
+        move_left_click(rect, 210, 398)
+    elif rd < 8:
+        move_left_click(rect, 393, 500)
+    else:
+        move_left_click(rect, 399, 366)
+    switch_map()
+    time.sleep(3)
+
+
 if __name__ == '__main__':
     load_driver()
     while True:
         print(">>> 检测人物框通知 >>>")
-        time.sleep(1)
+        time.sleep(2)
         save_temp_ch()
         for k in c.ch_dict:
-            img = cv.imread(c.ch_dict[k][1])
-            if (img[10][115] == [155, 202, 254]).all():
+            if is_notify():
                 print(">>> 通知点击坐标: ", c.ch_dict[k][2], " >>>")
                 move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
+                click_auto_fight()
+
+        print(">>> 队员没通知，选择队长 >>>")
+        shot()
+        if not leader_is_active():
+            move_left_click(rect, c.ch_dict['ch1'][2][0], c.ch_dict['ch1'][2][1], True)
+            shot()
+        click_auto_fight()
+        if not is_fight():
+            while True:
+                move_around()
+                if is_fight():
+                    break
