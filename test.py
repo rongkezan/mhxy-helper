@@ -3,33 +3,36 @@ import torchvision
 import os
 import constants as c
 from PIL import Image
+from torchvision import transforms
 
 
 def recognize():
-    path = "img/temp/crop/"
+    path = "img/temp_crop/"
     files = os.listdir(path)
     n = 0
     for file in files:
         image = Image.open(path + file)
-        image = image.convert('RGB')
         class_names = ['front', 'others']
-        transform = torchvision.transforms.Compose([
-            torchvision.transforms.Resize((120, 90)),
-            torchvision.transforms.ToTensor()
+        transform = transforms.Compose([
+            transforms.Resize((120, 90)),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
         image = transform(image)
-        model = torch.load("model/checkpoint.pth")
         image = torch.reshape(image, (1, 3, 120, 90))
-        outputs = model(image)
+
+        model = torch.load("model/checkpoint.pth")
+        tensor = image.cuda()
+        outputs = model(tensor)
         index = outputs.argmax(1)
         percentage = torch.nn.functional.softmax(outputs, dim=1)[0][int(index)].item()
         result = class_names[index]
-        print('predicted:', result, ', percentage:', percentage)
+        print('index:', index, 'predicted:', result, ', percentage:', percentage)
         if index == 0:
             return c.position[n]
         n += 1
-        return -1
+    return -1
 
 
 if __name__ == '__main__':
-    recognize()
+    print(recognize())

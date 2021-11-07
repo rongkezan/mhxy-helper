@@ -32,7 +32,7 @@ data_transforms = {
 
 data_dir = 'dataset'
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['train', 'val']}
-dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=4) for x in ['train', 'val']}
+dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=0) for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -75,7 +75,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             for inputs, labels in dataloaders[phase]:
                 inputs = inputs.to(device)
                 labels = labels.to(device)
-
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
@@ -154,8 +153,8 @@ if __name__ == '__main__':
     img_show(out, title=[class_names[x] for x in classes])
 
     # Build model
-    model_ft = models.resnet18(pretrained=False)
-    model_ft.fc = nn.Linear(model_ft.fc.in_features, 2)
+    model_ft = models.densenet121(pretrained=False)
+    model_ft.classifier = nn.Linear(model_ft.classifier.in_features, 2)
     model_ft = model_ft.to(device)
 
     criterion = nn.CrossEntropyLoss()
@@ -169,5 +168,4 @@ if __name__ == '__main__':
     model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=25)
 
     torch.save(model_ft, "model/checkpoint.pth")
-
     visualize_model(model_ft)

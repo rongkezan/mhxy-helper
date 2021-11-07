@@ -1,5 +1,6 @@
 from Auto import *
 import random
+from DataCollector import *
 
 hwnd_title = dict()
 rect = None
@@ -26,7 +27,7 @@ def shot():
 
 
 def save_temp_ch():
-    shot1()
+    shot()
     Image.open(c.temp_game).crop((20, 33, 780, 53)).save(c.ch_temp_img)
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch1'][0]).save(c.ch_dict['ch1'][1])
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch2'][0]).save(c.ch_dict['ch2'][1])
@@ -42,7 +43,6 @@ def is_notify():
 
 def is_auto_fight():
     shape, score = template_match(c.flag_auto_fight, c.temp_game)
-    print("自动状态得分:", score)
     if score >= 4:
         return True
     else:
@@ -54,19 +54,43 @@ def leader_is_active():
     return (img[10][115] == [221, 221, 221]).all()
 
 
+def alt_q_a():
+    keyboard2(604, 301)
+    time.sleep(0.1)
+    keyboard2(604, 301)
+    time.sleep(0.1)
+    keyboard2(604, 401)
+    time.sleep(0.1)
+    keyboard2(604, 401)
+    time.sleep(0.1)
+
+
 def click_auto_fight():
     shot()
     while is_fight():
+        print(">>> 战斗状态 >>>")
+        time.sleep(1)
         if is_auto_fight():
             print(">>> 已经处于自动状态 >>>")
             return
-        elif is_popup():
-            # TODO 利用模型训练
-            print("出现弹框 Pass")
-            pass
+        if is_popup():
+            print(">>> 出现弹框 >>>")
+            # 保存4小人图片
+            if is_not_same_fight():
+                shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
+            break
         else:
-            print(">>> 点击自动 >>>")
-            move_left_click(rect, 705, 439)  # 点击自动
+            for k in c.ch_dict:
+                shape = (673, 220, 735, 500)
+                Image.open(c.temp_game).crop(shape).save("img/temp/temp_fight_tool.png")
+                score = compare_image("img/flag/flag_fight_tool.png", "img/temp/temp_fight_tool.png")
+                if score > 0.95:
+                    print(">>> 攻击/施法 >>>")
+                    move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
+                    alt_q_a()
+            break
+            # print(">>> 点击自动 >>>")
+            # move_left_click(rect, 705, 439)  # 点击自动
 
 
 def switch_map():
@@ -78,6 +102,7 @@ def move_around():
     print(">>> 晃悠中 >>>")
     switch_map()
     rd = int(random.random() * 10)
+    print(rect)
     if rd < 3:
         move_left_click(rect, 429, 301)
     elif rd < 5:
@@ -93,22 +118,23 @@ def move_around():
 if __name__ == '__main__':
     load_driver()
     while True:
-        print(">>> 检测人物框通知 >>>")
+        print(">>> 状态判断 >>>")
         time.sleep(2)
         save_temp_ch()
-        for k in c.ch_dict:
-            if is_notify():
-                print(">>> 通知点击坐标: ", c.ch_dict[k][2], " >>>")
-                move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
-                click_auto_fight()
+        # for k in c.ch_dict:
+        #     if is_notify():
+        #         print(">>> 通知点击坐标: ", c.ch_dict[k][2], " >>>")
+        #         move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
+        #         click_auto_fight()
 
-        print(">>> 队员没通知，选择队长 >>>")
         shot()
         if not leader_is_active():
+            print(">>> 选择队长 >>>")
             move_left_click(rect, c.ch_dict['ch1'][2][0], c.ch_dict['ch1'][2][1], True)
             shot()
         click_auto_fight()
         if not is_fight():
+            print(">>> 非战斗状态 >>>")
             while True:
                 move_around()
                 if is_fight():

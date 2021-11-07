@@ -33,8 +33,8 @@ def fight_done():
                 time.sleep(3)
                 shot1()
                 shape = (670, 154, 731, 447)
-                Image.open(c.temp_game).crop(shape).save("img/temp/temp_fight_tool.jpg")
-                score = compare_image("img/flag/flag_fight_tool.jpg", "img/temp/temp_fight_tool.jpg")
+                Image.open(c.temp_game).crop(shape).save("img/temp/temp_fight_tool.png")
+                score = compare_image("img/flag/flag_fight_tool.png", "img/temp/temp_fight_tool.png")
                 if score > 0.95:
                     double_alt_q()
                     break
