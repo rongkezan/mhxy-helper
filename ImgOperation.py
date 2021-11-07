@@ -102,20 +102,24 @@ def compare_image(img_path1, img_path2):
     return score
 
 
-def find_xy_desktop(template_path):
-    util.log_title('坐标查找')
-    shape, score = template_match(template_path, c.temp_desktop)
-    print(shape)
+def find_xy_game(template_path):
+    shape, score = template_match(template_path, c.temp_game)
+    if score >= 3:
+        x = (shape[0] + shape[2]) // 2
+        y = (shape[1] + shape[3]) // 2
+        return x, y
+    else:
+        return None
+
+
+def find_mouse_desktop():
+    shape, score = template_match(c.flag_mouse, c.temp_desktop)
     if score >= 3:
         x = shape[0]
         y = shape[1]
-        return x, y
-    print("匹配失败")
-
-
-def find_mouse_in_desktop():
-    x, y = find_xy_desktop(c.flag_mouse)
-    return x - 8, y - 8
+        return x - 8, y - 8
+    else:
+        return None
 
 
 def crop4():
@@ -129,7 +133,3 @@ def crop4():
                 Image.open(c.temp_popup).crop(shape).save(c.temp_crop4[i])
         return True
     return False
-
-
-if __name__ == '__main__':
-    print(find_mouse_in_desktop())
