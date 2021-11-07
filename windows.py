@@ -35,24 +35,14 @@ def shot():
             rect = win32gui.GetWindowRect(h)
 
 
-def save_init_ch():
-    shot()
-    Image.open(c.temp_game).crop((20, 33, 780, 53)).save(c.ch_init_img)
-    Image.open(c.ch_init_img).crop(c.ch_dict['ch1'][0]).save(c.ch_dict['ch1'][1])
-    Image.open(c.ch_init_img).crop(c.ch_dict['ch2'][0]).save(c.ch_dict['ch2'][1])
-    Image.open(c.ch_init_img).crop(c.ch_dict['ch3'][0]).save(c.ch_dict['ch3'][1])
-    Image.open(c.ch_init_img).crop(c.ch_dict['ch4'][0]).save(c.ch_dict['ch4'][1])
-    Image.open(c.ch_init_img).crop(c.ch_dict['ch5'][0]).save(c.ch_dict['ch5'][1])
-
-
 def save_temp_ch():
     shot()
     Image.open(c.temp_game).crop((20, 33, 780, 53)).save(c.ch_temp_img)
-    Image.open(c.ch_temp_img).crop(c.ch_dict['ch1'][0]).save(c.ch_dict['ch1'][2])
-    Image.open(c.ch_temp_img).crop(c.ch_dict['ch2'][0]).save(c.ch_dict['ch2'][2])
-    Image.open(c.ch_temp_img).crop(c.ch_dict['ch3'][0]).save(c.ch_dict['ch3'][2])
-    Image.open(c.ch_temp_img).crop(c.ch_dict['ch4'][0]).save(c.ch_dict['ch4'][2])
-    Image.open(c.ch_temp_img).crop(c.ch_dict['ch5'][0]).save(c.ch_dict['ch5'][2])
+    Image.open(c.ch_temp_img).crop(c.ch_dict['ch1'][0]).save(c.ch_dict['ch1'][1])
+    Image.open(c.ch_temp_img).crop(c.ch_dict['ch2'][0]).save(c.ch_dict['ch2'][1])
+    Image.open(c.ch_temp_img).crop(c.ch_dict['ch3'][0]).save(c.ch_dict['ch3'][1])
+    Image.open(c.ch_temp_img).crop(c.ch_dict['ch4'][0]).save(c.ch_dict['ch4'][1])
+    Image.open(c.ch_temp_img).crop(c.ch_dict['ch5'][0]).save(c.ch_dict['ch5'][1])
 
 
 if __name__ == '__main__':
@@ -62,7 +52,7 @@ if __name__ == '__main__':
         time.sleep(1)
         save_temp_ch()
         for k in c.ch_dict:
-            img = cv.imread(c.ch_dict[k][2])
+            img = cv.imread(c.ch_dict[k][1])
             if (img[10][115] == [155, 202, 254]).all():
-                print(">>> 通知点击坐标: ", c.ch_dict[k][3], " >>>")
-                move_left_click(rect, c.ch_dict[k][3][0], c.ch_dict[k][3][1], True)
+                print(">>> 通知点击坐标: ", c.ch_dict[k][2], " >>>")
+                move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)

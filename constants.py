@@ -3,7 +3,6 @@ import os
 # 截图存档目录
 flag_dir = "img/flag/"
 temp_dir = "img/temp/"
-ch_init_dir = "img/ch/init"
 ch_temp_dir = "img/ch/temp"
 temp_crop_dir = "img/temp/crop"
 data_dir = "img/data/"
@@ -18,14 +17,13 @@ temp_crop4 = [os.path.join(temp_crop_dir, name) for name in ['1.jpg', '2.jpg', '
 flag_fight = os.path.join(flag_dir, 'fight_flag.jpg')
 flag_popup = os.path.join(flag_dir, 'popup_flag.jpg')
 flag_mouse = os.path.join(flag_dir, 'mouse_flag.jpg')
-ch_init_img = os.path.join(ch_init_dir, "ch.png")
 ch_temp_img = os.path.join(ch_temp_dir, "ch.png")
 ch_dict = {
-    'ch1': ((0, 0, 145, 20), os.path.join(ch_init_dir, 'ch1.png'), os.path.join(ch_temp_dir, 'ch1.png'), (80, 40)),
-    'ch2': ((154, 0, 299, 20), os.path.join(ch_init_dir, 'ch2.png'), os.path.join(ch_temp_dir, 'ch2.png'), (234, 40)),
-    'ch3': ((308, 0, 453, 20), os.path.join(ch_init_dir, 'ch3.png'), os.path.join(ch_temp_dir, 'ch3.png'), (388, 40)),
-    'ch4': ((462, 0, 607, 20), os.path.join(ch_init_dir, 'ch4.png'), os.path.join(ch_temp_dir, 'ch4.png'), (542, 40)),
-    'ch5': ((615, 0, 760, 20), os.path.join(ch_init_dir, 'ch5.png'), os.path.join(ch_temp_dir, 'ch5.png'), (696, 40))
+    'ch1': ((0, 0, 145, 20), os.path.join(ch_temp_dir, 'ch1.png'), (80, 40)),
+    'ch2': ((154, 0, 299, 20), os.path.join(ch_temp_dir, 'ch2.png'), (234, 40)),
+    'ch3': ((308, 0, 453, 20), os.path.join(ch_temp_dir, 'ch3.png'), (388, 40)),
+    'ch4': ((462, 0, 607, 20), os.path.join(ch_temp_dir, 'ch4.png'), (542, 40)),
+    'ch5': ((615, 0, 760, 20), os.path.join(ch_temp_dir, 'ch5.png'), (696, 40))
 }
 # 尺寸及偏移
 fight_shape = (790, 160, 800, 380)  # 战斗截图Shape
