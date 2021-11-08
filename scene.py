@@ -58,6 +58,14 @@ def move_around():
     time.sleep(3)
 
 
+def ready_fight():
+    Image.open(c.temp_game).crop((673, 220, 735, 500)).save("img/temp/temp_fight_tool.png")
+    score = compare_image("img/flag/flag_fight_tool.png", "img/temp/temp_fight_tool.png")
+    if score > 0.95:
+        return True
+    return False
+
+
 if __name__ == '__main__':
     load_driver()
     while True:
@@ -81,12 +89,9 @@ if __name__ == '__main__':
         while is_fight():
             print(">>> 战斗状态 >>>")
             for k in c.ch_dict:
-                shape = (673, 220, 735, 500)
-                Image.open(c.temp_game).crop(shape).save("img/temp/temp_fight_tool.png")
-                score = compare_image("img/flag/flag_fight_tool.png", "img/temp/temp_fight_tool.png")
-                if score > 0.95:
+                move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
+                if ready_fight():
                     print(">>> 攻击/施法 >>>")
-                    move_left_click(rect, c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
                     alt_q()
                     alt_a()
             break
