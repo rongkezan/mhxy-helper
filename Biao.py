@@ -1,28 +1,6 @@
-from Auto import *
+from auto import *
 from ImgOperation import *
-
 rect = None
-
-
-def switch_bag():
-    keyboard2(604, 303)
-    time.sleep(0.5)
-
-
-def switch_map():
-    keyboard(300)
-    time.sleep(0.5)
-
-
-def hide():
-    keyboard(109)
-    time.sleep(0.5)
-
-
-def double_alt_q():
-    keyboard2(604, 301)
-    time.sleep(0.5)
-    keyboard2(604, 301)
 
 
 def fight_done():
@@ -36,7 +14,8 @@ def fight_done():
                 Image.open(c.temp_game).crop(shape).save("img/temp/temp_fight_tool.png")
                 score = compare_image("img/flag/flag_fight_tool.png", "img/temp/temp_fight_tool.png")
                 if score > 0.95:
-                    double_alt_q()
+                    alt_q()
+                    alt_q()
                     break
         else:
             return False
@@ -72,18 +51,18 @@ def is_gj_to_jw():
 
 
 def get_mission():
-    switch_bag()
+    alt_e()
     move_right_click(rect, 50, 373)  # 点击导标旗
-    switch_bag()
+    alt_e()
     move_left_click(rect, 645, 311)  # 导标旗点击镖局
     move_left_click(rect, 486, 273)  # 进入镖局
     move_left_click(rect, 702, 284)  # 走向镖头
     time.sleep(5)
-    hide()
+    f9()
     while True:
         time.sleep(3)
         print("寻找镖头中...")
-        shot1()
+        shot()
         result = find_xy_game("img/flag/biao_tou.png")
         if result is not None:
             x, y = result[0], result[1]

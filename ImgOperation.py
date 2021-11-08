@@ -7,36 +7,11 @@ from PIL import Image
 from skimage.metrics import structural_similarity
 from PyQt5.QtWidgets import QApplication
 import numpy as np
-
-hwnd_title = dict()
-
-
-def get_all_hwnd(hwnd, mouse):
-    if win32gui.IsWindow(hwnd) and win32gui.IsWindowEnabled(hwnd) and win32gui.IsWindowVisible(hwnd):
-        hwnd_title.update({hwnd: win32gui.GetWindowText(hwnd)})
-
-
-def shot1():
-    win32gui.EnumWindows(get_all_hwnd, 0)
-    title = ''
-    for h, t in hwnd_title.items():
-        if t.startswith('梦幻西游 ONLINE'):
-            title = t
-            hwnd = win32gui.FindWindow(None, title)
-            app = QApplication(sys.argv)
-            desktop_id = app.desktop().winId()
-            screen = QApplication.primaryScreen()
-            temp_desktop = screen.grabWindow(desktop_id).toImage()
-            temp_game = screen.grabWindow(hwnd).toImage()
-            temp_desktop.save(c.temp_desktop)
-            temp_game.save(c.temp_game)
-    if title == '':
-        print('MHXY not started.')
-        return False
-    return True
+from window import *
 
 
 def is_fight():
+    shot()
     Image.open(c.temp_game).crop(c.fight_shape).save(c.temp_fight)
     score = compare_image(c.flag_fight, c.temp_fight)
     if score > 0.95:
