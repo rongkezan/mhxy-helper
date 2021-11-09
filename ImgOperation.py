@@ -21,15 +21,15 @@ def is_fight():
 
 
 def is_popup():
+    shot()
     shape, score = template_match(c.flag_popup, c.temp_game)
-    if score >= 3:
+    if score >= 4:
         sub_shape = (
             shape[0] + c.popup_move_shape[0],
             shape[1] + c.popup_move_shape[1],
             shape[2] + c.popup_move_shape[2],
             shape[3] + c.popup_move_shape[3]
         )
-        print(">>> 出现弹框 >>>")
         Image.open(c.temp_game).crop(sub_shape).save(c.temp_popup)
         return True
     return False

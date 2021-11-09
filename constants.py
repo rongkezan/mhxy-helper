@@ -3,7 +3,7 @@ import os
 # 截图存档目录
 flag_dir = "img/flag/"
 temp_dir = "img/temp/"
-ch_temp_dir = "img/ch/temp"
+ch_temp_dir = "img/temp/ch/"
 temp_crop_dir = "img/temp/crop"
 data_dir = "img/data/"
 driver_dir = "driver/"
@@ -14,10 +14,10 @@ temp_desktop = os.path.join(temp_dir, 'temp_desktop.jpg')
 temp_popup = os.path.join(temp_dir, 'temp_popup.jpg')
 temp_fight = os.path.join(temp_dir, 'temp_fight.jpg')
 temp_crop4 = [os.path.join(temp_crop_dir, name) for name in ['1.jpg', '2.jpg', '3.jpg', '4.jpg']]
-flag_fight = os.path.join(flag_dir, 'flag_fight.png')
-flag_auto_fight = os.path.join(flag_dir, 'flag_auto_fight.png')
-flag_popup = os.path.join(flag_dir, 'popup_flag.jpg')
-flag_mouse = os.path.join(flag_dir, 'mouse_flag.jpg')
+flag_fight = os.path.join(flag_dir, 'fight_bar.png')
+flag_auto_fight = os.path.join(flag_dir, 'fight_auto.png')
+flag_popup = os.path.join(flag_dir, 'popup.png')
+flag_mouse = os.path.join(flag_dir, 'mouse.png')
 ch_temp_img = os.path.join(ch_temp_dir, "ch.png")
 ch_dict = {
     'ch1': ((0, 0, 145, 20), os.path.join(ch_temp_dir, 'ch1.png'), (80, 40)),
