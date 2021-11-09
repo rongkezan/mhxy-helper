@@ -37,8 +37,5 @@ def read_text_accurate(filepath):
 
 
 if __name__ == '__main__':
-    words = read_text_basic('img/temp/monster.png')
+    words = read_text_basic('img/temp/mission.png')
     print(words)
-    for word in words:
-        if word.__contains__("宝宝"):
-            print(word)

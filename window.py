@@ -60,6 +60,14 @@ def shot_tag():
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch5'][0]).save(c.ch_dict['ch5'][1])
 
 
+def shot_mission():
+    """
+    自定义任务截图
+    """
+    shot()
+    Image.open(c.temp_game).crop((389, 255, 591, 495)).save("img/temp/mission.png")
+
+
 def shot_status():
     """
     人物状态截图
@@ -79,4 +87,4 @@ def shot_fight_tool():
 
 
 if __name__ == '__main__':
-    shot_monster()
+    shot_mission()
