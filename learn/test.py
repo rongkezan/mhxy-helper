@@ -1,13 +1,11 @@
 import torch
-import torchvision
 import os
-import constants as c
 from PIL import Image
 from torchvision import transforms
 
 
 def recognize():
-    path = "img/temp_crop/"
+    path = "resources/img/temp_crop/"
     files = os.listdir(path)
     n = 0
     for file in files:
@@ -28,8 +26,9 @@ def recognize():
         percentage = torch.nn.functional.softmax(outputs, dim=1)[0][int(index)].item()
         result = class_names[index]
         print('index:', index, 'predicted:', result, ', percentage:', percentage)
+        position = [(310, 340), (430, 340), (550, 340), (670, 340)]
         if index == 0:
-            return c.position[n]
+            return position[n]
         n += 1
     return -1
 

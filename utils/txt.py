@@ -37,5 +37,5 @@ def read_text_accurate(filepath):
 
 
 if __name__ == '__main__':
-    words = read_text_basic('img/temp/mission.png')
+    words = read_text_basic('../resources/img/temp/mission.png')
     print(words)

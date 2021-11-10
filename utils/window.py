@@ -1,38 +1,30 @@
 import win32gui
-import util
 import sys
-import constants as c
-import cv2 as cv
-from PIL import Image
-from skimage.metrics import structural_similarity
+from utils import constants as c
 from PyQt5.QtWidgets import QApplication
+import cv2 as cv
+from skimage.metrics import structural_similarity
+import os
 import numpy as np
-from window import *
+
+hwnd_title = dict()
 
 
-def is_fight():
-    shot()
-    Image.open(c.temp_game).crop(c.fight_shape).save(c.temp_fight)
-    score = compare_image(c.flag_fight, c.temp_fight)
-    if score > 0.95:
-        return True
-    else:
-        return False
+def __get_all_hwnd(hwnd, mouse):
+    if win32gui.IsWindow(hwnd) and win32gui.IsWindowEnabled(hwnd) and win32gui.IsWindowVisible(hwnd):
+        hwnd_title.update({hwnd: win32gui.GetWindowText(hwnd)})
 
 
-def is_popup():
-    shot()
-    shape, score = template_match(c.flag_popup, c.temp_game)
-    if score >= 4:
-        sub_shape = (
-            shape[0] + c.popup_move_shape[0],
-            shape[1] + c.popup_move_shape[1],
-            shape[2] + c.popup_move_shape[2],
-            shape[3] + c.popup_move_shape[3]
-        )
-        Image.open(c.temp_game).crop(sub_shape).save(c.temp_popup)
-        return True
-    return False
+def __get_mhxy_hwnd():
+    win32gui.EnumWindows(__get_all_hwnd, 0)
+    for h, t in hwnd_title.items():
+        if t.startswith('梦幻西游 ONLINE'):
+            return h
+
+
+def get_rect():
+    h = __get_mhxy_hwnd()
+    return win32gui.GetWindowRect(h)
 
 
 def template_match(template_path, img_path):
@@ -70,7 +62,34 @@ def compare_image(img_path1, img_path2):
     return score
 
 
-def find_xy_game(template_path):
+def compare_tf_image(path):
+    """
+    比较 c.temp_dir 和 c.flag_dir 目录下的同名图片
+    """
+    imageA = cv.imread(os.path.join(c.temp_dir, path))
+    imageB = cv.imread(os.path.join(c.flag_dir, path))
+    grayA = cv.cvtColor(imageA, cv.COLOR_BGR2GRAY)
+    grayB = cv.cvtColor(imageB, cv.COLOR_BGR2GRAY)
+    score, diff = structural_similarity(grayA, grayB, full=True)
+    return score
+
+
+def shot():
+    """
+    游戏窗口及桌面截图
+    """
+    h = __get_mhxy_hwnd()
+    app = QApplication(sys.argv)
+    desktop_id = app.desktop().winId()
+    screen = QApplication.primaryScreen()
+    temp_desktop = screen.grabWindow(desktop_id).toImage()
+    temp_game = screen.grabWindow(h).toImage()
+    temp_desktop.save(c.temp_desktop)
+    temp_game.save(c.temp_game)
+
+
+def find_xy_in_game(template_path):
+    shot()
     shape, score = template_match(template_path, c.temp_game)
     if score >= 3:
         x = (shape[0] + shape[2]) // 2
@@ -80,24 +99,13 @@ def find_xy_game(template_path):
         return None
 
 
-def find_mouse_desktop():
-    shape, score = template_match(c.flag_mouse, c.temp_desktop)
-    if score >= 3:
-        x = shape[0]
-        y = shape[1]
-        return x - 8, y - 8
+def find_mouse_desktop(rect):
+    shot()
+    shape, score = template_match(c.flag_mouse, c.temp_game)
+    print(shape, score)
+    if score >= 4:
+        x = rect[0] + shape[0] - 9
+        y = rect[1] + shape[1] - 9
+        return x, y
     else:
         return None
-
-
-def crop4():
-    if shot1() & is_fight() & is_popup():
-        util.log_title('弹窗人物切分')
-        w = 90
-        h = 120
-        for i in range(len(c.temp_crop4)):
-            shape = (w * i, 0, w * (i + 1), h)
-            for i in range(len(c.temp_crop4)):
-                Image.open(c.temp_popup).crop(shape).save(c.temp_crop4[i])
-        return True
-    return False

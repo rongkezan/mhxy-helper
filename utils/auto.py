@@ -1,9 +1,10 @@
-from ctypes import *
-import time
-from ImgOperation import *
 import pyautogui
+import time
+from ctypes import windll
+from utils.window import *
 
 driver = windll.LoadLibrary(c.dd_dll_path)
+rect = get_rect()
 
 
 def load_driver():
@@ -45,42 +46,45 @@ def keyboard2(code1, code2):
     driver.DD_key(code1, 2)
 
 
-def move(rect, x, y):
+def move(x, y):
     # 最终需要移动到的坐标
-    x_target, y_target = direct_move(rect, x, y)
-    # 实际移动到的坐标
-    time.sleep(0.2)
-    shot()
-    xy_mouse = find_mouse_desktop()
+    x_target, y_target = direct_move(x, y)
+    time.sleep(0.1)
+    xy_mouse = find_mouse_desktop(rect)
     if xy_mouse is not None:
-        time.sleep(0.5)
-        # 需要相对移动的坐标
+        time.sleep(0.1)
         x_rel = x_target - xy_mouse[0]
         y_rel = y_target - xy_mouse[1]
         pyautogui.moveRel(x_rel, y_rel, 0.1)
+        xy_mouse = find_mouse_desktop(rect)
+        if xy_mouse is not None:
+            time.sleep(0.1)
+            x_rel = x_target - xy_mouse[0]
+            y_rel = y_target - xy_mouse[1]
+            pyautogui.moveRel(x_rel, y_rel, 0.1)
 
 
-def direct_move(rect, x, y):
+def direct_move(x, y):
     x_target = rect[0] + x
     y_target = rect[1] + y
     pyautogui.moveTo(x_target, y_target, 0.1)
     return x_target, y_target
 
 
-def move_left_click(rect, x, y, direct=False):
+def move_left_click(x, y, direct=False):
     if direct:
-        direct_move(rect, x, y)
+        direct_move(x, y)
     else:
-        move(rect, x, y)
+        move(x, y)
     left_click()
     time.sleep(0.5)
 
 
-def move_right_click(rect, x, y, direct=False):
+def move_right_click(x, y, direct=False):
     if direct:
-        direct_move(rect, x, y)
+        direct_move(x, y)
     else:
-        move(rect, x, y)
+        move(x, y)
     right_click()
     time.sleep(0.2)
 
@@ -102,6 +106,11 @@ def alt_e():
 
 def alt_d():
     keyboard2(604, 403)
+    time.sleep(0.1)
+
+
+def alt_g():
+    keyboard2(604, 405)
     time.sleep(0.1)
 
 
