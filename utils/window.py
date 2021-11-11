@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QApplication
 import cv2 as cv
 from skimage.metrics import structural_similarity
 import os
-import numpy as np
 
 hwnd_title = dict()
 
@@ -102,7 +101,6 @@ def find_xy_in_game(template_path):
 def find_mouse_desktop(rect):
     shot()
     shape, score = template_match(c.flag_mouse, c.temp_game)
-    print(shape, score)
     if score >= 4:
         x = rect[0] + shape[0] - 9
         y = rect[1] + shape[1] - 9

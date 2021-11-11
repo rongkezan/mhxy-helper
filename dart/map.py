@@ -362,11 +362,3 @@ def done_fight():
     if fight_flag == 1:
         return True
     return False
-
-
-def map_is_open():
-    shot()
-    _, score = template_match("../resources/img/flag/map_open.png", c.temp_game)
-    if score >= 5:
-        return True
-    return False

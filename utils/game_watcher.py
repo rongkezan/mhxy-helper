@@ -1,6 +1,7 @@
 from PIL import Image
 from utils.window import *
 from utils.txt import *
+import time
 
 
 def is_not_same_crop4():
@@ -51,7 +52,7 @@ def is_popup():
 
 def is_fight():
     shot()
-    Image.open(c.temp_game).crop((795, 190, 805, 430)).save(os.path.join(c.temp_dir, 'fight_bar.png'))
+    Image.open(c.temp_game).crop((1017, 188, 1028, 438)).save(os.path.join(c.temp_dir, 'fight_bar.png'))
     score = compare_tf_image("fight_bar.png")
     if score > 0.95:
         return True
@@ -62,10 +63,10 @@ def is_fight():
 def is_need_heal():
     shot()
     path = os.path.join(c.temp_dir, "status.png")
-    Image.open(c.temp_game).crop((740, 60, 800, 80)).save(path)
+    Image.open(c.temp_game).crop((966, 60, 1020, 83)).save(path)
     img = cv.imread(path)
     print(img[15][15])
-    if not (img[15][15][0] == 255):
+    if not (img[15][15][0] == 248):
         return True
     return False
 
@@ -112,7 +113,7 @@ def shot_mission():
     """
     shot()
     path = os.path.join(c.temp_dir, "mission.png")
-    Image.open(c.temp_game).crop((389, 255, 591, 495)).save(path)
+    Image.open(c.temp_game).crop((501, 343, 705, 580)).save(path)
 
 
 def is_kw_monster(kw):
@@ -130,11 +131,13 @@ def is_kw_monster(kw):
     return False
 
 
-if __name__ == '__main__':
+def map_is_open():
     shot()
-    path = os.path.join(c.temp_dir, "ca_map.png")
-    Image.open(c.temp_game).crop((245, 310, 790, 587)).save(path)
-    x0 = 244
-    y0 = 586
-    # score = compare_image(os.path.join(c.temp_dir, "loc_dtjw.png"), os.path.join(c.temp_dir, "loc_dtgj.png"))
-    # print(score)
+    _, score = template_match(os.path.join(c.flag_dir, "map_open.png"), c.temp_game)
+    if score >= 5:
+        return True
+    return False
+
+
+if __name__ == '__main__':
+    shot_mission()
