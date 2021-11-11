@@ -131,7 +131,10 @@ def is_kw_monster(kw):
 
 
 if __name__ == '__main__':
-    path = os.path.join(c.temp_dir, "loc_stl.png")
-    Image.open(c.temp_game).crop((20, 83, 145, 97)).save(path)
+    shot()
+    path = os.path.join(c.temp_dir, "ca_map.png")
+    Image.open(c.temp_game).crop((245, 310, 790, 587)).save(path)
+    x0 = 244
+    y0 = 586
     # score = compare_image(os.path.join(c.temp_dir, "loc_dtjw.png"), os.path.join(c.temp_dir, "loc_dtgj.png"))
     # print(score)
