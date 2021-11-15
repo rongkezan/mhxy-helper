@@ -114,6 +114,7 @@ def shot_mission():
     shot()
     path = os.path.join(c.temp_dir, "mission.png")
     Image.open(c.temp_game).crop((501, 343, 705, 580)).save(path)
+    return path
 
 
 def is_kw_monster(kw):
@@ -139,5 +140,17 @@ def map_is_open():
     return False
 
 
+def shot_place(index):
+    shot()
+    path = os.path.join(c.temp_dir, "place" + str(index) + ".png")
+    Image.open(c.temp_game).crop((38, 83, 143, 98)).save(path)
+    return path
+
+
 if __name__ == '__main__':
-    shot_mission()
+    path = shot_mission()
+    img = cv.imread(path)
+    for i in img:
+        for j in i:
+            if j[0] == 255:
+                print(j)

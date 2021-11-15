@@ -1,6 +1,6 @@
 resources/dataset
 resources/checkpoint.pth
-resources/img/temp
+#resources/img/temp
 resources/img/data
 .idea
 __pycache__
