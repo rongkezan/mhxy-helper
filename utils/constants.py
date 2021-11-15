@@ -2,6 +2,7 @@ import os
 
 # 截图存档目录
 flag_dir = "../resources/img/flag/"
+flag_character_dir = "../resources/img/flag/character/"
 temp_dir = "../resources/img/temp/"
 temp_ch_dir = "../resources/img/temp/ch/"
 temp_crop_dir = "../resources/img/temp/crop"
@@ -17,6 +18,7 @@ flag_fight = os.path.join(flag_dir, 'fight_bar.png')
 flag_auto_fight = os.path.join(flag_dir, 'fight_auto.png')
 flag_popup = os.path.join(flag_dir, 'popup.png')
 flag_mouse = os.path.join(flag_dir, 'mouse.png')
+flag_yz = [os.path.join(flag_character_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
 ch_temp_img = os.path.join(temp_ch_dir, "ch.png")
 ch_dict = {
     'ch1': ((0, 0, 145, 20), os.path.join(temp_ch_dir, 'ch1.png'), (80, 40)),

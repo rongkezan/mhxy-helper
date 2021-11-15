@@ -1,22 +1,34 @@
 from PIL import Image
 from utils.window import *
-from utils.auto import *
+from utils.game_action import *
 
 
 class Mission:
     def __init__(self):
-        self.shape = (501, 343, 705, 580)
-        self.path = os.path.join(c.temp_dir, "mission.png")
+        self.content_shape = (501, 343, 705, 580)
+        self.title_shape = (473, 264, 563, 275)
+        self.content_path = os.path.join(c.temp_dir, "mission_content.png")
+        self.title_path = os.path.join(c.temp_dir, "mission_title.png")
         self.red = [1, 1, 255]
 
-    def __shot_mission(self):
+    def shot_mission(self):
         """
         任务截图
         """
         shot()
-        Image.open(c.temp_game).crop(self.shape).save(self.path)
+        Image.open(c.temp_game).crop(self.content_shape).save(self.content_path)
+        Image.open(c.temp_game).crop(self.title_shape).save(self.title_path)
 
-    def __location(self, path):
+    def mission_opened(self):
+        """
+        任务栏是否打开
+        """
+        score = compare_tf_image("mission_title.png")
+        if score >= 0.99:
+            return True
+        return False
+
+    def location(self, path):
         """
         定位红色任务字体坐标
         """
@@ -27,11 +39,17 @@ class Mission:
                     return j, i
 
     def click_mission(self):
-        # TODO 需要判断任务栏是否打开和关闭
-        alt_q()
-        self.__shot_mission()
-        x, y = self.__location(self.path)
-        move_x = self.shape[0] + x
-        move_y = self.shape[1] + y
+        if not self.mission_opened():
+            alt_q()
+        self.shot_mission()
+        x, y = self.location(self.content_path)
+        move_x = self.content_shape[0] + x
+        move_y = self.content_shape[1] + y
         move_left_click(move_x, move_y)
-        alt_q()
+        if self.mission_opened():
+            alt_q()
+
+
+if __name__ == '__main__':
+    load_driver()
+    Mission().click_mission()

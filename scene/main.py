@@ -1,4 +1,4 @@
-from utils.auto import *
+from utils.game_action import *
 from utils.game_watcher import *
 import shutil
 

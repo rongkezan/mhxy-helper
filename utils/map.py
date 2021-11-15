@@ -1,4 +1,4 @@
-from utils.auto import *
+from utils.game_action import *
 from utils.game_watcher import *
 from utils.txt import *
 
@@ -273,6 +273,39 @@ class MapQLS:
             tab()
 
 
+class MapDF:
+    """
+    地府
+    """
+    def __init__(self):
+        self.x0 = 297
+        self.y0 = 601
+
+    def click(self, x, y):
+        if not map_is_open():
+            tab()
+        move_x = self.x0 + round(x * 364 / 159)
+        move_y = self.y0 - round(y * 279 / 119)
+        move_left_click(move_x, move_y)
+        if map_is_open():
+            tab()
+
+
+def shot_place(index):
+    shot()
+    path = os.path.join(c.temp_dir, "place" + str(index) + ".png")
+    Image.open(c.temp_game).crop((38, 83, 143, 98)).save(path)
+    return path
+
+
+def map_is_open():
+    shot()
+    _, score = template_match(os.path.join(c.flag_dir, "map_open.png"), c.temp_game)
+    if score >= 5:
+        return True
+    return False
+
+
 def arrived():
     while True:
         path1 = shot_place(1)
@@ -281,11 +314,3 @@ def arrived():
         score = compare_image(path1, path2)
         if score > 0.99:
             return True
-
-
-if __name__ == '__main__':
-    load_driver()
-    MapCSC().click(127, 87)
-    read_text_basic(c.temp_game)
-    if arrived():
-        print("arrived")

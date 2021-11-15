@@ -14,9 +14,9 @@ def read_text_basic(filepath):
         result = client.basicGeneral(img)
         if 'words_result' in result:
             items = result['words_result']
-            words = []
+            words = ""
             for item in items:
-                words.append(item['words'])
+                words += item['words']
             return words
         else:
             return None
@@ -28,9 +28,9 @@ def read_text_accurate(filepath):
         result = client.basicAccurate(img)
         if 'words_result' in result:
             items = result['words_result']
-            words = []
+            words = ""
             for item in items:
-                words.append(item['words'])
+                words += item['words']
             return words
         else:
             return None

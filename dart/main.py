@@ -17,7 +17,7 @@ def get_mission():
     while True:
         print("寻找镖头中...")
         shot()
-        result = find_xy_in_game("../resources/img/flag/biao_tou.png")
+        result = find_xy_in_game("../resources/img/flag/character/biao_tou.png")
         if result is not None:
             x, y = result[0], result[1]
             print("找到镖头，位置:", x, y)

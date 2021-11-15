@@ -107,16 +107,6 @@ def __shot_tag():
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch5'][0]).save(c.ch_dict['ch5'][1])
 
 
-def shot_mission():
-    """
-    自定义任务截图
-    """
-    shot()
-    path = os.path.join(c.temp_dir, "mission.png")
-    Image.open(c.temp_game).crop((501, 343, 705, 580)).save(path)
-    return path
-
-
 def is_kw_monster(kw):
     """
     识别出指定目标
@@ -130,19 +120,3 @@ def is_kw_monster(kw):
         if word.__contains__(kw):
             return True
     return False
-
-
-def map_is_open():
-    shot()
-    _, score = template_match(os.path.join(c.flag_dir, "map_open.png"), c.temp_game)
-    if score >= 5:
-        return True
-    return False
-
-
-def shot_place(index):
-    shot()
-    path = os.path.join(c.temp_dir, "place" + str(index) + ".png")
-    Image.open(c.temp_game).crop((38, 83, 143, 98)).save(path)
-    return path
-
