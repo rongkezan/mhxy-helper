@@ -146,11 +146,3 @@ def shot_place(index):
     Image.open(c.temp_game).crop((38, 83, 143, 98)).save(path)
     return path
 
-
-if __name__ == '__main__':
-    path = shot_mission()
-    img = cv.imread(path)
-    for i in img:
-        for j in i:
-            if j[0] == 255:
-                print(j)
