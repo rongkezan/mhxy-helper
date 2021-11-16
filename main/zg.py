@@ -15,7 +15,7 @@ def find_yz():
 if __name__ == '__main__':
     mission = Mission()
     load_driver()
-    print("点击长安导标旗")
+    print(">>> 点击长安导标旗")
     alt_e()
     move_right_click(71, 447)
     move_left_click(521, 539)

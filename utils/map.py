@@ -309,7 +309,7 @@ def map_is_open():
 def arrived():
     while True:
         path1 = shot_place(1)
-        time.sleep(1.5)
+        time.sleep(1)
         path2 = shot_place(2)
         score = compare_image(path1, path2)
         if score > 0.99:
