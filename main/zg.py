@@ -2,7 +2,7 @@ from utils.mission import Mission
 from utils.map import *
 from utils.game_watcher import *
 from utils.game_action import *
-
+from utils.bag import Bag
 
 def find_yz():
     for yz in c.flag_yz:
@@ -14,12 +14,11 @@ def find_yz():
 
 if __name__ == '__main__':
     mission = Mission()
+    bag = Bag()
     load_driver()
     print(">>> 点击长安导标旗")
-    alt_e()
-    move_right_click(71, 447)
+    bag.right_click(1, 1)
     move_left_click(521, 539)
-    alt_e()
 
     while True:
         time.sleep(1)
