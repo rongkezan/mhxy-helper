@@ -1,7 +1,7 @@
 from PIL import Image
 from utils.window import *
 from utils.game_action import *
-
+from utils.txt import *
 
 class Mission:
     def __init__(self):
@@ -19,7 +19,7 @@ class Mission:
         Image.open(c.temp_game).crop(self.content_shape).save(self.content_path)
         Image.open(c.temp_game).crop(self.title_shape).save(self.title_path)
 
-    def mission_opened(self):
+    def mission_is_open(self):
         """
         任务栏是否打开
         """
@@ -39,17 +39,24 @@ class Mission:
                     return j, i
 
     def click_mission(self):
-        if not self.mission_opened():
+        if not self.mission_is_open():
             alt_q()
         self.shot_mission()
         x, y = self.location(self.content_path)
         move_x = self.content_shape[0] + x
         move_y = self.content_shape[1] + y
         move_left_click(move_x, move_y)
-        if self.mission_opened():
+        if self.mission_is_open():
             alt_q()
 
+    def read_mission(self):
+        return read_text_basic(self.content_path)
 
-if __name__ == '__main__':
-    load_driver()
-    Mission().click_mission()
+    def get_mission_xy(self):
+        text_list = self.read_mission()
+        for text in text_list:
+            print(text_list)
+        """
+        获取任务栏中的坐标，如果有多个坐标，仅返回第一个
+        """
+        return None

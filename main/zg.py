@@ -3,7 +3,6 @@ from utils.map import *
 from utils.game_watcher import *
 from utils.game_action import *
 
-
 def find_yz():
     for yz in c.flag_yz:
         res = find_xy_in_game(yz)

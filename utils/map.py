@@ -3,290 +3,95 @@ from utils.game_watcher import *
 from utils.txt import *
 
 
-class MapCAC:
-    """
-    长安城
-    """
+class Map:
     def __init__(self):
-        self.x0 = 243
-        self.y0 = 586
+        self.move_x = 0
+        self.move_y = 0
 
-    def click(self, x, y):
+    def click_cac(self, x, y):
+        self.move_x = 243 + x
+        self.move_y = 286 - y
+        self.__open_map_click()
+
+    def click_jyc(self, x, y):
+        self.move_x = 229 + x * 2
+        self.move_y = 593 - y * 2
+        self.__open_map_click()
+
+    def click_csc(self, x, y):
+        self.move_x = 347 + round(x * 5 / 3)
+        self.move_y = 638 - round(y * 5 / 3)
+        self.__open_map_click()
+
+    def click_alg(self, x, y):
+        self.move_x = 274 + round(x * 412 / 223)
+        self.move_y = 601 - round(y * 278 / 150)
+        self.__open_map_click()
+
+    def click_xlng(self, x, y):
+        self.move_x = 293 + round(x * 372 / 163)
+        self.move_y = 635 - round(y * 282 / 123)
+        self.__open_map_click()
+
+    def click_zzg(self, x, y):
+        self.move_x = 261 + round(x * 372 / 163)
+        self.move_y = 602 - round(y * 439 / 191)
+        self.__open_map_click()
+
+    def click_bxg(self, x, y):
+        self.move_x = 259 + round(x * 440 / 159)
+        self.move_y = 629 - round(y * 331 / 119)
+        self.__open_map_click()
+
+    def click_dtgj(self, x, y):
+        self.move_x = 293 + round(x * 377 / 351)
+        self.move_y = 643 - round(y * 361 / 335)
+        self.__open_map_click()
+
+    def click_dtjw(self, x, y):
+        self.move_x = 226 + round(x * 583 / 638)
+        self.move_y = 503 - round(y * 109 / 118)
+        self.__open_map_click()
+
+    def click_jnyw(self, x, y):
+        self.move_x = 232 + round(x * 369 / 159)
+        self.move_y = 614 - round(y * 274 / 119)
+        self.__open_map_click()
+
+    def click_csjw(self, x, y):
+        self.move_x = 323 + round(x * 316 / 191)
+        self.move_y = 601 - round(y * 277 / 167)
+        self.__open_map_click()
+
+    def click_bjlz(self, x, y):
+        self.move_x = 297 + round(x * 367 / 227)
+        self.move_y = 601 - round(y * 277 / 169)
+        self.__open_map_click()
+
+    def click_hgs(self, x, y):
+        self.move_x = 297 + round(x * 369 / 159)
+        self.move_y = 601 - round(y * 277 / 119)
+        self.__open_map_click()
+
+    def click_dhw(self, x, y):
+        self.move_x = 343 + round(x * 276 / 119)
+        self.move_y = 601 - round(y * 276 / 119)
+        self.__open_map_click()
+
+    def click_qls(self, x, y):
+        self.move_x = 297 + round(x * 369 / 190)
+        self.move_y = 601 - round(y * 276 / 141)
+        self.__open_map_click()
+
+    def click_df(self, x, y):
+        self.move_x = 297 + round(x * 364 / 159)
+        self.move_y = 601 - round(y * 279 / 119)
+        self.__open_map_click()
+
+    def __open_map_click(self):
         if not map_is_open():
             tab()
-        move_x = self.x0 + x
-        move_y = self.y0 - y
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapJYC:
-    """
-    建邺城
-    """
-    def __init__(self):
-        self.x0 = 229
-        self.y0 = 593
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + x * 2
-        move_y = self.y0 - y * 2
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapCSC:
-    """
-    长寿村
-    """
-    def __init__(self):
-        self.x0 = 347
-        self.y0 = 638
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + x * 5 / 3
-        move_y = self.y0 - y * 5 / 3
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapALG:
-    """
-    傲来国
-    """
-    def __init__(self):
-        self.x0 = 274
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 412 / 223)
-        move_y = self.y0 - round(y * 278 / 150)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapXLNG:
-    """
-    西梁女国
-    """
-    def __init__(self):
-        self.x0 = 293
-        self.y0 = 635
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 372 / 163)
-        move_y = self.y0 - round(y * 282 / 123)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapZZG:
-    """
-    朱紫国
-    """
-    def __init__(self):
-        self.x0 = 261
-        self.y0 = 602
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 372 / 163)
-        move_y = self.y0 - round(y * 439 / 191)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapBXG:
-    """
-    宝象国
-    """
-    def __init__(self):
-        self.x0 = 259
-        self.y0 = 629
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 440 / 159)
-        move_y = self.y0 - round(y * 331 / 119)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapDTGJ:
-    """
-    大唐国境
-    """
-    def __init__(self):
-        self.x0 = 293
-        self.y0 = 643
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 377 / 351)
-        move_y = self.y0 - round(y * 361 / 335)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapDTJW:
-    """
-    大唐境外
-    """
-    def __init__(self):
-        self.x0 = 226
-        self.y0 = 503
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 583 / 638)
-        move_y = self.y0 - round(y * 109 / 118)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapJNYW:
-    """
-    江南野外
-    """
-    def __init__(self):
-        self.x0 = 232
-        self.y0 = 614
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 369 / 159)
-        move_y = self.y0 - round(y * 274 / 119)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapCSJW:
-    """
-    长寿郊外
-    """
-    def __init__(self):
-        self.x0 = 323
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 316 / 191)
-        move_y = self.y0 - round(y * 277 / 167)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapBJLZ:
-    """
-    北俱芦洲
-    """
-    def __init__(self):
-        self.x0 = 297
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 367 / 227)
-        move_y = self.y0 - round(y * 277 / 169)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapHGS:
-    """
-    花果山
-    """
-    def __init__(self):
-        self.x0 = 297
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 369 / 159)
-        move_y = self.y0 - round(y * 277 / 119)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapDHW:
-    """
-    东海湾
-    """
-    def __init__(self):
-        self.x0 = 343
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 276 / 119)
-        move_y = self.y0 - round(y * 276 / 119)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapQLS:
-    """
-    麒麟山
-    """
-    def __init__(self):
-        self.x0 = 297
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 369 / 190)
-        move_y = self.y0 - round(y * 276 / 141)
-        move_left_click(move_x, move_y)
-        if map_is_open():
-            tab()
-
-
-class MapDF:
-    """
-    地府
-    """
-    def __init__(self):
-        self.x0 = 297
-        self.y0 = 601
-
-    def click(self, x, y):
-        if not map_is_open():
-            tab()
-        move_x = self.x0 + round(x * 364 / 159)
-        move_y = self.y0 - round(y * 279 / 119)
-        move_left_click(move_x, move_y)
+        move_left_click(self.move_x, self.move_y)
         if map_is_open():
             tab()
 
