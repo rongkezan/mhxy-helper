@@ -120,3 +120,4 @@ def is_kw_monster(kw):
         if word.__contains__(kw):
             return True
     return False
+

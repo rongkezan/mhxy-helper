@@ -12,7 +12,7 @@ import re
 if __name__ == '__main__':
     # mission = Mission()
     # mission.shot_mission()
-    words = read_text_basic(os.path.join(c.temp_dir, "mission_content.png"))
+    words = read_text_basic(os.path.join(c.temp_dir, "7.png"))
     print(words)
     words = words.split('(')[0]
     print(words)
