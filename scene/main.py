@@ -15,16 +15,16 @@ def move_around():
     global move_around_count
     tab()
     if move_around_count == 0:
-        move_left_click(429, 301)
+        move_left_click(372, 410)
         move_around_count = 1
     elif move_around_count == 1:
-        move_left_click(210, 398)
+        move_left_click(620, 385)
         move_around_count = 2
     elif move_around_count == 2:
-        move_left_click(393, 500)
+        move_left_click(355, 594)
         move_around_count = 3
     else:
-        move_left_click(399, 366)
+        move_left_click(618, 570)
         move_around_count = 1
     tab()
     time.sleep(3)
@@ -36,7 +36,7 @@ def task():
     print(">>> 开始刷场景 >>>")
     while True:
         print(">>> 状态判断 >>>")
-        time.sleep(2)
+        time.sleep(1)
 
         need_shot_monster = 0
         need_shot_popup1 = 0
@@ -44,13 +44,12 @@ def task():
 
         while is_fight():
             print(">>> 战斗状态 >>>")
-            time.sleep(1)
             # 识别怪物
             pause_flag = 0
-            if need_shot_monster == 0:
-                need_shot_monster = 1
-                if is_kw_monster("宝宝"):
-                    sys.exit()
+            # if need_shot_monster == 0:
+            #     need_shot_monster = 1
+            #     if is_kw_monster("宝宝"):
+            #         sys.exit()
             # 识别队长是否有4小人弹窗
             if need_shot_popup1 == 0:
                 need_shot_popup1 = 1
@@ -78,6 +77,7 @@ def task():
                         print(">>> 攻击/施法 >>>")
                         alt_q()
                         alt_d()
+            time.sleep(1)
 
         while not is_fight():
             if heal_flag % 10 == 0:
@@ -87,7 +87,7 @@ def task():
                     move_left_click(c.ch_dict[k][2][0], c.ch_dict[k][2][1], True)
                     if is_need_heal():
                         f6()
-                        move_left_click(183, 447)
+                        move_left_click(245, 538)
 
             print(">>> 非战斗状态，晃悠晃悠 >>>")
             while not leader_is_active():
@@ -95,5 +95,5 @@ def task():
                 move_left_click(c.ch_dict['ch1'][2][0], c.ch_dict['ch1'][2][1], True)
             move_around()
 
-
-
+if __name__ == '__main__':
+    task()

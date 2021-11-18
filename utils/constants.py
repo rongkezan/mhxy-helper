@@ -21,11 +21,11 @@ flag_mouse = os.path.join(flag_dir, 'mouse.png')
 flag_yz = [os.path.join(flag_character_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
 ch_temp_img = os.path.join(temp_ch_dir, "ch.png")
 ch_dict = {
-    'ch1': ((0, 0, 145, 20), os.path.join(temp_ch_dir, 'ch1.png'), (80, 40)),
-    'ch2': ((154, 0, 299, 20), os.path.join(temp_ch_dir, 'ch2.png'), (234, 40)),
-    'ch3': ((308, 0, 453, 20), os.path.join(temp_ch_dir, 'ch3.png'), (388, 40)),
-    'ch4': ((462, 0, 607, 20), os.path.join(temp_ch_dir, 'ch4.png'), (542, 40)),
-    'ch5': ((615, 0, 760, 20), os.path.join(temp_ch_dir, 'ch5.png'), (696, 40))
+    'ch1': ((0, 0, 175, 20), os.path.join(temp_ch_dir, 'ch1.png'), (140, 40)),
+    'ch2': ((175, 0, 350, 20), os.path.join(temp_ch_dir, 'ch2.png'), (320, 40)),
+    'ch3': ((350, 0, 520, 20), os.path.join(temp_ch_dir, 'ch3.png'), (480, 40)),
+    'ch4': ((520, 0, 700, 20), os.path.join(temp_ch_dir, 'ch4.png'), (660, 40)),
+    'ch5': ((700, 0, 860, 20), os.path.join(temp_ch_dir, 'ch5.png'), (820, 40))
 }
 # Driver
 dd_dll_path = os.path.abspath(driver_dir + 'DD94687.64.dll')

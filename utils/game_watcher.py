@@ -28,7 +28,7 @@ def is_not_same_crop4():
 def is_ready_fight():
     shot()
     path = os.path.join(c.temp_dir, "fight_tool.png")
-    Image.open(c.temp_game).crop((673, 220, 735, 300)).save(path)
+    Image.open(c.temp_game).crop((903, 304, 954, 390)).save(path)
     score = compare_tf_image("fight_tool.png")
     if score > 0.95:
         return True
@@ -39,12 +39,7 @@ def is_popup():
     shot()
     shape, score = template_match(c.flag_popup, c.temp_game)
     if score >= 4:
-        sub_shape = (
-            shape[0] - 56,
-            shape[1] + 16,
-            shape[2] + 118,
-            shape[3] + 130
-        )
+        sub_shape = (370, 340, 730, 460)
         Image.open(c.temp_game).crop(sub_shape).save(c.temp_popup)
         return True
     return False
@@ -89,7 +84,7 @@ def is_notify():
     __shot_tag()
     for k in c.ch_dict:
         img = cv.imread(c.ch_dict[k][1])
-        if (img[10][115] == [155, 202, 254]).all():
+        if (img[10][115] == [149, 203, 253]).all():
             return c.ch_dict[k][2]
     return False
 
@@ -99,7 +94,7 @@ def __shot_tag():
     人物标签截图
     """
     shot()
-    Image.open(c.temp_game).crop((20, 33, 780, 53)).save(c.ch_temp_img)
+    Image.open(c.temp_game).crop((20, 33, 883, 53)).save(c.ch_temp_img)
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch1'][0]).save(c.ch_dict['ch1'][1])
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch2'][0]).save(c.ch_dict['ch2'][1])
     Image.open(c.ch_temp_img).crop(c.ch_dict['ch3'][0]).save(c.ch_dict['ch3'][1])
@@ -120,4 +115,3 @@ def is_kw_monster(kw):
         if word.__contains__(kw):
             return True
     return False
-
