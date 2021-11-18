@@ -14,9 +14,9 @@ def read_text_basic(filepath):
         result = client.basicGeneral(img)
         if 'words_result' in result:
             items = result['words_result']
-            words = []
+            words = ""
             for item in items:
-                words.append(item['words'])
+                words += item['words']
             return words
         else:
             return None
@@ -34,8 +34,3 @@ def read_text_accurate(filepath):
             return words
         else:
             return None
-
-
-if __name__ == '__main__':
-    words = read_text_basic('../resources/img/temp/game.png')
-    print(words)
