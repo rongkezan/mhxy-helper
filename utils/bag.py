@@ -1,13 +1,13 @@
 import os
 import utils.constants as c
-from utils.game_action import move_right_click, alt_e
+from utils.game_action import move_right_click, alt_e, load_driver
 from utils.window import template_match, shot
 
 
 class Bag:
     def __init__(self):
         self.bag_title_path = os.path.join(c.flag_dir, "bag_title.png")
-        self.stride = 53
+        self.stride = 50
         self.x0 = 0     # 背包第一个格子的x坐标
         self.y0 = 0     # 背包第一个格子的y坐标
 
@@ -42,3 +42,8 @@ class Bag:
         if score >= 5:
             return True
         return False
+
+if __name__ == '__main__':
+    load_driver()
+    bag = Bag()
+    bag.right_click(5,1)

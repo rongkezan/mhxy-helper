@@ -1,12 +1,53 @@
 from utils.game_action import *
 from utils.game_watcher import *
-from utils.window import *
+from utils.map import Map
+from utils.bag import Bag
+from utils.mission import Mission
 import shutil
+
+npc_list = ["秦琼", "程咬金", "空度禅师", "孙婆婆", "东海龙王", "地藏王", "观音姐姐", "镇元大仙", "牛魔王",
+                   "大大王", "二大王", "三大王", "杨戬", "李靖", "菩提祖师", "白晶晶", "花十娘"]
+bag = Bag()
+mission = Mission()
+map = Map()
+
+
+def get_mission():
+    bag.right_click(5, 1)  # 点击导标旗
+    move_left_click(647, 342)  # 导标旗点击镖局
+    move_left_click(484, 280)  # 进入镖局
+    move_left_click(688, 303)  # 走向镖头
+    time.sleep(5)
+    f9()
+    while True:
+        print("寻找镖头中...")
+        shot()
+        result = find_xy_in_game("../resources/img/flag/character/biao_tou.png")
+        if result is not None:
+            x, y = result[0], result[1]
+            print("找到镖头，位置:", x, y)
+            move_left_click(x, y)
+            break
+        else:
+            print("未找到镖头，继续寻找")
+        time.sleep(1)
+    move_left_click(303, 479)  # 选4级镖
+    move_left_click(304, 418)  # 选4级镖二级菜单
+    move_left_click(304, 418)  # 关闭对话框
+    move_left_click(335, 584)  # 走向镖局门口
+    time.sleep(3)
+    move_left_click(409, 521)  # 走出镖局
+    text = mission.read_mission()
+    for npc in npc_list:
+        if text.__contains__(npc):
+            print("接到任务运镖给: ", npc)
+            return npc
+    return None
 
 
 def qf():
     print("长安 -> 秦府")
-    open_map_move(213, 422)
+    map.click_cac(88, 79)
     while True:
         time.sleep(1)
         if done_fight():
@@ -362,3 +403,32 @@ def done_fight():
     if fight_flag == 1:
         return True
     return False
+
+
+if __name__ == '__main__':
+    load_driver()
+    while True:
+        npc = get_mission()
+        if mission is None:
+            print("[Error] 未获取到任务,请确认跑镖任务是否已加入自定义")
+            sys.exit()
+        elif mission == "秦琼":
+            qf()
+        elif mission == "程咬金":
+            dt()
+        elif mission == "空度禅师":
+            hs()
+        elif mission == "白晶晶":
+            ps(1)
+        elif mission == "花十娘":
+            ps(2)
+        elif mission == "镇元大仙":
+            wz()
+        elif mission == "大大王":
+            st(1)
+        elif mission == "二大王":
+            st(2)
+        elif mission == "三大王":
+            st(3)
+        else:
+            sys.exit()

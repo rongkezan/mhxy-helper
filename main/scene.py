@@ -1,6 +1,5 @@
-from utils.game_action import *
-from utils.game_watcher import *
 import shutil
+from utils.map import *
 
 hwnd_title = dict()
 move_around_count = 0
@@ -27,7 +26,6 @@ def move_around():
         move_left_click(618, 570)
         move_around_count = 1
     tab()
-    time.sleep(3)
 
 
 def task():
@@ -36,7 +34,7 @@ def task():
     print(">>> 开始刷场景 >>>")
     while True:
         print(">>> 状态判断 >>>")
-        time.sleep(1)
+        time.sleep(0.1)
 
         need_shot_monster = 0
         need_shot_popup1 = 0
@@ -69,6 +67,8 @@ def task():
                         print(">>> 战斗出现弹框，保存4小人图片 >>>")
                         save_crop4()
                         sys.exit()
+                    else:
+                        break
             # 攻击施法
             if pause_flag == 0:
                 if is_ready_fight():
@@ -93,7 +93,9 @@ def task():
             while not leader_is_active():
                 print(">>> 选择队长 >>>")
                 move_left_click(c.ch_dict['ch1'][2][0], c.ch_dict['ch1'][2][1], True)
-            move_around()
+            if arrived():
+                move_around()
+
 
 if __name__ == '__main__':
     task()

@@ -3,10 +3,11 @@ from utils.window import *
 from utils.game_action import *
 from utils.txt import *
 
+
 class Mission:
     def __init__(self):
-        self.content_shape = (501, 343, 705, 580)
-        self.title_shape = (473, 264, 563, 275)
+        self.content_shape = (397, 263, 592, 494)
+        self.title_shape = (341, 180, 483, 196)
         self.content_path = os.path.join(c.temp_dir, "mission_content.png")
         self.title_path = os.path.join(c.temp_dir, "mission_title.png")
         self.red = [1, 1, 255]
@@ -24,6 +25,7 @@ class Mission:
         任务栏是否打开
         """
         score = compare_tf_image("mission_title.png")
+        print(score)
         if score >= 0.99:
             return True
         return False
@@ -50,7 +52,15 @@ class Mission:
             alt_q()
 
     def read_mission(self):
-        return read_text_basic(self.content_path)
+        print("开始读取任务")
+        if not self.mission_is_open():
+            alt_q()
+        self.shot_mission()
+        text = read_text_basic(self.content_path)
+        print("任务的内容是:", text)
+        if self.mission_is_open():
+            alt_q()
+        return text
 
     def get_mission_xy(self):
         text_list = self.read_mission()
@@ -60,3 +70,8 @@ class Mission:
         获取任务栏中的坐标，如果有多个坐标，仅返回第一个
         """
         return None
+
+
+if __name__ == '__main__':
+    load_driver()
+    text = Mission().read_mission()
