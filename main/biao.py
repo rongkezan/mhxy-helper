@@ -45,17 +45,33 @@ def get_mission():
     return None
 
 
+def is_arrive():
+    # TODO 是否已经到达终点
+    return True
+
+
+def check_fight(place, x, y):
+    fight_flag = 0
+    while is_fight():
+        fight_flag = 1
+        if is_popup() and is_not_same_crop4():
+            print(">>> 保存4小人图片 >>>")
+            shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
+            break
+        if is_ready_fight():
+            print(">>> 战斗施法 >>>")
+            alt_q()
+            alt_q()
+    if fight_flag == 1:
+        map.click(place, x, y)
+
+
 def qf():
     print("长安 -> 秦府")
-    map.click_cac(88, 79)
-    while True:
-        time.sleep(1)
-        if done_fight():
-            open_map_move(213, 418)
-        if is_target_point((200, 408, 227, 431)):
-            break
-    if map_is_open():
-        tab()
+    map.click("cac", 88, 79)
+    while is_arrive():
+        time.sleep(0.1)
+        check_fight("cac", 88, 79)
     print("进入秦府")
     move_left_click(343, 260)
     print("寻找秦琼")
@@ -365,44 +381,6 @@ def st(flag):
         if res is not None:
             alt_g()
             move_left_click(res[0], res[1])
-
-
-def is_target_point(shape):
-    shot()
-    temp_path = os.path.join(c.temp_dir, "red_point.png")
-    Image.open(c.temp_game).crop(shape).save(temp_path)
-    _, score = template_match(os.path.join(c.flag_dir, "red_point.png"), temp_path)
-    if score >= 5:
-        return True
-    return False
-
-
-def open_map_move(x, y):
-    tab()
-    move_left_click(x, y)
-    move(741, 81)
-
-
-def done_fight():
-    fight_flag = 0
-    while is_fight():
-        fight_flag = 1
-        time.sleep(1)
-        # 有4小人验证，先点击4小人
-        while is_popup():
-            time.sleep(1)
-            if is_not_same_crop4():
-                print(">>> 保存4小人图片 >>>")
-                shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".jpg"))
-                break
-        # 已经过4小人验证，战斗
-        if is_ready_fight():
-            print(">>> 战斗施法 >>>")
-            alt_q()
-            alt_q()
-    if fight_flag == 1:
-        return True
-    return False
 
 
 if __name__ == '__main__':

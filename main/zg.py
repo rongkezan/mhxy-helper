@@ -6,23 +6,23 @@
 from utils.txt import *
 import re
 
-places1 = [("建邺城", 0, 0),
-           ("傲来国", 223, 150),
-           ("朱紫国", 163, 191),
-           ("长寿村", 0, 0),
-           ("西凉女国", 163, 123),
-           ("宝象国", 159, 119),
-           ("江南野外", 159, 119),
-           ("大唐境外", 638, 110),
-           ("普陀山", 0, 0),
-           ("五庄观", 0, 0)]
+places1 = [("jy", "建邺", 1000, 1000),
+           ("al", "傲来", 223, 150),
+           ("zz", "朱紫", 163, 191),
+           ("cs", "长寿村", 1000, 1000),
+           ("xl", "西凉", 163, 123),
+           ("bx", "象国", 159, 119),
+           ("yw", "南野外", 159, 119),
+           ("jw", "唐境外", 638, 110),
+           ("pt", "普陀山", 1000, 1000),
+           ("wz", "庄观", 1000, 1000)]
 places2 = [
     ("花果山", 159, 119),
     ("北俱芦洲", 227, 169),
-    ("女娲神迹", 0, 0),
+    ("女娲神迹", 1000, 1000),
     ("麒麟山", 190, 141),
-    ("海底迷宫一层", 0, 0),
-    ("地狱迷宫三层", 0, 0)]
+    ("海底迷宫一层", 1000, 1000),
+    ("地狱迷宫三层", 1000, 1000)]
 
 
 # def find_yz():
@@ -33,11 +33,10 @@ places2 = [
 #     return None
 
 
-def get_mission():
-    words = read_text_basic('../resources/img/mission/1.png')
+def get_mission(path):
+    words = read_text_basic(path)
     words = words.split('分钟效果')
     syx_time = words[0].split("摄妖香还有")[1]
-    print("摄妖香时间:", syx_time)
     words = words[1]
     words1 = words.split('去')[1]
     words1 = words1.split('处抓')[0]
@@ -58,33 +57,30 @@ def get_mission():
             place2 = place
             words2 = words2.replace(place2[0], "")
             break
-    print(place1, place2)
     pos1 = get_position(words1)
     pos2 = get_position(words2)
-
-    if len(pos1) > 1:
-        for p in pos1:
-            print(p)
-            if p[0] <= place1[1]:
-                if p[1] <= place1[2]:
-                    pos1 = (p[0], p[1])
-                break
-    else:
-        pos1 = pos1[0][0], pos1[0][1]
-    if len(pos2) > 1:
-        for p in pos2:
-            if p[0] <= place2[1] & p[1] <= place2[2]:
-                pos2 = (p[0], p[1])
-                break
-    else:
-        pos2 = pos2[0][0], pos2[0][1]
     print(pos1, pos2)
+    # if len(pos1) > 1:
+    #     for p in pos1:
+    #         if p[0] <= place1[1] and p[1] <= place1[2]:
+    #             pos1 = (p[0], p[1])
+    #             break
+    # else:
+    #     pos1 = pos1[0][0], pos1[0][1]
+    # if len(pos2) > 1:
+    #     for p in pos2:
+    #         if p[0] <= place2[1] and p[1] <= place2[2]:
+    #             pos2 = (p[0], p[1])
+    #             break
+    # else:
+    #     pos2 = pos2[0][0], pos2[0][1]
+    # print(('摄妖香', syx_time), (place1[0], pos1), (place2[0], pos2))
 
 
 def get_position(text_list):
     text_list = text_list.split(",")
     if len(text_list) == 2:
-        return tuple([text_list[0], text_list[1]])
+        return tuple([int(text_list[0]), int(text_list[1])])
     elif len(text_list) > 2:
         pos = []
         for t in text_list:
@@ -99,14 +95,23 @@ def get_position(text_list):
         if len(text) == 2:
             return int(text[0]), int(text[1])
         elif len(text) == 3:
-            return int(text[0]) * 10 + int(text[1]), int(text[2])
+            t0 = int(text[0])
+            t1 = int(text[1])
+            t2 = int(text[2])
+            return (t0 * 10 + t1), (t0, t1 * 10 + t2)
         elif len(text) == 4:
-            return (int(text[0]) * 10 + int(text[1]), int(text[2]) * 10 + int(text[3])), \
-                   (int(text[0]), int(text[1]) * 100 + int(text[2]) * 10 + int(text[3])), \
-                   (int(text[0]) * 100 + int(text[1]) * 10 + int(text[2]), int(text[3]))
+            t0 = int(text[0])
+            t1 = int(text[1])
+            t2 = int(text[2])
+            t3 = int(text[3])
+            return (t0, t1 * 100 + t2 * 10 + t3), (t0 * 10 + t1, t2 * 10 + t3), (t0 * 100 + t1 * 10 + t2, t3)
         elif len(text) == 5:
-            return (int(text[0]) * 100 + int(text[1]) * 10 + int(text[2], int(text[3]) * 10 + int(text[4]))), \
-                   (int(text[0]) * 10 + int(text[1]), int(text[2]) * 100 + int(text[3]) * 10 + int(text[4]))
+            t0 = int(text[0])
+            t1 = int(text[1])
+            t2 = int(text[2])
+            t3 = int(text[3])
+            t4 = int(text[4])
+            return (t0 * 10 + t1, t2 * 100 + t3 * 10 + t4), (t0 * 100 + t1 * 10 + t2, t3 * 10 + t4)
         elif len(text) == 6:
             return int(text[0]) * 100 + int(text[1]) * 10 + int(text[2]), int(text[3]) * 100 + int(text[4]) * 10 + int(
                 text[5])
@@ -128,7 +133,9 @@ def is_number(s):
 
 
 if __name__ == '__main__':
-    get_mission()
+    for i in range(10):
+        get_mission("../resources/img/mission/" + str(i + 1) + ".png")
+        print()
     # map = Map()
     # mission = Mission()
     # bag = Bag()

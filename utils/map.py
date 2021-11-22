@@ -11,8 +11,6 @@ class Map:
     def click(self, place, x, y):
         if place == "cac":
             self.click_cac(x, y)
-        elif place == "cac":
-            self.click_cac(x, y)
         elif place == "jyc":
             self.click_jyc(x, y)
         elif place == "csc":
@@ -206,8 +204,3 @@ def arrived():
         score = compare_image(path1, path2)
         if score > 0.99:
             return True
-
-
-if __name__ == '__main__':
-    map = Map()
-    map.click_nec(80, 80)
