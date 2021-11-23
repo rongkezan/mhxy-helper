@@ -24,12 +24,33 @@ def is_not_same_crop4():
     return True
 
 
+def is_not_same_monster():
+    # 得到最新的一张保存的四小人截图
+    path = c.data_dir + "monster/"
+    files = os.listdir(path)
+    recent_file = None
+    for file in files:
+        if recent_file is None:
+            recent_file = file
+        elif int(str(file).split('.')[0]) > int(str(recent_file).split('.')[0]):
+            recent_file = file
+    if recent_file is None:
+        return True
+    # 确认刚截的图不是已经保存过的
+    score = compare_image(os.path.join(path, recent_file), c.temp_dir + "monster.png")
+    if score > 0.8:
+        print("怪物截图已保存过，Score:", score)
+        return False
+    else:
+        print("怪物截图保存，Score:", score)
+    return True
+
+
 def is_ready_fight():
     shot()
-    path = os.path.join(c.temp_dir, "fight_tool.png")
-    Image.open(c.temp_game).crop((673, 220, 735, 300)).save(path)
-    score = compare_tf_image("fight_tool.png")
-    if score > 0.95:
+    path = os.path.join(c.flag_dir, "fight_tool.png")
+    _, score = template_match(path, c.temp_game)
+    if score >= 5:
         return True
     return False
 
@@ -65,7 +86,7 @@ def is_need_heal():
     Image.open(c.temp_game).crop((740, 60, 800, 80)).save(path)
     img = cv.imread(path)
     print(img[15][15])
-    if not (img[15][15][0] == 255):
+    if not (img[15][15][0] == 248):
         return True
     return False
 
@@ -88,6 +109,7 @@ def is_notify():
     __shot_tag()
     for k in c.ch_dict:
         img = cv.imread(c.ch_dict[k][1])
+        print(img[10][115])
         if (img[10][115] == [155, 202, 254]).all():
             return c.ch_dict[k][2]
     return False
@@ -115,6 +137,15 @@ def shot_mission():
     Image.open(c.temp_game).crop((389, 255, 591, 495)).save(path)
 
 
+def shot_monster():
+    """
+    自定义任务截图
+    """
+    shot()
+    path = os.path.join(c.temp_dir, "monster.png")
+    Image.open(c.temp_game).crop((100, 100, 510, 415)).save(path)
+
+
 def is_kw_monster(kw):
     """
     识别出指定目标
@@ -131,10 +162,4 @@ def is_kw_monster(kw):
 
 
 if __name__ == '__main__':
-    shot()
-    path = os.path.join(c.temp_dir, "ca_map.png")
-    Image.open(c.temp_game).crop((245, 310, 790, 587)).save(path)
-    x0 = 244
-    y0 = 586
-    # score = compare_image(os.path.join(c.temp_dir, "loc_dtjw.png"), os.path.join(c.temp_dir, "loc_dtgj.png"))
-    # print(score)
+    shot_monster()
