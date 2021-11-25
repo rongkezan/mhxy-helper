@@ -1,6 +1,5 @@
 from aip import AipOcr
 
-""" 你的 APPID AK SK """
 APP_ID = '14495489'
 API_KEY = 'MGp1SKRuGUl0EIM8iTSZqs9S'
 SECRET_KEY = 'x0a5yBnI7TxQZGwvWA22Mg1s4zPPHdXT'

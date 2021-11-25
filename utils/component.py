@@ -1,10 +1,119 @@
-from utils.game_action import *
-from utils.game_watcher import *
+from utils.action import *
+from utils.watcher import *
 from utils.txt import *
+
+
+class Bag:
+    def __init__(self):
+        self.bag_title_path = os.path.join(c.flag_dir, "bag_title.png")
+        self.bag_content_path = os.path.join(c.temp_dir, "bag_content.png")
+        self.stride = 50  # 步长
+        self.x0 = 0  # 背包第一个格子的x坐标
+        self.y0 = 0  # 背包第一个格子的y坐标
+
+    def right_click(self, bx, by):
+        if bx > 5 | bx < 1 | by > 4 | by < 1:
+            info("背包格子的范围是x∈[1,5] y∈[1,4]")
+            return
+        if not self.__is_bag_open():
+            alt_e()
+        self.__init_bag()
+        move_x = self.x0 + self.stride * (bx - 1)
+        move_y = self.y0 + self.stride * (by - 1)
+        move_right_click(move_x, move_y)
+        if self.__is_bag_open():
+            alt_e()
+
+    def is_item_exist(self, item_path):
+        """
+        判断背包物品是否存在
+        """
+        if not self.__is_bag_open():
+            alt_e()
+        self.__shot_bag()
+        _, score = template_match(item_path, self.bag_content_path)
+        if self.__is_bag_open():
+            alt_e()
+        if score >= 4:
+            return True
+        return False
+
+    def __init_bag(self):
+        shape, score = game_template_match(self.bag_title_path)
+        if score >= 5:
+            offset = (25, 217)
+            self.x0 = shape[0] + offset[0]
+            self.y0 = shape[1] + offset[1]
+        else:
+            error("背包未打开")
+
+    def __is_bag_open(self):
+        _, score = game_template_match(self.bag_title_path)
+        return score >= 5
+
+    def __shot_bag(self):
+        # TODO 背包的Shape
+        game_shot((0, 0, 0, 0), self.bag_content_path)
+
+
+class Mission:
+    def __init__(self):
+        self.content_shape = (397, 263, 592, 494)
+        self.title_shape = (341, 180, 483, 196)
+        self.title_path = os.path.join(c.flag_dir, "mission_title.png")
+        self.content_path = os.path.join(c.temp_dir, "mission_content.png")
+        self.red = [1, 1, 255]
+
+    def location(self, path):
+        """
+        定位红色任务字体坐标
+        """
+        img = cv.imread(path)
+        for i in range(len(img)):
+            for j in range(len(img[0])):
+                if (img[i][j] == self.red).all():
+                    return j, i
+
+    def click_mission(self):
+        if not self.__is_mission_open():
+            alt_q()
+        self.__shot_mission()
+        x, y = self.location(self.content_path)
+        move_x = self.content_shape[0] + x
+        move_y = self.content_shape[1] + y
+        move_left_click(move_x, move_y)
+        if self.__is_mission_open():
+            alt_q()
+
+    def read_mission(self):
+        info("开始读取任务")
+        if not self.__is_mission_open():
+            alt_q()
+        self.__shot_mission()
+        text = read_text_basic(self.content_path)
+        info("任务的内容是:", text)
+        if self.__is_mission_open():
+            alt_q()
+        return text
+
+    def __shot_mission(self):
+        """
+        任务截图
+        """
+        game_shot(self.content_shape, self.content_path)
+
+    def __is_mission_open(self):
+        """
+        任务栏是否打开
+        """
+        _, score = game_template_match(self.title_path)
+        info("任务栏打开标识分数:", score)
+        return score >= 5
 
 
 class Map:
     def __init__(self):
+        self.map_open_flag = os.path.join(c.flag_dir, "map_open.png")
         self.move_x = 0
         self.move_y = 0
 
@@ -56,7 +165,7 @@ class Map:
         elif place == "nec":
             self.click_nec(x, y)
         else:
-            print("[Error] 未找到地点:", place)
+            error("未找到地点:", place)
 
     def click_cac(self, x, y):
         self.move_x = 133 + x
@@ -174,33 +283,13 @@ class Map:
         self.__open_map_click()
 
     def __open_map_click(self):
-        if not map_is_open():
+        if not self.__is_map_open():
             tab()
         move_left_click(self.move_x, self.move_y)
-        if map_is_open():
+        if self.__is_map_open():
             tab()
 
-
-def shot_place(index):
-    shot()
-    path = os.path.join(c.temp_dir, "place" + str(index) + ".png")
-    Image.open(c.temp_game).crop((38, 83, 143, 98)).save(path)
-    return path
-
-
-def map_is_open():
-    shot()
-    _, score = template_match(os.path.join(c.flag_dir, "map_open.png"), c.temp_game)
-    if score >= 5:
-        return True
-    return False
-
-
-def arrived():
-    while True:
-        path1 = shot_place(1)
-        time.sleep(0.5)
-        path2 = shot_place(2)
-        score = compare_image(path1, path2)
-        if score > 0.99:
-            return True
+    def __is_map_open(self):
+        _, score = game_template_match(self.map_open_flag)
+        info("地图打开标识模板匹配分数:", score)
+        return score >= 5

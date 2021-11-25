@@ -1,6 +1,5 @@
 import shutil
-import time
-from utils.game_watcher import *
+from utils.watcher import *
 
 
 def task():
@@ -10,6 +9,6 @@ def task():
 
 if __name__ == '__main__':
     while True:
-        print(">>> 运行中 >>>")
+        info("图像收集程序运行中")
         time.sleep(3)
         task()

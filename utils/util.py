@@ -39,8 +39,16 @@ def crop(source_dir, target_dir):
             img_crop.save(target_dir + uid + "-" + str(i + 1) + ".jpg")
 
 
-def log_title(title):
-    print(f'--------   {title}    ----------')
+def rename():
+    path = "dataset/val/front"
+    files = os.listdir(path)
+    n = 0
+    for i in files:
+        old_name = path + os.sep + files[n]
+        new_name = path + os.sep + 'f-' + str(n + 1) + '.jpg'
+        os.rename(old_name, new_name)
+        print(old_name, '======>', new_name)
+        n += 1
 
 
 if __name__ == '__main__':

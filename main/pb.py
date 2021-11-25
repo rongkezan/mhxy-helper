@@ -1,8 +1,6 @@
-from utils.game_action import *
-from utils.game_watcher import *
-from utils.map import Map
-from utils.bag import Bag
-from utils.mission import Mission
+from utils.action import *
+from utils.watcher import *
+from utils.component import Map, Bag, Mission
 from utils.log import info, warn, error
 import shutil
 
@@ -40,7 +38,7 @@ def get_mission():
     f9()
     while True:
         info("寻找镖头中...")
-        result = find_xy_in_game(os.path.join(c.flag_character_dir, "bt.png"))
+        result = find_xy_in_game(os.path.join(c.flag_ch_dir, "bt.png"))
         if result is not None:
             x, y = result[0], result[1]
             info("找到镖头，位置:", x, y)
@@ -68,13 +66,8 @@ def is_place(place_name):
     return True
 
 
-def is_arrive():
-    # TODO 是否已经到达终点
-    return True
-
-
-def mission_finished():
-    pass
+def mission_not_finished():
+    return bag.is_item_exist(os.path.join(c.temp_dir, "cargo.png"))
 
 
 def meet_robber():
@@ -106,7 +99,7 @@ def b_move_map(place, x, y, log=None):
     if log is not None:
         info(log)
     map.click(place, x, y)
-    while not is_arrive():
+    while not is_arrived():
         time.sleep(0.1)
         if meet_robber():
             map.click(place, x, y)
@@ -129,12 +122,12 @@ def release_cargo(npc_name):
     交付镖银
     """
     f9()
-    while not mission_finished():
+    while mission_not_finished():
         info("向", npc_name, "交付镖银")
         if meet_robber():
             info("交付镖银时遭遇强盗")
         filename = npc_dict[npc_name]
-        res = find_xy_in_game(os.path.join(c.flag_character_dir, filename + ".png"))
+        res = find_xy_in_game(os.path.join(c.flag_ch_dir, filename + ".png"))
         if res is not None:
             x, y = res[0], res[1]
             info("找到", npc_name, ",坐标为:", x, y, ",准备投送镖银")
@@ -148,7 +141,8 @@ def yz_transfer():
     """
     while not is_place("大唐国境"):
         time.sleep(0.1)
-        meet_robber()
+        if meet_robber():
+            info("寻找驿站车夫时遭遇劫镖强盗")
         info("寻找驿站车夫")
         res = None
         for yz in c.flag_yz:
@@ -158,8 +152,7 @@ def yz_transfer():
             x, y = res[0], res[1]
             info("找到驿站车夫, 坐标为:", x, y, "点击驿站车夫")
             b_move(x, y)
-            info("驿站车夫传送大唐国境")
-            b_move(268, 472)
+            b_move(268, 472, log="驿站车夫传送大唐国境")
         else:
             warn("未能找到驿站车夫，继续寻找")
 

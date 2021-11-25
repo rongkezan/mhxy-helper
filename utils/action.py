@@ -50,18 +50,29 @@ def move(x, y):
     # 最终需要移动到的坐标
     x_target, y_target = direct_move(x, y)
     time.sleep(0.1)
-    xy_mouse = find_mouse_desktop(rect)
+    xy_mouse = find_mouse_desktop()
     if xy_mouse is not None:
         time.sleep(0.1)
         x_rel = x_target - xy_mouse[0]
         y_rel = y_target - xy_mouse[1]
         pyautogui.moveRel(x_rel, y_rel, 0.1)
-        xy_mouse = find_mouse_desktop(rect)
+        xy_mouse = find_mouse_desktop()
         if xy_mouse is not None:
             time.sleep(0.1)
             x_rel = x_target - xy_mouse[0]
             y_rel = y_target - xy_mouse[1]
             pyautogui.moveRel(x_rel, y_rel, 0.1)
+
+
+def find_mouse_desktop():
+    shot()
+    shape, score = template_match(c.flag_mouse, c.temp_game)
+    if score >= 4:
+        x = rect[0] + shape[0] - 9
+        y = rect[1] + shape[1] - 9
+        return x, y
+    else:
+        return None
 
 
 def direct_move(x, y):

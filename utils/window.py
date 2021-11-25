@@ -1,10 +1,10 @@
 import win32gui
 import sys
+import cv2 as cv
 from utils import constants as c
 from PyQt5.QtWidgets import QApplication
-import cv2 as cv
 from skimage.metrics import structural_similarity
-import os
+from PIL import Image
 
 hwnd_title = dict()
 
@@ -61,18 +61,6 @@ def compare_image(img_path1, img_path2):
     return score
 
 
-def compare_tf_image(path):
-    """
-    比较 c.temp_dir 和 c.flag_dir 目录下的同名图片
-    """
-    imageA = cv.imread(os.path.join(c.temp_dir, path))
-    imageB = cv.imread(os.path.join(c.flag_dir, path))
-    grayA = cv.cvtColor(imageA, cv.COLOR_BGR2GRAY)
-    grayB = cv.cvtColor(imageB, cv.COLOR_BGR2GRAY)
-    score, diff = structural_similarity(grayA, grayB, full=True)
-    return score
-
-
 def shot():
     """
     游戏窗口及桌面截图
@@ -87,23 +75,27 @@ def shot():
     temp_game.save(c.temp_game)
 
 
-def find_xy_in_game(template_path):
+def game_shot(shape, path):
+    """
+    游戏窗口内截图
+    """
     shot()
-    shape, score = template_match(template_path, c.temp_game)
+    Image.open(c.temp_game).crop(shape).save(path)
+
+
+def game_template_match(path):
+    """
+    游戏窗口内模板匹配
+    """
+    shot()
+    return template_match(path, c.temp_game)
+
+
+def find_xy_in_game(template_path):
+    shape, score = game_template_match(template_path)
     if score >= 3:
         x = (shape[0] + shape[2]) // 2
         y = (shape[1] + shape[3]) // 2
-        return x, y
-    else:
-        return None
-
-
-def find_mouse_desktop(rect):
-    shot()
-    shape, score = template_match(c.flag_mouse, c.temp_game)
-    if score >= 4:
-        x = rect[0] + shape[0] - 9
-        y = rect[1] + shape[1] - 9
         return x, y
     else:
         return None
