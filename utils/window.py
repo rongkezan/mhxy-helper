@@ -5,6 +5,7 @@ from utils import constants as c
 from PyQt5.QtWidgets import QApplication
 from skimage.metrics import structural_similarity
 from PIL import Image
+from utils.log import info
 
 hwnd_title = dict()
 
@@ -93,6 +94,7 @@ def game_template_match(path):
 
 def find_xy_in_game(template_path):
     shape, score = game_template_match(template_path)
+    info("模板匹配相似度分数:", score)
     if score >= 3:
         x = (shape[0] + shape[2]) // 2
         y = (shape[1] + shape[3]) // 2

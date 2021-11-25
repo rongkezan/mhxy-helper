@@ -39,11 +39,21 @@ def is_ready_fight():
 
 
 def is_popup():
-    shape, score = game_template_match(c.flag_popup)
-    if score >= 4:
-        sub_shape = (shape[0] - 56, shape[1] + 16, shape[2] + 118, shape[3] + 130)
-        game_shot(sub_shape, c.temp_popup)
-        return True
+    offset_shape = [(-107, 28, 97, 130), (-86, 28, 174, 130)]
+    i = 0
+    for popup in c.flag_popup:
+        shape, score = game_template_match(popup)
+        info("4小人模板识别模板, ", popup, "，分数：", score)
+        if score >= 5:
+            sub_shape = (
+                shape[0] + offset_shape[i][0],
+                shape[1] + offset_shape[i][1],
+                shape[2] + offset_shape[i][2],
+                shape[3] + offset_shape[i][3]
+            )
+            game_shot(sub_shape, c.temp_popup)
+            return True
+        i += 1
     return False
 
 
@@ -77,7 +87,7 @@ def is_notify():
     __shot_tab()
     for k in c.temp_ch_dict:
         img = cv.imread(c.temp_ch_dict[k][1])
-        if (img[10][115] == [155, 202, 254]).all():
+        if (img[10][115] == [149, 203, 253]).all():
             return c.temp_ch_dict[k][2]
     return False
 
@@ -113,3 +123,17 @@ def __shot_tab():
     Image.open(c.temp_ch).crop(c.temp_ch_dict['ch3'][0]).save(c.temp_ch_dict['ch3'][1])
     Image.open(c.temp_ch).crop(c.temp_ch_dict['ch4'][0]).save(c.temp_ch_dict['ch4'][1])
     Image.open(c.temp_ch).crop(c.temp_ch_dict['ch5'][0]).save(c.temp_ch_dict['ch5'][1])
+
+
+if __name__ == '__main__':
+    # 左 + 30 ；右 - 56
+    # Image.open(os.path.join(c.flag_dir, "popup2.png")).crop((30, 0, 130, 20)).save(os.path.join(c.temp_dir, "popup2.png"))
+    offset_shape = [(-107, 28, 97, 130), (-86, 28, 174, 130)]
+    shape, score = template_match(os.path.join(c.flag_dir, "popup1.png"), c.temp_game)
+    sub_shape = (
+        shape[0] + offset_shape[0][0],
+        shape[1] + offset_shape[0][1],
+        shape[2] + offset_shape[0][2],
+        shape[3] + offset_shape[0][3]
+    )
+    Image.open(c.temp_game).crop(sub_shape).save(os.path.join(c.temp_dir, "popup.png"))

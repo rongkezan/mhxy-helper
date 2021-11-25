@@ -14,7 +14,7 @@ data_monster_dir = data_dir + "monster/"
 # 文件路径
 flag_fight = os.path.join(flag_dir, 'fight_bar.png')
 flag_auto_fight = os.path.join(flag_dir, 'fight_auto.png')
-flag_popup = os.path.join(flag_dir, 'popup.png')
+flag_popup = [os.path.join(flag_dir, name) for name in ['popup1.png', 'popup2.png']]
 flag_mouse = os.path.join(flag_dir, 'mouse.png')
 flag_yz = [os.path.join(flag_ch_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
 

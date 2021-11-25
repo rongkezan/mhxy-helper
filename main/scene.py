@@ -20,29 +20,30 @@ def move_around():
     global move_around_count
     tab()
     if move_around_count == 0:
-        move_left_click(254, 323)
+        move_left_click(129, 339)
         move_around_count = 1
     elif move_around_count == 1:
-        move_left_click(536, 279)
+        move_left_click(139, 403)
         move_around_count = 2
     elif move_around_count == 2:
-        move_left_click(261, 504)
+        move_left_click(196, 343)
         move_around_count = 3
     else:
-        move_left_click(521, 482)
+        move_left_click(197, 397)
         move_around_count = 1
     tab()
 
 
 def task():
     load_driver()
-    heal_flag = 1
+    heal_flag = 0
     info("开始刷场景")
     while True:
+        heal_flag += 1
         while not is_fight():
-            if heal_flag % 3 == 0:
-                info("3轮战斗定期检查人物血蓝")
+            if heal_flag % 4 == 0:
                 heal_flag += 1
+                info("3轮战斗定期检查人物血蓝")
                 for k in c.temp_ch_dict:
                     move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
                     if is_need_heal():
@@ -87,6 +88,15 @@ def task():
                 info("截取怪物图片")
                 shot_monster_flag = 1
                 save_monster()
+                res = find_xy_in_game(os.path.join(c.flag_dir, "long_li.png"))
+                if res is not None:
+                    x, y = res[0], res[1]
+                    for k in c.temp_ch_dict:
+                        move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
+                        info("发现目标召唤兽，进行捕捉:", )
+                        alt_g()
+                        move_left_click(x, y)
+                        alt_d()
 
             # 攻击施法
             if is_ready_fight():
