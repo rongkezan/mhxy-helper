@@ -1,5 +1,10 @@
-from main.pb import *
+def a():
+    parm = 2
+    print("---", parm)
+
 
 if __name__ == '__main__':
-    load_driver()
-    print("测试---")
+    parm = 1
+    a()
+    print(parm)
+
