@@ -1,10 +1,9 @@
-def a():
-    parm = 2
-    print("---", parm)
+from utils.action import *
 
 
 if __name__ == '__main__':
-    parm = 1
-    a()
-    print(parm)
+    load_driver()
+    while True:
+        time.sleep(0.1)
+        left_click()
 

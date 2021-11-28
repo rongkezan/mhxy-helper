@@ -81,7 +81,7 @@ def meet_robber():
         fight_flag = 1
         if is_popup() and is_not_same_crop4():
             info("保存4小人图片")
-            shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".png"))
+            shutil.copy(c.temp_popup, os.path.join(c.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
             break
         if is_ready_fight():
             info("战斗施法")

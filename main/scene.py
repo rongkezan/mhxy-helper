@@ -7,7 +7,7 @@ move_around_count = 0
 
 def save_crop4():
     info("战斗出现弹框，保存4小人图片")
-    shutil.copy(c.temp_popup, os.path.join(c.data_dir, str(int(round(time.time() * 1000))) + ".png"))
+    shutil.copy(c.temp_popup, os.path.join(c.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
 
 
 def save_monster():
@@ -32,6 +32,7 @@ def move_around():
         move_left_click(197, 397)
         move_around_count = 1
     tab()
+    time.sleep(1)
 
 
 def task():
@@ -54,8 +55,7 @@ def task():
             while not is_leader():
                 info("选择队长")
                 move_left_click(c.temp_ch_dict['ch1'][2][0], c.temp_ch_dict['ch1'][2][1], True)
-            if is_arrived():
-                move_around()
+            move_around()
 
         shot_popup_flag = 0
         shot_monster_flag = 0
@@ -88,15 +88,16 @@ def task():
                 info("截取怪物图片")
                 shot_monster_flag = 1
                 save_monster()
-                res = find_xy_in_game(os.path.join(c.flag_dir, "long_li.png"))
-                if res is not None:
-                    x, y = res[0], res[1]
-                    for k in c.temp_ch_dict:
-                        move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
-                        info("发现目标召唤兽，进行捕捉:", )
-                        alt_g()
-                        move_left_click(x, y)
-                        alt_d()
+                # for bb in c.flag_bb:
+                #     res = find_xy_in_game(bb)
+                #     if res is not None:
+                #         x, y = res[0], res[1]
+                #         for k in c.temp_ch_dict:
+                #             move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
+                #             info("发现目标召唤兽，进行捕捉:", bb)
+                #             alt_g()
+                #             move_left_click(x, y)
+                #             alt_d()
 
             # 攻击施法
             if is_ready_fight():
@@ -105,7 +106,6 @@ def task():
                     info("攻击/施法")
                     alt_q()
                     alt_d()
-            time.sleep(1)
 
 
 if __name__ == '__main__':

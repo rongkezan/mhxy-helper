@@ -43,7 +43,7 @@ def is_popup():
     i = 0
     for popup in c.flag_popup:
         shape, score = game_template_match(popup)
-        info("4小人模板识别模板, ", popup, "，分数：", score)
+        # info("4小人模板识别模板, ", popup, "，分数：", score)
         if score >= 5:
             sub_shape = (
                 shape[0] + offset_shape[i][0],
@@ -126,14 +126,7 @@ def __shot_tab():
 
 
 if __name__ == '__main__':
-    # 左 + 30 ；右 - 56
-    # Image.open(os.path.join(c.flag_dir, "popup2.png")).crop((30, 0, 130, 20)).save(os.path.join(c.temp_dir, "popup2.png"))
-    offset_shape = [(-107, 28, 97, 130), (-86, 28, 174, 130)]
-    shape, score = template_match(os.path.join(c.flag_dir, "popup1.png"), c.temp_game)
-    sub_shape = (
-        shape[0] + offset_shape[0][0],
-        shape[1] + offset_shape[0][1],
-        shape[2] + offset_shape[0][2],
-        shape[3] + offset_shape[0][3]
-    )
-    Image.open(c.temp_game).crop(sub_shape).save(os.path.join(c.temp_dir, "popup.png"))
+    for bb in c.flag_bb:
+        print(bb)
+        res = find_xy_in_game(bb)
+        print(res)

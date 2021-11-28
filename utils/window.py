@@ -95,7 +95,7 @@ def game_template_match(path):
 def find_xy_in_game(template_path):
     shape, score = game_template_match(template_path)
     info("模板匹配相似度分数:", score)
-    if score >= 3:
+    if score >= 5:
         x = (shape[0] + shape[2]) // 2
         y = (shape[1] + shape[3]) // 2
         return x, y
