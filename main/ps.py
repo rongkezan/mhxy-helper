@@ -2,7 +2,7 @@ from utils.action import *
 from utils.watcher import *
 from utils.component import Bag, Map, Mission
 from utils.txt import *
-from main.pb import yz_transfer
+from main.pb import find_npc_yz
 import re
 
 bag = Bag()
@@ -83,7 +83,7 @@ def is_place(place_name):
 def ca_to_cs():
     info("长安城 -> 驿站")
     map.click_cac(0, 0)
-    yz_transfer()
+    find_npc_yz()
     info("大唐国境 -> 大唐境外")
     map.click_dtgj(0, 0)
     while is_arrived():

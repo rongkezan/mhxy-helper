@@ -29,28 +29,50 @@ mission = Mission()
 map = Map()
 
 
-def get_mission():
-    bag.right_click(5, 1)  # 点击导标旗
-    b_move(647, 342)  # 导标旗点击镖局
-    b_move(484, 280)  # 进入镖局
-    b_move(688, 303)  # 走向镖头
-    time.sleep(5)
-    f9()
+def find_npc(paths, npc_name="npc"):
+    """
+    根据npc图片寻找npc
+    paths: npc图片列表
+    """
+    hide_all()
     while True:
-        info("寻找镖头中...")
-        result = find_xy_in_game(os.path.join(c.flag_ch_dir, "bt.png"))
-        if result is not None:
-            x, y = result[0], result[1]
-            info("找到镖头，位置:", x, y)
-            b_move(x, y)
+        time.sleep(0.1)
+        info("寻找" + npc_name + "中...")
+        if meet_robber():
+            info("寻找" + npc_name + "时遭遇劫镖强盗")
+        found = False
+        for path in paths:
+            result = find_xy_in_game(path)
+            if result is not None:
+                found = True
+                x, y = result[0], result[1]
+                info("找到" + npc_name + "，位置:", x, y)
+                b_move(x, y)
+                break
+        if found:
+            info("已找到" + npc_name + "，退出寻找")
             break
         else:
-            info("未找到镖头，继续寻找")
-        time.sleep(1)
-    b_move(303, 479)  # 选4级镖
-    b_move(304, 418)  # 选4级镖二级菜单
-    b_move(304, 418)  # 关闭对话框
-    b_move(335, 584)  # 走向镖局门口
+            info("未找到" + npc_name + "，继续寻找")
+            time.sleep(5)
+            hide_all()
+
+
+def find_npc_yz():
+    find_npc(c.flag_yz, "驿站车夫")
+
+
+def get_mission():
+    bag.right_click(5, 1)  # 点击导标旗
+    move_left_click(647, 342)  # 导标旗点击镖局
+    move_left_click(484, 280)  # 进入镖局
+    move_left_click(688, 303)  # 走向镖头
+    time.sleep(5)
+    find_npc([os.path.join(c.flag_ch_dir, "bt.png")], "镖头")
+    move_left_click(303, 479)  # 选4级镖
+    move_left_click(304, 418)  # 选4级镖二级菜单
+    move_left_click(304, 418)  # 关闭对话框
+    move_left_click(335, 584)  # 走向镖局门口
     time.sleep(3)
     b_move(409, 521)  # 走出镖局
     text = mission.read_mission()
@@ -63,7 +85,7 @@ def get_mission():
 
 def is_place(place_name):
     # TODO 是否已经在指定地点
-    return True
+    return False
 
 
 def mission_not_finished():
@@ -121,6 +143,7 @@ def release_cargo(npc_name):
     """
     交付镖银
     """
+    info("隐藏人物")
     f9()
     while mission_not_finished():
         info("向", npc_name, "交付镖银")
@@ -135,26 +158,11 @@ def release_cargo(npc_name):
             b_move(x, y)
 
 
-def yz_transfer():
-    """
-    驿站车夫传送，如果识别当前地点为大唐国境则退出循环，否则一直找车夫
-    """
-    while not is_place("大唐国境"):
-        time.sleep(0.1)
-        if meet_robber():
-            info("寻找驿站车夫时遭遇劫镖强盗")
-        info("寻找驿站车夫")
-        res = None
-        for yz in c.flag_yz:
-            res = find_xy_in_game(yz)
-            break
-        if res is not None:
-            x, y = res[0], res[1]
-            info("找到驿站车夫, 坐标为:", x, y, "点击驿站车夫")
-            b_move(x, y)
-            b_move(268, 472, log="驿站车夫传送大唐国境")
-        else:
-            warn("未能找到驿站车夫，继续寻找")
+def hide_all():
+    info("隐藏人物")
+    f9()
+    info("隐藏摊位")
+    alt_h()
 
 
 def ca_to_dtjw():
@@ -162,7 +170,7 @@ def ca_to_dtjw():
     去大唐境外
     """
     b_move_map("cac", 283, 38, log="长安 -> 驿站")
-    yz_transfer()
+    find_npc_yz()
     while not is_place("大唐境外"):
         b_move_map("dtgj", 5, 84, log="大唐国境 -> 大唐境外")
         b_move(45, 237, log="进入大唐境外")
@@ -215,7 +223,7 @@ def hs():
 
 def df():
     b_move_map("cac", 283, 38, log="长安 -> 驿站")
-    yz_transfer()
+    find_npc_yz()
     while not is_place("地府"):
         b_move_map("dtgj", 49, 332, log="大唐国境 -> 地府")
         b_move(0, 0, log="进入地府")

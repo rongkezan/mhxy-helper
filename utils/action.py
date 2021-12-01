@@ -125,6 +125,12 @@ def alt_g():
     time.sleep(0.1)
 
 
+def alt_h():
+    # TODO 键码
+    keyboard2(604, 405)
+    time.sleep(0.1)
+
+
 def tab():
     keyboard(300)
     time.sleep(0.1)

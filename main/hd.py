@@ -1,7 +1,7 @@
 from utils.watcher import *
 from utils.action import *
 from utils.component import Map, Bag, Mission
-from main.pb import yz_transfer
+from main.pb import find_npc_yz
 
 bag = Bag()
 mission = Mission()
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         info("接到任务地点：盘丝洞")
         bag.right_click(1, 1)
         move_left_click(416, 457)
-        yz_transfer()
+        find_npc_yz()
         mission.click_mission()
     elif miss_text.__contains__("方寸"):
         info("接到任务地点：方寸山")
@@ -53,13 +53,13 @@ if __name__ == '__main__':
         info("接到任务地点：五庄观")
         bag.right_click(1, 1)
         move_left_click(416, 457)
-        yz_transfer()
+        find_npc_yz()
         mission.click_mission()
     elif miss_text.__contains__("普陀"):
         info("接到任务地点：普陀山")
         bag.right_click(1, 1)
         move_left_click(146, 493)
-        yz_transfer()
+        find_npc_yz()
         mission.click_mission()
     elif miss_text.__contains__("狮驼"):
         info("接到任务地点：狮驼岭")
