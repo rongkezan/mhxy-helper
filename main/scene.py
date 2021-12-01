@@ -20,16 +20,16 @@ def move_around():
     global move_around_count
     tab()
     if move_around_count == 0:
-        move_left_click(129, 339)
+        move_left_click(254, 323)
         move_around_count = 1
     elif move_around_count == 1:
-        move_left_click(139, 403)
+        move_left_click(536, 279)
         move_around_count = 2
     elif move_around_count == 2:
-        move_left_click(196, 343)
+        move_left_click(261, 504)
         move_around_count = 3
     else:
-        move_left_click(197, 397)
+        move_left_click(521, 482)
         move_around_count = 1
     tab()
     time.sleep(1)
@@ -105,7 +105,7 @@ def task():
                     move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
                     info("攻击/施法")
                     alt_q()
-                    alt_d()
+                    alt_q()
 
 
 if __name__ == '__main__':

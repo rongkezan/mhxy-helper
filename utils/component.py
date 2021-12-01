@@ -61,6 +61,7 @@ class Mission:
         self.content_shape = (397, 263, 592, 494)
         self.title_shape = (341, 180, 483, 196)
         self.title_path = os.path.join(c.flag_dir, "mission_title.png")
+        self.title_temp_path = os.path.join(c.temp_dir, "mission_title.png")
         self.content_path = os.path.join(c.temp_dir, "mission_content.png")
         self.red = [1, 1, 255]
 
@@ -106,9 +107,10 @@ class Mission:
         """
         任务栏是否打开
         """
-        _, score = game_template_match(self.title_path)
-        info("任务栏打开标识分数:", score)
-        return score >= 5
+        game_shot(self.title_shape, self.title_temp_path)
+        score = compare_image(self.title_path, self.title_temp_path)
+        print(score)
+        return score > 0.99
 
 
 class Map:
@@ -173,8 +175,8 @@ class Map:
         self.__open_map_click()
 
     def click_jyc(self, x, y):
-        self.move_x = 127 + x * 2
-        self.move_y = 502 - y * 2
+        self.move_x = 127 + round(x * 556 / 287)
+        self.move_y = 502 - round(y * 277 / 143)
         self.__open_map_click()
 
     def click_csc(self, x, y):

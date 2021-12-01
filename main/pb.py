@@ -111,10 +111,10 @@ def b_move(x, y, sleep=0, log=None):
     """
     if log is not None:
         info(log)
-    b_move(x, y)
+    move_left_click(x, y)
     time.sleep(sleep)
     if meet_robber():
-        b_move(x, y)
+        move_left_click(x, y)
 
 
 def release_cargo(npc_name):
@@ -174,13 +174,13 @@ def ca_to_dhw():
     """
     while not is_place("江南野外"):
         b_move_map("cac", 545, 10, log="长安 -> 江南野外")
-        b_move(0, 0, log="进入江南野外")
+        b_move(700, 621, log="进入江南野外")
     while not is_place("建邺城"):
-        b_move_map("jnyw", 135, 56, log="江南野外 -> 建邺城")
-        b_move(0, 0, log="进入建邺城")
+        b_move_map("jnyw", 152, 55, log="江南野外 -> 建邺城")
+        b_move(701, 278, log="进入建邺城")
     while not is_place("东海湾"):
-        b_move_map("jyc", 274, 32, log="建邺城 -> 东海湾")
-        b_move(0, 0, log="进入东海湾")
+        b_move_map("jyc", 274, 34, log="建邺城 -> 东海湾")
+        b_move(573, 397, log="进入东海湾")
 
 
 def qf():
