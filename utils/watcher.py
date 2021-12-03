@@ -35,7 +35,7 @@ def is_fight():
 def is_ready_fight():
     path = os.path.join(c.flag_dir, "fight_tool.png")
     _, score = game_template_match(path)
-    return score >= 5
+    return score >= 3
 
 
 def is_popup():
@@ -44,7 +44,7 @@ def is_popup():
     for popup in c.flag_popup:
         shape, score = game_template_match(popup)
         # info("4小人模板识别模板, ", popup, "，分数：", score)
-        if score >= 5:
+        if score >= 3:
             sub_shape = (
                 shape[0] + offset_shape[i][0],
                 shape[1] + offset_shape[i][1],
@@ -61,7 +61,7 @@ def is_auto_fight():
     path = os.path.join(c.flag_dir, 'fight_auto.png')
     shape, score = game_template_match(path)
     info("自动状态标识标识模板匹配分数:", score)
-    return score >= 4
+    return score >= 3
 
 
 def is_need_heal():

@@ -34,13 +34,13 @@ class Bag:
         _, score = template_match(item_path, self.bag_content_path)
         if self.__is_bag_open():
             alt_e()
-        if score >= 4:
+        if score >= 3:
             return True
         return False
 
     def __init_bag(self):
         shape, score = game_template_match(self.bag_title_path)
-        if score >= 5:
+        if score >= 3:
             offset = (25, 217)
             self.x0 = shape[0] + offset[0]
             self.y0 = shape[1] + offset[1]
@@ -49,7 +49,7 @@ class Bag:
 
     def __is_bag_open(self):
         _, score = game_template_match(self.bag_title_path)
-        return score >= 5
+        return score >= 3
 
     def __shot_bag(self):
         # TODO 背包的Shape
@@ -294,4 +294,4 @@ class Map:
     def __is_map_open(self):
         _, score = game_template_match(self.map_open_flag)
         info("地图打开标识模板匹配分数:", score)
-        return score >= 5
+        return score >= 3

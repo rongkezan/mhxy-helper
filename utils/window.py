@@ -30,21 +30,18 @@ def get_rect():
 def template_match(template_path, img_path):
     img = cv.imread(img_path, 0)
     template = cv.imread(template_path, 0)
-    w, h = template.shape[::-1]
-    methods = ['cv.TM_CCOEFF', 'cv.TM_CCOEFF_NORMED', 'cv.TM_CCORR',
-               'cv.TM_CCORR_NORMED', 'cv.TM_SQDIFF', 'cv.TM_SQDIFF_NORMED']
+    weight, height = template.shape[::-1]
+    methods = [cv.TM_CCOEFF_NORMED, cv.TM_CCORR_NORMED, cv.TM_SQDIFF_NORMED]
     shape_dict = {}
-    for meth in methods:
-        method = eval(meth)
+    for method in methods:
         # Apply template Matching
         res = cv.matchTemplate(img, template, method)
         min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
-        if method in [cv.TM_SQDIFF, cv.TM_SQDIFF_NORMED]:
+        if method == cv.TM_SQDIFF_NORMED:
             top_left = min_loc
         else:
             top_left = max_loc
-        bottom_right = (top_left[0] + w, top_left[1] + h)
-        shape = (top_left[0], top_left[1], bottom_right[0], bottom_right[1])
+        shape = (top_left[0], top_left[1], top_left[0] + weight, top_left[1] + height)
         if shape_dict.get(shape) is None:
             shape_dict[shape] = 1
         else:
@@ -95,7 +92,7 @@ def game_template_match(path):
 def find_xy_in_game(template_path):
     shape, score = game_template_match(template_path)
     info("模板匹配相似度分数:", score)
-    if score >= 5:
+    if score >= 3:
         x = (shape[0] + shape[2]) // 2
         y = (shape[1] + shape[3]) // 2
         return x, y

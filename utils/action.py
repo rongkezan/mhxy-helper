@@ -67,7 +67,7 @@ def move(x, y):
 def find_mouse_desktop():
     shot()
     shape, score = template_match(c.flag_mouse, c.temp_game)
-    if score >= 4:
+    if score >= 3:
         x = rect[0] + shape[0] - 9
         y = rect[1] + shape[1] - 9
         return x, y
