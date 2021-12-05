@@ -63,9 +63,9 @@ def find_npc_yz():
 
 
 def get_mission():
-    bag.right_click(5, 1)  # 点击导标旗
+    bag.right_click(1, 2)  # 点击导标旗
     move_left_click(647, 342)  # 导标旗点击镖局
-    move_left_click(484, 280)  # 进入镖局
+    move_left_click(530, 238)  # 进入镖局
     move_left_click(688, 303)  # 走向镖头
     time.sleep(5)
     find_npc([os.path.join(c.flag_ch_dir, "bt.png")], "镖头")

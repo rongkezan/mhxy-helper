@@ -21,7 +21,7 @@ def load_driver():
 
 def left_click():
     driver.DD_btn(1)
-    time.sleep(0.1)
+    time.sleep(0.01)
     driver.DD_btn(2)
 
 
@@ -107,7 +107,7 @@ def alt_q():
 
 def alt_a():
     keyboard2(604, 401)
-    time.sleep(0.1)
+    time.sleep(0.01)
 
 
 def alt_e():

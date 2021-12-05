@@ -30,18 +30,21 @@ def get_rect():
 def template_match(template_path, img_path):
     img = cv.imread(img_path, 0)
     template = cv.imread(template_path, 0)
-    weight, height = template.shape[::-1]
-    methods = [cv.TM_CCOEFF_NORMED, cv.TM_CCORR_NORMED, cv.TM_SQDIFF_NORMED]
+    w, h = template.shape[::-1]
+    methods = ['cv.TM_CCOEFF', 'cv.TM_CCOEFF_NORMED', 'cv.TM_CCORR',
+               'cv.TM_CCORR_NORMED', 'cv.TM_SQDIFF', 'cv.TM_SQDIFF_NORMED']
     shape_dict = {}
-    for method in methods:
+    for meth in methods:
+        method = eval(meth)
         # Apply template Matching
         res = cv.matchTemplate(img, template, method)
         min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
-        if method == cv.TM_SQDIFF_NORMED:
+        if method in [cv.TM_SQDIFF, cv.TM_SQDIFF_NORMED]:
             top_left = min_loc
         else:
             top_left = max_loc
-        shape = (top_left[0], top_left[1], top_left[0] + weight, top_left[1] + height)
+        bottom_right = (top_left[0] + w, top_left[1] + h)
+        shape = (top_left[0], top_left[1], bottom_right[0], bottom_right[1])
         if shape_dict.get(shape) is None:
             shape_dict[shape] = 1
         else:

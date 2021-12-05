@@ -5,7 +5,7 @@ from utils.log import *
 
 def is_not_same_crop4():
     # 得到最新的一张保存的四小人截图
-    files = os.listdir(c.data_dir)
+    files = os.listdir(c.data_crop_dir)
     recent_file = None
     for file in files:
         if recent_file is None:
@@ -15,7 +15,7 @@ def is_not_same_crop4():
     if recent_file is None:
         return True
     # 确认刚截的图不是已经保存过的
-    score = compare_image(os.path.join(c.data_dir, recent_file), c.temp_popup)
+    score = compare_image(os.path.join(c.data_crop_dir, recent_file), c.temp_popup)
     if score > 0.8:
         print("弹框已保存过，Score:", score)
         return False
@@ -39,17 +39,17 @@ def is_ready_fight():
 
 
 def is_popup():
-    offset_shape = [(-107, 28, 97, 130), (-86, 28, 174, 130)]
+    offset_shape = [(-107, 28, 97, 130), (-46, 29, 174, 130)]
     i = 0
     for popup in c.flag_popup:
         shape, score = game_template_match(popup)
-        # info("4小人模板识别模板, ", popup, "，分数：", score)
+        info("4小人模板识别模板, ", popup, "，分数：", score, shape)
         if score >= 3:
             sub_shape = (
                 shape[0] + offset_shape[i][0],
                 shape[1] + offset_shape[i][1],
-                shape[2] + offset_shape[i][2],
-                shape[3] + offset_shape[i][3]
+                shape[0] + offset_shape[i][0] + 360,
+                shape[1] + offset_shape[i][1] + 120
             )
             game_shot(sub_shape, c.temp_popup)
             return True
@@ -126,7 +126,10 @@ def __shot_tab():
 
 
 if __name__ == '__main__':
-    for bb in c.flag_bb:
-        print(bb)
-        res = find_xy_in_game(bb)
-        print(res)
+    Image.open(c.temp_game).crop((350, 207, 450, 227)).save("../resources/img/data/test.png")
+    for popup in c.flag_popup:
+        score = compare_image("../resources/img/data/test.png", popup)
+        print(score)
+    # while True:
+    #     time.sleep(1)
+    #     print(is_popup())

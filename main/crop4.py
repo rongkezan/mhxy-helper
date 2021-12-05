@@ -10,5 +10,5 @@ def task():
 if __name__ == '__main__':
     while True:
         info("图像收集程序运行中")
-        time.sleep(3)
+        time.sleep(1)
         task()
