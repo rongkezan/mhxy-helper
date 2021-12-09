@@ -31,11 +31,9 @@ def template_match(template_path, img_path):
     img = cv.imread(img_path, 0)
     template = cv.imread(template_path, 0)
     w, h = template.shape[::-1]
-    methods = ['cv.TM_CCOEFF', 'cv.TM_CCOEFF_NORMED', 'cv.TM_CCORR',
-               'cv.TM_CCORR_NORMED', 'cv.TM_SQDIFF', 'cv.TM_SQDIFF_NORMED']
+    methods = [cv.TM_CCOEFF, cv.TM_CCOEFF_NORMED, cv.TM_CCORR, cv.TM_CCORR_NORMED, cv.TM_SQDIFF, cv.TM_SQDIFF_NORMED]
     shape_dict = {}
-    for meth in methods:
-        method = eval(meth)
+    for method in methods:
         # Apply template Matching
         res = cv.matchTemplate(img, template, method)
         min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
