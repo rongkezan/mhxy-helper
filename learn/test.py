@@ -5,7 +5,7 @@ from torchvision import transforms
 
 
 def recognize():
-    path = "resources/img/temp_crop/"
+    path = "temp/"
     files = os.listdir(path)
     n = 0
     for file in files:
@@ -27,8 +27,8 @@ def recognize():
         result = class_names[index]
         print('index:', index, 'predicted:', result, ', percentage:', percentage)
         position = [(310, 340), (430, 340), (550, 340), (670, 340)]
-        if index == 0:
-            return position[n]
+        # if index == 0:
+        #     return position[n]
         n += 1
     return -1
 
