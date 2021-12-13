@@ -36,20 +36,19 @@ def crop(source_dir, target_dir):
         uid = str(uuid.uuid1())
         for i in range(4):
             img_crop = img.crop((i * 90, img.size[1] - 120, (i + 1) * 90, img.size[1]))
-            img_crop.save(target_dir + uid + "-" + str(i + 1) + ".jpg")
+            img_crop.save(target_dir + uid + "-" + str(i + 1) + ".png")
 
 
 def rename():
-    path = "dataset/val/front"
+    path = "../dataset/val/front/"
     files = os.listdir(path)
-    n = 0
     for i in files:
-        old_name = path + os.sep + files[n]
-        new_name = path + os.sep + 'f-' + str(n + 1) + '.jpg'
+        print(i.replace('jpg', 'png'))
+        old_name = path + i
+        new_name = path + i.replace('jpg', 'png')
         os.rename(old_name, new_name)
-        print(old_name, '======>', new_name)
-        n += 1
 
 
 if __name__ == '__main__':
-    crop("../dataset/rawUnused/", "dataset/rawCrop/")
+    # rename()
+    crop("../dataset/rawUnused/", "../dataset/rawCrop/")

@@ -44,7 +44,7 @@ def is_popup():
     for popup in c.flag_popup:
         shape, score = game_template_match(popup)
         info("4小人模板识别模板, ", popup, "，分数：", score, shape)
-        if score >= 3:
+        if score >= 5:
             sub_shape = (
                 shape[0] + offset_shape[i][0],
                 shape[1] + offset_shape[i][1],
