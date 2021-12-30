@@ -1,6 +1,4 @@
 from utils.action import *
-from utils.watcher import *
-from utils.txt import *
 
 
 class Bag:
@@ -118,56 +116,6 @@ class Map:
         self.map_open_flag = os.path.join(c.flag_dir, "map_open.png")
         self.move_x = 0
         self.move_y = 0
-
-    def click(self, place, x, y):
-        if place == "cac":
-            self.click_cac(x, y)
-        elif place == "jyc":
-            self.click_jyc(x, y)
-        elif place == "csc":
-            self.click_csc(x, y)
-        elif place == "alg":
-            self.click_alg(x, y)
-        elif place == "xlng":
-            self.click_xlng(x, y)
-        elif place == "zzg":
-            self.click_zzg(x, y)
-        elif place == "bxg":
-            self.click_bxg(x, y)
-        elif place == "dtgj":
-            self.click_dtgj(x, y)
-        elif place == "dtjw":
-            self.click_dtjw(x, y)
-        elif place == "jnyw":
-            self.click_jnyw(x, y)
-        elif place == "csjw":
-            self.click_csjw(x, y)
-        elif place == "bjlz":
-            self.click_bjlz(x, y)
-        elif place == "hgs":
-            self.click_hgs(x, y)
-        elif place == "dhw":
-            self.click_dhw(x, y)
-        elif place == "qls":
-            self.click_qls(x, y)
-        elif place == "df":
-            self.click_df(x, y)
-        elif place == "stl":
-            self.click_stl(x, y)
-        elif place == "mwz":
-            self.click_mwz(x, y)
-        elif place == "fcs":
-            self.click_fcs(x, y)
-        elif place == "hss":
-            self.click_hss(x, y)
-        elif place == "dtgf":
-            self.click_dtgf(x, y)
-        elif place == "lg":
-            self.click_lg(x, y)
-        elif place == "nec":
-            self.click_nec(x, y)
-        else:
-            error("未找到地点:", place)
 
     def click_cac(self, x, y):
         self.move_x = 133 + x

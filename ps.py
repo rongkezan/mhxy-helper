@@ -1,7 +1,6 @@
+from utils.mouse import *
 from utils.action import *
-from utils.watcher import *
 from utils.component import Bag, Map, Mission
-from utils.txt import *
 import re
 
 bag = Bag()
@@ -103,7 +102,7 @@ def find_npc(paths, npc_name="npc"):
     根据npc图片寻找npc
     paths: npc图片列表
     """
-    hide_all()
+    do_hide()
     while True:
         time.sleep(0.1)
         info("寻找" + npc_name + "中...")
@@ -122,7 +121,7 @@ def find_npc(paths, npc_name="npc"):
         else:
             info("未找到" + npc_name + "，继续寻找")
             time.sleep(5)
-            hide_all()
+            do_hide()
 
 
 def find_npc_yz():

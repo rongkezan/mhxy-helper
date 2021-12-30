@@ -1,9 +1,4 @@
-# from utils.mission import Mission
-# from utils.map import *
-# from utils.game_watcher import *
-# from utils.game_action import *
-# from utils.bag import Bag
-from utils.txt import *
+from utils.action import *
 import re
 
 places1 = [("jy", "建邺", 1000, 1000),
