@@ -76,7 +76,7 @@ def is_need_heal():
 
 def is_leader():
     __shot_tab()
-    img = cv.imread(c.temp_ch_dict['ch1'][1])
+    img = cv.imread(c.temp_tabs[0].path)
     return (img[10][115] == [221, 221, 221]).all()
 
 
@@ -85,10 +85,10 @@ def is_notify():
     是否有通知(Tab变红)
     """
     __shot_tab()
-    for k in c.temp_ch_dict:
-        img = cv.imread(c.temp_ch_dict[k][1])
+    for t in c.temp_tabs:
+        img = cv.imread(t.path)
         if (img[10][115] == [149, 203, 253]).all():
-            return c.temp_ch_dict[k][2]
+            return t.position
     return False
 
 
@@ -117,19 +117,6 @@ def __shot_tab():
     """
     人物标签截图
     """
-    game_shot((20, 33, 780, 53), c.temp_ch)
-    Image.open(c.temp_ch).crop(c.temp_ch_dict['ch1'][0]).save(c.temp_ch_dict['ch1'][1])
-    Image.open(c.temp_ch).crop(c.temp_ch_dict['ch2'][0]).save(c.temp_ch_dict['ch2'][1])
-    Image.open(c.temp_ch).crop(c.temp_ch_dict['ch3'][0]).save(c.temp_ch_dict['ch3'][1])
-    Image.open(c.temp_ch).crop(c.temp_ch_dict['ch4'][0]).save(c.temp_ch_dict['ch4'][1])
-    Image.open(c.temp_ch).crop(c.temp_ch_dict['ch5'][0]).save(c.temp_ch_dict['ch5'][1])
-
-
-if __name__ == '__main__':
-    Image.open(c.temp_game).crop((350, 207, 450, 227)).save("../resources/img/data/test.png")
-    for popup in c.flag_popup:
-        score = compare_image("../resources/img/data/test.png", popup)
-        print(score)
-    # while True:
-    #     time.sleep(1)
-    #     print(is_popup())
+    game_shot((20, 33, 780, 53), c.temp_tab_group)
+    for t in c.temp_tabs:
+        Image.open(c.temp_tab_group).crop(t.shape).save(t.path)

@@ -1,4 +1,4 @@
-from main.pb import *
+from pb import *
 
 
 if __name__ == '__main__':

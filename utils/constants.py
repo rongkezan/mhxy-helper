@@ -1,7 +1,7 @@
 import os
 
 # 目录
-base_dir = "../resources/"
+base_dir = "resources/"
 flag_dir = base_dir + "img/flag/"
 temp_dir = base_dir + "img/temp/"
 data_dir = base_dir + "img/data/"
@@ -25,14 +25,23 @@ temp_popup = os.path.join(temp_dir, 'popup.png')
 temp_crop4 = [os.path.join(temp_crop_dir, name) for name in ['1.png', '2.png', '3.png', '4.png']]
 temp_place1 = os.path.join(temp_dir, "place1.png")
 temp_place2 = os.path.join(temp_dir, "place2.png")
-temp_ch = os.path.join(temp_ch_dir, "ch.png")
-temp_ch_dict = {
-    'ch1': ((0, 0, 145, 20), os.path.join(temp_ch_dir, 'ch1.png'), (80, 40)),
-    'ch2': ((154, 0, 299, 20), os.path.join(temp_ch_dir, 'ch2.png'), (234, 40)),
-    'ch3': ((308, 0, 453, 20), os.path.join(temp_ch_dir, 'ch3.png'), (388, 40)),
-    'ch4': ((462, 0, 607, 20), os.path.join(temp_ch_dir, 'ch4.png'), (542, 40)),
-    'ch5': ((615, 0, 760, 20), os.path.join(temp_ch_dir, 'ch5.png'), (696, 40))
-}
+temp_tab_group = os.path.join(temp_ch_dir, "ch.png")
+
+
+class Tab:
+    def __init__(self, shape, path, position):
+        self.shape = shape
+        self.path = path
+        self.position = position
+
+
+temp_tabs = [
+    Tab((0, 0, 145, 20), os.path.join(temp_ch_dir, 'ch1.png'), (80, 40)),
+    Tab((154, 0, 299, 20), os.path.join(temp_ch_dir, 'ch2.png'), (234, 40)),
+    Tab((308, 0, 453, 20), os.path.join(temp_ch_dir, 'ch3.png'), (388, 40)),
+    Tab((462, 0, 607, 20), os.path.join(temp_ch_dir, 'ch4.png'), (542, 40)),
+    Tab((615, 0, 760, 20), os.path.join(temp_ch_dir, 'ch5.png'), (696, 40)),
+]
 
 # DD 驱动
 dd_dll_path = os.path.abspath(base_dir + 'DD94687.64.dll')

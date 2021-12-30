@@ -88,7 +88,7 @@ def move_left_click(x, y, direct=False):
     else:
         move(x, y)
     left_click()
-    time.sleep(0.5)
+    time.sleep(0.2)
 
 
 def move_right_click(x, y, direct=False):
@@ -144,3 +144,30 @@ def f9():
 def f6():
     keyboard(106)
     time.sleep(0.1)
+
+
+def do_heal():
+    f6()
+    move_left_click(194, 452)
+
+
+def do_fight5(action1="q", action2="q"):
+    """
+    action1: 人物操作 q-施法 a-攻击 d-防御
+    action2: 宠物操作 q-施法 a-攻击 d-防御
+    """
+    for t in c.temp_tabs:
+        move_left_click(t.position[0], t.position[1], True)
+        info("攻击/施法")
+        if action1 == "q":
+            alt_q()
+        elif action1 == "a":
+            alt_a()
+        elif action1 == "d":
+            alt_d()
+        if action2 == "q":
+            alt_q()
+        elif action2 == "a":
+            alt_a()
+        elif action2 == "d":
+            alt_d()

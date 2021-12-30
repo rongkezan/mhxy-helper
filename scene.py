@@ -45,16 +45,15 @@ def task():
             if heal_flag % 4 == 0:
                 heal_flag += 1
                 info("3轮战斗定期检查人物血蓝")
-                for k in c.temp_ch_dict:
-                    move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
+                for t in c.temp_tabs:
+                    move_left_click(t.position[0], t.position[1], True)
                     if is_need_heal():
-                        f6()
-                        move_left_click(194, 452)
+                        do_heal()
 
             info("非战斗状态，晃悠晃悠")
             while not is_leader():
                 info("选择队长")
-                move_left_click(c.temp_ch_dict['ch1'][2][0], c.temp_ch_dict['ch1'][2][1], True)
+                move_left_click(c.temp_tabs[0].position[0], c.temp_tabs[0].position[1], True)
             move_around()
 
         shot_popup_flag = 0
@@ -88,24 +87,10 @@ def task():
                 info("截取怪物图片")
                 shot_monster_flag = 1
                 save_monster()
-                # for bb in c.flag_bb:
-                #     res = find_xy_in_game(bb)
-                #     if res is not None:
-                #         x, y = res[0], res[1]
-                #         for k in c.temp_ch_dict:
-                #             move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
-                #             info("发现目标召唤兽，进行捕捉:", bb)
-                #             alt_g()
-                #             move_left_click(x, y)
-                #             alt_d()
 
             # 攻击施法
             if is_ready_fight():
-                for k in c.temp_ch_dict:
-                    move_left_click(c.temp_ch_dict[k][2][0], c.temp_ch_dict[k][2][1], True)
-                    info("攻击/施法")
-                    alt_q()
-                    alt_q()
+                do_fight5("q", "d")
 
 
 if __name__ == '__main__':
