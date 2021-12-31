@@ -130,6 +130,30 @@ def is_arrived():
             return True
 
 
+def do_find_npc(npc):
+    name, paths = npc[0], npc[1]
+    do_hide()
+    while True:
+        time.sleep(0.1)
+        info("寻找" + name + "中...")
+        found = False
+        for path in paths:
+            result = find_xy_in_game(path)
+            if result is not None:
+                found = True
+                x, y = result[0], result[1]
+                info("找到" + name + "，位置:", x, y)
+                move_left_click(x, y)
+                break
+        if found:
+            info("已找到" + name + "，退出寻找")
+            break
+        else:
+            info("未找到" + name + "，继续寻找")
+            time.sleep(5)
+            do_hide()
+
+
 def do_hide():
     info("隐藏人物和摊位")
     f9()
