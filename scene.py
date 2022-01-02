@@ -2,7 +2,7 @@
 场景
 """
 import shutil
-from utils.verify import *
+from verify import *
 from utils.action import *
 from utils.mouse import *
 
@@ -41,7 +41,7 @@ def move_around():
 
 def handle_popup():
     popup_result = is_popup()
-    if popup_result:
+    if popup_result is not None:
         save_crop4()
         verify_result = verify()
         if verify_result != -1:
@@ -90,9 +90,9 @@ def task():
                 else:
                     break
 
-        # 攻击施法
-        if is_ready_fight():
-            do_fight5(alt_q, alt_d)
+            # 攻击施法
+            if is_ready_fight():
+                do_fight5(alt_q, alt_d)
 
 
 if __name__ == '__main__':

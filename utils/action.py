@@ -82,7 +82,7 @@ def is_popup():
             game_shot(sub_shape, c.temp_popup)
             return shape[0], shape[1]
         i += 1
-    return False
+    return None
 
 
 def is_auto_fight():
