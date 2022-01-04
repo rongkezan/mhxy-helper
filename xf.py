@@ -23,6 +23,68 @@ def click_banner(n, x, y, log):
     move_left_click(x, y)
 
 
+def deliver_letters(text):
+    school = appear_school(text)
+    if school is None:
+        error("未识别到地点:", text)
+        sys.exit()
+    if school == SCHOOL.DT.value:
+        click_banner(1, 0, 0, "大唐官府")
+        mission.click_mission()
+    elif school == SCHOOL.HS.value:
+        click_banner(1, 0, 0, "化生寺")
+        mission.click_mission()
+    elif school == SCHOOL.NE.value:
+        click_banner(4, 0, 0, "女儿")
+        do_find_npc(NPC.ALG_DHW)
+        mission.click_mission()
+    elif school == SCHOOL.PT.value:
+        click_banner(1, 0, 0, "普陀山")
+        mission.click_mission()
+    elif school == SCHOOL.LG.value:
+        click_banner(4, 0, 0, "龙宫")
+        do_find_npc(NPC.ALG_DHW)
+        mission.click_mission()
+    elif school == SCHOOL.DF.value:
+        click_banner(1, 0, 0, "阴曹地府")
+        do_find_npc(NPC.YZ)
+        mission.click_mission()
+
+
+def target_fight_mission(text):
+    place = appear_city(text)
+    if place is None:
+        error("未识别到地点:", text)
+        sys.exit()
+    info("识别到地点:", place)
+    if place == CITY.JY.value:
+        click_fxf(0, 0, "建邺城")
+        mission.click_mission()
+    elif place == CITY.CS.value:
+        click_fxf(0, 0, "长寿村")
+        mission.click_mission()
+    elif place == CITY.AL.value:
+        click_fxf(0, 0, "傲来国")
+        mission.click_mission()
+    elif place == CITY.ZZ.value:
+        click_fxf(0, 0, "朱紫国")
+        mission.click_mission()
+    elif place == CITY.BX.value:
+        click_fxf(0, 0, "宝象国")
+        mission.click_mission()
+    elif place == CITY.XL.value:
+        click_fxf(0, 0, "西凉女国")
+        mission.click_mission()
+    elif place == CITY.HW.value:
+        click_fxf(0, 0, "东海湾")
+        mission.click_mission()
+    elif place == CITY.YW.value:
+        click_fxf(0, 0, "江南野外")
+    elif place == CITY.CSJW.value:
+        click_fxf(0, 0, "长寿郊外")
+        mission.click_mission()
+
+
 if __name__ == '__main__':
     info("点击导标旗")
     bag.right_click(2, 5)
@@ -53,45 +115,6 @@ if __name__ == '__main__':
         if is_fight():
             do_fight5()
     elif text.__contains__("送信"):
-        place = appear_place(text)
-        if place is None:
-            error("未识别到地点:", text)
-            sys.exit()
-        if place == PLACE.DT.value:
-            click_banner(1, 0, 0, "大唐官府")
-        elif place == PLACE.HS.value:
-            click_banner(1, 0, 0, "化生寺")
-        elif place == PLACE.PT.value:
-            click_banner(1, 0, 0, "普陀山")
-        elif place == PLACE.DF.value:
-            click_banner(1, 0, 0, "阴曹地府")
-            do_find_npc(NPC.YZ)
-        elif place == PLACE.LG.value:
-            click_banner(4, 0, 0, "龙宫")
-            do_find_npc(NPC.ALG_DHW)
-        elif place == PLACE.NE.value:
-            click_banner(4, 0, 0, "女儿")
-            do_find_npc(NPC.ALG_DHW)
-
-    place = appear_place(text)
-    if place is None:
-        error("未识别到地点:", text)
-        sys.exit()
-    info("识别到地点:", place)
-    if place == PLACE.JY.value:
-        click_fxf(0, 0, "建邺城")
-        mission.click_mission()
-    elif place == PLACE.CS.value:
-        click_fxf(0, 0, "长寿村")
-        mission.click_mission()
-    elif place == PLACE.AL.value:
-        click_fxf(0, 0, "傲来国")
-        mission.click_mission()
-    elif place == PLACE.ZZ.value:
-        click_fxf(0, 0, "朱紫国")
-        mission.click_mission()
-    elif place == PLACE.BX.value:
-        click_fxf(0, 0, "宝象国")
-        mission.click_mission()
-    elif place == PLACE.XL.value:
-        click_fxf(0, 0, "西凉女国")
+        deliver_letters(text)
+    else:
+        target_fight_mission(text)
