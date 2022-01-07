@@ -62,17 +62,46 @@ qz = [0.0, 3.3077, 7.1154, 11.5, 16.5385, 22.3077, 28.8846, 36.3462, 44.7692, 54
 zq = [0.0, 2.3385, 5.4154, 9.6615, 24.7692, 37.6923, 55.9385, 81.1692, 115.2, 199.3231]
 
 # 人修宠修全满 师门技能满 强壮神速满 坐骑满成长
-cost109 = bb_xl[17] * 4 + gf_xl[17] + kx_xl[17] * 2 + sm[119] * 7 + qyd[3]
-cost129_1 = bb_xl[17] * 4 + gf_sx[1] + gf_xl[21] + kx_sx[1] * 2 + kx_xl[21] * 2 + sm[150] * 3 + sm[130] * 4 + qyd[4]
-cost129_2 = bb_xl[17] * 4 + gf_sx[1] + gf_xl[21] + kx_sx[1] * 2 + kx_xl[21] * 2 + sm[150] * 5 + sm[130] * 2 + qyd[4]
-cost159 = bb_xl[17] * 4 + gf_sx[5] + gf_xl[25] + kx_sx[5] * 2 + kx_xl[25] * 2 + sm[150] * 5 + sm[130] * 2 + qyd[6]
-cost175_1 = bb_xl[17] * 4 + gf_sx[5] + gf_xl[25] + kx_sx[5] * 2 + kx_xl[25] * 2 + sm[150] * 7 + qyd[9]
-cost175_2 = bb_xl[17] * 4 + gf_sx[5] + gf_xl[25] + kx_sx[5] * 2 + kx_xl[25] * 2 + sm[180] * 2 + sm[150] * 5 + qyd[9]
+cost109 = round(
+    + bb_xl[17] * 4
+    + gf_xl[17]
+    + kx_xl[17] * 2
+    + sm[119] * 7
+    + qyd[3], 4
+)
+cost129 = round(
+    + bb_xl[17] * 4
+    + gf_xl[21] + gf_sx[1]
+    + (kx_xl[21] + kx_sx[1]) * 2
+    + sm[150] * 5 + sm[130] * 2
+    + qyd[4], 4
+)
+cost159 = round(
+    + bb_xl[17] * 4
+    + gf_sx[5] + gf_xl[25]
+    + (kx_sx[5] + kx_xl[25]) * 2
+    + sm[150] * 5 + sm[130] * 2
+    + qyd[6], 4
+)
+cost175_1 = round(
+    + bb_xl[17] * 4
+    + gf_xl[25] + gf_sx[5]
+    + (kx_xl[25] + kx_sx[5]) * 2
+    + sm[150] * 7
+    + qyd[9], 4
+)
+cost175_2 = round(
+    + bb_xl[17] * 4
+    + gf_xl[25] + gf_sx[5]
+    + (kx_xl[25] + kx_sx[5]) * 2
+    + sm[180] * 2 + sm[150] * 5
+    + qyd[9], 4
+)
 
 # a 所有类型角色
 # b 无底洞 地府 女儿村 普陀 (仙族女 人族女 魔族 转门派花费也已包含)
-price109 = 3500
-price129_1 = 6000
+price109_a = 3500
+price109_b = 4200
 price129_2_a = 5700
 price129_2_b = 6800
 price159a = 7900
@@ -82,13 +111,13 @@ price175_1_b = 10000
 price175_2_a = 11500
 price175_2_b = 11500
 
-print("109\t\t", round(price109 / cost109, 4), "\t", round(cost109), "\t", price109)
-print("1291\t", round(price129_1 / cost129_1, 4), "\t", round(cost129_1), "\t", price129_1)
-print("1292a\t", round(price129_2_a / cost129_2, 4), "\t", round(cost129_2), "\t", price129_2_a)
-print("1292b\t", round(price129_2_b / cost129_2, 4), "\t", round(cost129_2), "\t", price129_2_b)
-print("159a\t", round(price159a / cost159, 4), "\t", round(cost159), "\t", price159a)
-print("159b\t", round(price159b / cost159, 4), "\t", round(cost159), "\t", price159b)
-print("1751a\t", round(price175_1_a / cost175_1, 4), "\t", round(cost175_1), "\t", price175_1_a)
-print("1751b\t", round(price175_1_b / cost175_1, 4), "\t", round(cost175_1), "\t", price175_1_b)
-print("1751a\t", round(price175_2_a / cost175_2, 4), "\t", round(cost175_2), "\t", price175_2_a)
-print("1751b\t", round(price175_2_b / cost175_2, 4), "\t", round(cost175_2), "\t", price175_2_b)
+print("109\t\t", price109_a / cost109, "\t", cost109, "\t\t", price109_a)
+print("109\t\t", price109_b / cost109, "\t", cost109, "\t\t", price109_b)
+print("129a\t", price129_2_a / cost129, "\t", cost129, "\t\t", price129_2_a, "\t", price129_2_a - price109_a - cost129 + cost109)
+print("129b\t", price129_2_b / cost129, "\t", cost129, "\t\t", price129_2_b, "\t", price129_2_b - price109_b - cost129 + cost109)
+print("159a\t", price159a / cost159, "\t", cost159, "\t", price159a, "\t", price159a - price109_a - cost159 + cost109)
+print("159b\t", price159b / cost159, "\t", cost159, "\t", price159b, "\t", price159b - price109_b - cost159 + cost109)
+print("1751a\t", price175_1_a / cost175_1, "\t", cost175_1, "\t", price175_1_a, "\t", price175_1_a - price109_a - cost175_1 + cost109)
+print("1751b\t", price175_1_b / cost175_1, "\t", cost175_1, "\t", price175_1_b, "\t", price175_1_b - price109_b - cost175_1 + cost109)
+print("1752a\t", price175_2_a / cost175_2, "\t", cost175_2, "\t", price175_2_a, "\t", price175_2_a - price109_a - cost175_2 + cost109)
+print("1752b\t", price175_2_b / cost175_2, "\t", cost175_2, "\t", price175_2_b, "\t", price175_2_b - price109_b - cost175_2 + cost109)
