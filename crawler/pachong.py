@@ -1,10 +1,10 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
-browser = webdriver.Chrome()
-
-browser.get("http://www.baidu.com")
-browser.find_element("kw").send_keys("selenium")
-#通过id = kw定位百度输入框，通过键盘方法send_keys()向输入框中输入selenium。
-browser.find_element("su").click()
-#通过id=su定位搜索按钮，并向按钮发送单击事件click()
-browser.quit()
+driver = webdriver.Chrome()
+driver.get("http://www.google.com")
+print(driver.title)
+search_box = driver.find_element(By.NAME, "q")
+print(search_box)
+search_button = driver.find_element(By.NAME, "btnK")
+print(search_button)
