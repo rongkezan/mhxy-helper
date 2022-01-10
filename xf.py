@@ -17,9 +17,9 @@ def click_fxf(x, y, log):
     move_left_click(x, y)
 
 
-def click_banner(n, x, y, log):
+def click_banner(bx, by, x, y, log):
     info("导标旗点击", log)
-    bag.right_click(1, n)
+    bag.right_click(bx, by)
     move_left_click(x, y)
 
 
@@ -29,24 +29,24 @@ def deliver_letters(text):
         error("未识别到地点:", text)
         sys.exit()
     if school == SCHOOL.DT.value:
-        click_banner(1, 0, 0, "大唐官府")
+        click_banner(1, 1, 0, 0, "大唐官府")
         mission.click_mission()
     elif school == SCHOOL.HS.value:
-        click_banner(1, 0, 0, "化生寺")
+        click_banner(1, 1, 0, 0, "化生寺")
         mission.click_mission()
     elif school == SCHOOL.NE.value:
-        click_banner(4, 0, 0, "女儿")
+        click_banner(1, 4, 0, 0, "女儿")
         do_find_npc(NPC.ALG_DHW)
         mission.click_mission()
     elif school == SCHOOL.PT.value:
-        click_banner(1, 0, 0, "普陀山")
+        click_banner(1, 1, 0, 0, "普陀山")
         mission.click_mission()
     elif school == SCHOOL.LG.value:
-        click_banner(4, 0, 0, "龙宫")
+        click_banner(1, 4, 0, 0, "龙宫")
         do_find_npc(NPC.ALG_DHW)
         mission.click_mission()
     elif school == SCHOOL.DF.value:
-        click_banner(1, 0, 0, "阴曹地府")
+        click_banner(1, 1, 0, 0, "阴曹地府")
         do_find_npc(NPC.YZ)
         mission.click_mission()
 
@@ -76,7 +76,7 @@ def target_fight_mission(text):
         click_fxf(0, 0, "西凉女国")
         mission.click_mission()
     elif place == CITY.HW.value:
-        click_fxf(0, 0, "东海湾")
+        click_banner(4, 3, 504, 466, "东海湾")
         mission.click_mission()
     elif place == CITY.YW.value:
         click_fxf(0, 0, "江南野外")
@@ -86,18 +86,20 @@ def target_fight_mission(text):
 
 
 if __name__ == '__main__':
-    info("点击导标旗")
-    bag.right_click(2, 5)
-    move_left_click(0, 0)
-    info("点击帮派传送人")
-    do_find_npc(NPC.CAC_BP)
-    move_left_click(0, 0)
-    info("点击帮派土地")
-    do_find_npc(NPC.BPTDGG)
-    move_left_click(0, 0)
-    info("点击玄武堂总管接任务")
-    do_find_npc(NPC.XWTZG)
-    move_left_click(0, 0)
+    load_driver()
+    # info("点击导标旗")
+    # bag.right_click(4, 4)
+    # move_left_click(517, 233)
+    # do_hide()
+    # info("点击帮派传送人")
+    # move_left_click(329, 222)
+    # move_left_click(212, 394)
+    # info("点击帮派车夫")
+    # move_left_click(307, 321)
+    # move_left_click(432, 417)
+    # info("点击玄武堂总管接任务")
+    # do_find_npc(NPC.CAC_BP.value)
+    # move_left_click(204, 396)
     info("查看任务")
     text = mission.read_mission()
     if text.__contains__("巡逻"):

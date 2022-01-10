@@ -83,6 +83,13 @@ cost159 = round(
     + sm[150] * 5 + sm[130] * 2
     + qyd[6], 4
 )
+cost159_2 = round(
+    + bb_xl[17] * 4
+    + gf_sx[5] + gf_xl[25]
+    + (kx_sx[5] + kx_xl[25]) * 2
+    + sm[164] * 3 + sm[150] * 2
+    + qyd[6], 4
+)
 cost175_1 = round(
     + bb_xl[17] * 4
     + gf_xl[25] + gf_sx[5]
@@ -97,6 +104,23 @@ cost175_2 = round(
     + sm[180] * 2 + sm[150] * 5
     + qyd[9], 4
 )
+cost175_t = round(
+    + bb_xl[10] * 4
+    + gf_xl[17] + gf_xl[10]
+    + (kx_xl[10]) * 2
+    + sm[170] * 1 + sm[155] * 5 + sm[165]
+    + qyd[9], 4
+)
+cost175_t2 = round(
+    + bb_xl[10] * 4
+    + gf_xl[20] + gf_xl[11]
+    + (kx_xl[18]) * 2
+    + sm[161] * 2 + sm[150] * 3 + sm[130] * 2
+    + qyd[9], 4
+)
+
+print(cost175_t, 5900 / cost175_t)
+print(cost175_t2, 5800 / cost175_t2)
 
 # a 所有类型角色
 # b 无底洞 地府 女儿村 普陀 (仙族女 人族女 魔族 转门派花费也已包含)
@@ -106,6 +130,8 @@ price129_2_a = 5700
 price129_2_b = 6800
 price159a = 7900
 price159b = 8800
+price1592a = 8600
+price1592b = 8800
 price175_1_a = 9000
 price175_1_b = 10000
 price175_2_a = 11500
@@ -117,6 +143,8 @@ print("129a\t", price129_2_a / cost129, "\t", cost129, "\t\t", price129_2_a, "\t
 print("129b\t", price129_2_b / cost129, "\t", cost129, "\t\t", price129_2_b, "\t", price129_2_b - price109_b - cost129 + cost109)
 print("159a\t", price159a / cost159, "\t", cost159, "\t", price159a, "\t", price159a - price109_a - cost159 + cost109)
 print("159b\t", price159b / cost159, "\t", cost159, "\t", price159b, "\t", price159b - price109_b - cost159 + cost109)
+print("1592a\t", price1592a / cost159_2, "\t", cost159_2, "\t", price1592a, "\t", price1592a - price109_a - cost159 + cost109)
+print("1592b\t", price1592b / cost159_2, "\t", cost159_2, "\t", price1592b, "\t", price1592b - price109_b - cost159 + cost109)
 print("1751a\t", price175_1_a / cost175_1, "\t", cost175_1, "\t", price175_1_a, "\t", price175_1_a - price109_a - cost175_1 + cost109)
 print("1751b\t", price175_1_b / cost175_1, "\t", cost175_1, "\t", price175_1_b, "\t", price175_1_b - price109_b - cost175_1 + cost109)
 print("1752a\t", price175_2_a / cost175_2, "\t", cost175_2, "\t", price175_2_a, "\t", price175_2_a - price109_a - cost175_2 + cost109)
