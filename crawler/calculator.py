@@ -97,6 +97,13 @@ cost175_2 = round(
     + sm[180] * 2 + sm[150] * 5
     + qyd[9], 4
 )
+cost175_3 = round(
+    + bb_xl[20] * 2 + bb_xl[10] * 2
+    + gf_xl[25] + gf_sx[5]
+    + (kx_xl[25] + kx_sx[5]) * 2
+    + sm[180] * 3 + sm[150] * 4
+    + qyd[9], 4
+)
 
 # a 所有类型角色
 # b 无底洞 地府 女儿村 普陀 (仙族女 人族女 魔族 转门派花费也已包含)
@@ -117,7 +124,7 @@ print("129a\t", price129_2_a / cost129, "\t", cost129, "\t\t", price129_2_a, "\t
 print("129b\t", price129_2_b / cost129, "\t", cost129, "\t\t", price129_2_b, "\t", price129_2_b - price109_b - cost129 + cost109)
 print("159a\t", price159a / cost159, "\t", cost159, "\t", price159a, "\t", price159a - price109_a - cost159 + cost109)
 print("159b\t", price159b / cost159, "\t", cost159, "\t", price159b, "\t", price159b - price109_b - cost159 + cost109)
-print("1751a\t", price175_1_a / cost175_1, "\t", cost175_1, "\t", price175_1_a, "\t", price175_1_a - price109_a - cost175_1 + cost109)
+print("1751a\t", price175_1_a / cost175_1, "\t", cost175_1, "\t", price175_1_a, "\t", price175_1_a - price109_a - cost175_1 + cost109, "\t", cost175_1 - cost109)
 print("1751b\t", price175_1_b / cost175_1, "\t", cost175_1, "\t", price175_1_b, "\t", price175_1_b - price109_b - cost175_1 + cost109)
-print("1752a\t", price175_2_a / cost175_2, "\t", cost175_2, "\t", price175_2_a, "\t", price175_2_a - price109_a - cost175_2 + cost109)
+print("1752a\t", price175_2_a / cost175_2, "\t", cost175_2, "\t", price175_2_a, "\t", price175_2_a - price109_a - cost175_2 + cost109, "\t", cost175_2 - cost109)
 print("1752b\t", price175_2_b / cost175_2, "\t", cost175_2, "\t", price175_2_b, "\t", price175_2_b - price109_b - cost175_2 + cost109)
