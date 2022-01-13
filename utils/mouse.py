@@ -129,8 +129,7 @@ def alt_g():
 
 
 def alt_h():
-    # TODO 键码
-    keyboard2(604, 405)
+    keyboard2(604, 406)
     time.sleep(0.1)
 
 

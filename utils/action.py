@@ -131,6 +131,7 @@ def is_arrived():
 
 
 def do_find_npc(npc):
+    print(npc)
     name, paths = npc[0], npc[1]
     do_hide()
     while True:

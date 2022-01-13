@@ -7,7 +7,7 @@ alg_dhw = [os.path.join(c.flag_ch_dir, name) for name in ['alg_dhw.png']]
 dtgj_pts = [os.path.join(c.flag_ch_dir, name) for name in ['dtgj_pts.png']]
 dtjw_csjw = [os.path.join(c.flag_ch_dir, name) for name in ['dtjw_csjw.png']]
 bjlz_cac = [os.path.join(c.flag_ch_dir, name) for name in ['bjlz_cac.png']]
-cac_bp = [os.path.join(c.flag_ch_dir, name) for name in ['cac_bp.png']]
+cac_bp = [os.path.join(c.flag_ch_dir, name) for name in ['xwtzg.png']]
 bptdgg = [os.path.join(c.flag_ch_dir, name) for name in ['bptdgg.png']]
 bpjgr = [os.path.join(c.flag_ch_dir, name) for name in ['bpjgr.png']]
 xwtzg = [os.path.join(c.flag_ch_dir, name) for name in ['xwtzg.png']]
@@ -25,3 +25,6 @@ class NPC(Enum):
     BPJGR = "帮派机关人", bpjgr
     BPZHS = "帮派召唤兽", bpzhs
     XWTZG = "玄武堂总管", xwtzg
+
+if __name__ == '__main__':
+    print(NPC.CAC_BP.value)
