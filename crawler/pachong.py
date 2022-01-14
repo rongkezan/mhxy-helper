@@ -1,4 +1,5 @@
 import time
+from crawler.calculator import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -39,7 +40,40 @@ for character in characters:
 
 url = urls[0]
 driver.get(url)
+# 价格
 price = driver.find_element(By.CLASS_NAME, "price").find_element(By.TAG_NAME, "span").get_attribute("innerHTML").split('￥')[1].split('（')[0]
 print(float(price))
-qyd = driver.find_element(By.TAG_NAME, "tbody").find_elements(By.TAG_NAME, "tr")[13].find_elements(By.TAG_NAME, "td")[0].get_attribute("innerHTML").split('>').pop()
-print(int(qyd))
+# 乾元丹
+num_qyd = driver.find_element(By.TAG_NAME, "tbody").find_elements(By.TAG_NAME, "tr")[13].find_elements(By.TAG_NAME, "td")[0].get_attribute("innerHTML").split('>').pop()
+print(int(num_qyd))
+# 人物修炼
+rw_xl_trs = driver.find_element(By.ID, "role_info_box").find_elements(By.CLASS_NAME, "cols")[1].find_elements(By.TAG_NAME, "table")[0].find_elements(By.TAG_NAME, "tr")
+rw_xl = []
+for i in range(len(rw_xl_trs)):
+    xl = rw_xl_trs[i].find_element(By.TAG_NAME, "td").get_attribute("innerHTML")
+    rw_xl.append(xl)
+print(rw_xl)
+# 宠物修炼
+cw_xl = []
+rw_xl_trs = driver.find_element(By.ID, "role_info_box").find_elements(By.CLASS_NAME, "cols")[1].find_elements(By.TAG_NAME, "table")[1].find_elements(By.TAG_NAME, "tr")
+for i in range(len(rw_xl_trs)):
+    xl = rw_xl_trs[i].find_element(By.TAG_NAME, "td").get_attribute("innerHTML")
+    cw_xl.append(xl)
+print(cw_xl)
+role_skill = driver.find_element(By.ID, "role_skill")
+role_skill.click()
+sm_list = driver.find_element(By.CLASS_NAME, "skill").find_elements(By.TAG_NAME, "li")
+sm_skills = []
+for sm_li in sm_list:
+    sm = sm_li.find_element(By.TAG_NAME, "p").get_attribute("innerHTML")
+    sm_skills.append(sm)
+print(sm_skills)
+qz = []
+fz_list = driver.find_element(By.ID, "role_info_box").find_elements(By.CLASS_NAME, "cols")[1].find_elements(By.TAG_NAME, "tbody")[0].find_elements(By.TAG_NAME, "td")
+for fz in fz_list:
+    str = fz.get_attribute("innerHTML")
+    if str.__contains__("强壮") or str.__contains__("神速"):
+        str = str.split("<p>")[1].split("</p>")[0]
+        qz.append(str)
+print(qz)
+
