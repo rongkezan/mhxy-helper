@@ -8,6 +8,7 @@ class Bag:
         self.stride = 50  # 步长
         self.x0 = 0  # 背包第一个格子的x坐标
         self.y0 = 0  # 背包第一个格子的y坐标
+        self.left_top = (0, 0)  # 背包的左上坐标
 
     def right_click(self, bx, by):
         if bx > 5 | bx < 1 | by > 4 | by < 1:
@@ -16,9 +17,10 @@ class Bag:
         if not self.__is_bag_open():
             alt_e()
         self.__init_bag()
+
         move_x = self.x0 + self.stride * (bx - 1)
         move_y = self.y0 + self.stride * (by - 1)
-        move_right_click(move_x, move_y)
+        move_left_click(move_x, move_y)
         if self.__is_bag_open():
             alt_e()
 
@@ -42,6 +44,7 @@ class Bag:
             offset = (25, 217)
             self.x0 = shape[0] + offset[0]
             self.y0 = shape[1] + offset[1]
+            self.left_top = (shape[0], shape[1])
         else:
             error("背包未打开")
 

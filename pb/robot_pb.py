@@ -1,64 +1,8 @@
-from utils.action import *
-from utils.component import Map, Bag, Mission
-from utils.log import *
-import shutil
-
-npc_dict = {
-    "秦琼": "qq",
-    "程咬金": "dt",
-    "空度禅师": "hs",
-    "地藏王": "df",
-    "观音姐姐": "pt",
-    "东海龙王": "lg",
-    "孙婆婆": "ne",
-    "镇元大仙": "wz",
-    "白晶晶": "ps1",
-    "花十娘": "ps2",
-    "牛魔王": "mw",
-    "大大王": "st1",
-    "二大王": "st2",
-    "三大王": "st3",
-    "李靖": "tg1",
-    "杨戬:": "tg2",
-    "菩提祖师": "fc",
-}
-
-bag = Bag()
-mission = Mission()
-map = Map()
-
-
-def find_npc(paths, npc_name="npc"):
-    """
-    根据npc图片寻找npc
-    paths: npc图片列表
-    """
-    do_hide()
-    while True:
-        time.sleep(0.1)
-        info("寻找" + npc_name + "中...")
-        if meet_robber():
-            info("寻找" + npc_name + "时遭遇劫镖强盗")
-        found = False
-        for path in paths:
-            result = find_xy_in_game(path)
-            if result is not None:
-                found = True
-                x, y = result[0], result[1]
-                info("找到" + npc_name + "，位置:", x, y)
-                b_move(x, y)
-                break
-        if found:
-            info("已找到" + npc_name + "，退出寻找")
-            break
-        else:
-            info("未找到" + npc_name + "，继续寻找")
-            time.sleep(5)
-            do_hide()
-
-
-def find_npc_yz():
-    find_npc(c.flag_yz, "驿站车夫")
+"""
+1.get mission -> 2.transfer cargo -> 3.release cargo
+notice: 2,3 maybe meet robber
+"""
+from pb.action import *
 
 
 def get_mission():
@@ -82,87 +26,12 @@ def get_mission():
     return None
 
 
-def is_place(place_name):
-    # TODO 是否已经在指定地点
-    return False
-
-
-def mission_not_finished():
-    return bag.is_item_exist(os.path.join(c.temp_dir, "cargo.png"))
-
-
-def meet_robber():
-    """
-    遭遇劫镖强盗
-    :return: True = 发生了战斗，False = 未发生战斗
-    """
-    fight_flag = 0
-    while is_fight():
-        info("遭遇劫镖强盗")
-        fight_flag = 1
-        if is_popup() and is_not_same_crop4():
-            info("保存4小人图片")
-            shutil.copy(c.temp_popup, os.path.join(c.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
-            break
-        if is_ready_fight():
-            info("战斗施法")
-            alt_q()
-            alt_q()
-    if fight_flag == 1:
-        return True
-    return False
-
-
-def b_move_map(func, x, y, log=None):
-    """
-    打开地图移动到指定地点并检查战斗，战斗结束会再次点击指定坐标，当判断已经到达目的地时，结束。
-    """
-    if log is not None:
-        info(log)
-    func(x, y)
-    while not is_arrived():
-        time.sleep(0.1)
-        if meet_robber():
-            func(x, y)
-
-
-def b_move(x, y, sleep=0, log=None):
-    """
-    点击指定坐标并检查战斗，战斗结束会再次点击指定坐标。
-    """
-    if log is not None:
-        info(log)
-    move_left_click(x, y)
-    time.sleep(sleep)
-    if meet_robber():
-        move_left_click(x, y)
-
-
-def release_cargo(npc_name):
-    """
-    交付镖银
-    """
-    info("隐藏人物")
-    f9()
-    while mission_not_finished():
-        info("向", npc_name, "交付镖银")
-        if meet_robber():
-            info("交付镖银时遭遇强盗")
-        filename = npc_dict[npc_name]
-        res = find_xy_in_game(os.path.join(c.flag_ch_dir, filename + ".png"))
-        if res is not None:
-            x, y = res[0], res[1]
-            info("找到", npc_name, ",坐标为:", x, y, ",准备投送镖银")
-            alt_g()
-            b_move(x, y)
-
-
 def ca_to_dtjw():
     """
     去大唐境外
     """
     b_move_map(map.click_cac, 283, 38, log="长安 -> 驿站")
-    find_npc_yz()
+    find_npc(c.flag_yz, "驿站车夫")
     while not is_place("大唐境外"):
         b_move_map(map.click_dtgj, 5, 84, log="大唐国境 -> 大唐境外")
         b_move(45, 237, log="进入大唐境外")
@@ -214,8 +83,8 @@ def hs():
 
 
 def df():
-    b_move_map("cac", 283, 38, log="长安 -> 驿站")
-    find_npc_yz()
+    b_move_map(map.click_cac, 283, 38, log="长安 -> 驿站")
+    find_npc(c.flag_yz, "驿站车夫")
     while not is_place("地府"):
         b_move_map(map.click_dtgj, 49, 332, log="大唐国境 -> 地府")
         b_move(0, 0, log="进入地府")
@@ -299,9 +168,9 @@ def ps(flag):
         time.sleep(5)
         release_cargo("白晶晶")
     if flag == 2:
-        b_move(522, 263)
-        time.sleep(3)
-        release_cargo("花十娘")
+        while True:
+            time.sleep(3)
+            release_cargo("花十娘")
 
 
 def mw():

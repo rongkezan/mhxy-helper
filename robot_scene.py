@@ -9,11 +9,6 @@ from utils.mouse import *
 move_around_count = 0
 
 
-def save_crop4():
-    info("战斗出现弹框，保存4小人图片")
-    shutil.copy(c.temp_popup, os.path.join(c.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
-
-
 def save_monster():
     temp_path = shot_monster()
     target_path = os.path.join(c.data_monster_dir, str(int(round(time.time() * 1000))) + ".png")
@@ -37,16 +32,6 @@ def move_around():
         move_around_count = 1
     tab()
     time.sleep(1)
-
-
-def handle_popup():
-    popup_result = is_popup()
-    if popup_result is not None:
-        save_crop4()
-        verify_result = verify()
-        if verify_result != -1:
-            x, y = popup_result[0] + verify_result[0], popup_result[1] + verify_result[1]
-            move_left_click(x, y)
 
 
 def check_heal():

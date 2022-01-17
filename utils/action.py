@@ -51,6 +51,7 @@ def find_xy_in_warehouse_bag(pic):
     else:
         return None
 
+
 def shot_tab():
     """
     人物标签截图
@@ -194,6 +195,16 @@ def do_heal():
     info("酒肆")
     f6()
     move_left_click(194, 452)
+
+
+def do_fight(action1=alt_q, action2=alt_q):
+    """
+    action1: 人物操作 q-施法 a-攻击 d-防御
+    action2: 宠物操作 q-施法 a-攻击 d-防御
+    """
+    info("攻击/施法")
+    action1()
+    action2()
 
 
 def do_fight5(action1=alt_q, action2=alt_q):

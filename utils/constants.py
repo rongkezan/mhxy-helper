@@ -1,7 +1,7 @@
 import os
 
 # 目录
-base_dir = "resources/"
+base_dir = os.path.abspath(os.path.dirname(__file__)) + "/resources/"
 flag_dir = base_dir + "img/flag/"
 temp_dir = base_dir + "img/temp/"
 data_dir = base_dir + "img/data/"
@@ -16,6 +16,7 @@ data_crop_dir = data_dir + "crop/"
 flag_fight = os.path.join(flag_dir, 'fight_bar.png')
 flag_auto_fight = os.path.join(flag_dir, 'fight_auto.png')
 flag_popup = [os.path.join(flag_dir, name) for name in ['popup1.png', 'popup2.png']]
+flag_cargo = os.path.join(flag_dir, 'cargo.png')
 flag_mouse = os.path.join(flag_dir, 'mouse.png')
 flag_yz = [os.path.join(flag_ch_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
 temp_game = os.path.join(temp_dir, 'game.png')
