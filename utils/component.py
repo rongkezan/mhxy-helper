@@ -3,8 +3,8 @@ from utils.action import *
 
 class Bag:
     def __init__(self):
-        self.bag_title_path = os.path.join(c.flag_dir, "bag_title.png")
-        self.bag_content_path = os.path.join(c.temp_dir, "bag_content.png")
+        self.title_pic = os.path.join(c.flag_dir, "bag_title.png")
+        self.content_pic = os.path.join(c.temp_dir, "bag_content.png")
         self.stride = 50  # 步长
         self.x0 = 0  # 背包第一个格子的x坐标
         self.y0 = 0  # 背包第一个格子的y坐标
@@ -29,7 +29,7 @@ class Bag:
         if not self.__is_bag_open():
             alt_e()
         self.__shot_bag()
-        _, score = template_match(item_path, self.bag_content_path)
+        _, score = template_match(item_path, self.content_pic)
         if self.__is_bag_open():
             alt_e()
         if score >= 3:
@@ -37,7 +37,7 @@ class Bag:
         return False
 
     def __init_bag(self):
-        shape, score = game_template_match(self.bag_title_path)
+        shape, score = game_template_match(self.title_pic)
         if score >= 3:
             offset = (25, 217)
             self.x0 = shape[0] + offset[0]
@@ -46,12 +46,12 @@ class Bag:
             error("背包未打开")
 
     def __is_bag_open(self):
-        _, score = game_template_match(self.bag_title_path)
+        _, score = game_template_match(self.title_pic)
         return score >= 3
 
     def __shot_bag(self):
         # TODO 背包的Shape
-        game_shot((0, 0, 0, 0), self.bag_content_path)
+        game_shot((0, 0, 0, 0), self.content_pic)
 
 
 class Mission:

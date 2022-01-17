@@ -22,6 +22,35 @@ def shot_monster():
     return path
 
 
+def shot_warehouse():
+    """
+    仓库截图
+    """
+    path = os.path.join(c.temp_dir, "warehouse.png")
+    game_shot((100, 100, 510, 415), path)  # TODO
+    return path
+
+
+def shot_warehouse_bag():
+    """
+    仓库背包截图
+    """
+    path = os.path.join(c.temp_dir, "warehouse_bag.png")
+    game_shot((100, 100, 510, 415), path)  # TODO
+    return path
+
+
+def find_xy_in_warehouse_bag(pic):
+    path = shot_warehouse_bag()
+    shape, score = template_match(pic, path)
+    info("模板匹配相似度分数:", score)
+    if score >= 3:
+        x = (shape[0] + shape[2]) // 2
+        y = (shape[1] + shape[3]) // 2
+        return x, y
+    else:
+        return None
+
 def shot_tab():
     """
     人物标签截图
