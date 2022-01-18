@@ -7,7 +7,7 @@ import utils.game_rect as game_rect
 import sys
 import cv2 as cv
 import os
-from utils import constants as c
+import constants as c
 from PyQt5.QtWidgets import QApplication
 from skimage.metrics import structural_similarity
 from aip import AipOcr

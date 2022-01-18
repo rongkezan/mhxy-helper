@@ -1,5 +1,5 @@
 import os
-import utils.constants as c
+import constants as c
 from enum import Enum
 
 yz = [os.path.join(c.flag_ch_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]

@@ -1,6 +1,5 @@
-from utils.action import *
 from utils.log import info
-import utils.constants as c
+import constants as c
 from verify import handle_popup
 import time
 import os

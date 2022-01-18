@@ -1,6 +1,6 @@
 import shutil
 import utils.log as log
-import utils.constants as c
+import constants as c
 import os
 import time
 from utils.action import Action

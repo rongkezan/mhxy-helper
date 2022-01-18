@@ -1,7 +1,7 @@
 import torch
 import os
 import shutil
-from utils import constants as c
+import constants as c
 from utils.log import *
 from PIL import Image
 from torchvision import transforms

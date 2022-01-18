@@ -48,4 +48,4 @@ temp_tabs = [
 crop4_verify_offset = [(-60, 100), (30, 100), (120, 100), (210, 100)]
 
 # DD 驱动
-dd_dll_path = os.path.abspath(base_dir + 'DD94687.64.dll')
+dd_dll_path = os.path.abspath(base_dir + '/DD94687.64.dll')

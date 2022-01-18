@@ -5,7 +5,7 @@ from ctypes import windll
 import pyautogui
 import time
 import utils.game_rect as game_rect
-import utils.constants as c
+import constants as c
 import utils.camera as camera
 import utils.log as log
 

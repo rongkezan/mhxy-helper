@@ -2,7 +2,7 @@
 宝图分拣
 """
 import os
-import utils.constants as c
+import constants as c
 import utils.log as log
 from utils.action import Action
 from utils.camera import Camera
