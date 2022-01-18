@@ -25,6 +25,3 @@ class NPC(Enum):
     BPJGR = "帮派机关人", bpjgr
     BPZHS = "帮派召唤兽", bpzhs
     XWTZG = "玄武堂总管", xwtzg
-
-if __name__ == '__main__':
-    print(NPC.CAC_BP.value)

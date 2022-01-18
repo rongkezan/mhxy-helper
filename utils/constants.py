@@ -1,16 +1,16 @@
 import os
 
 # 目录
-base_dir = os.path.abspath(os.path.dirname(__file__)) + "/resources/"
-flag_dir = base_dir + "img/flag/"
-temp_dir = base_dir + "img/temp/"
-data_dir = base_dir + "img/data/"
+base_dir = os.path.abspath(os.path.dirname(__file__)) + "/resources"
+flag_dir = os.path.join(base_dir, "/img/flag")
+temp_dir = os.path.join(base_dir, "/img/temp")
+data_dir = os.path.join(base_dir, "/img/data")
 
-flag_ch_dir = flag_dir + "ch/"
-temp_ch_dir = temp_dir + "ch/"
-temp_crop_dir = temp_dir + "crop/"
-data_monster_dir = data_dir + "monster/"
-data_crop_dir = data_dir + "crop/"
+flag_ch_dir = os.path.join(flag_dir, "/ch")
+temp_ch_dir = os.path.join(temp_dir, "/ch")
+temp_crop_dir = os.path.join(temp_dir, "/crop")
+data_monster_dir = os.path.join(data_dir, "/monster")
+data_crop_dir = os.path.join(data_dir, "/crop")
 
 # 文件路径
 flag_fight = os.path.join(flag_dir, 'fight_bar.png')
@@ -26,6 +26,7 @@ temp_crop4 = [os.path.join(temp_crop_dir, name) for name in ['1.png', '2.png', '
 temp_place1 = os.path.join(temp_dir, "place1.png")
 temp_place2 = os.path.join(temp_dir, "place2.png")
 temp_tab_group = os.path.join(temp_ch_dir, "ch.png")
+model_path = os.path.join(base_dir, "checkpoint.pth")
 
 
 class Tab:

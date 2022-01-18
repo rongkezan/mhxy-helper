@@ -32,7 +32,7 @@ def verify():
 
     # 定义神经网络参数
     class_names = ['front', 'others']
-    model = torch.load("resources/checkpoint.pth")
+    model = torch.load(c.model_path)
     transform = transforms.Compose([
         transforms.Resize((120, 90)),
         transforms.ToTensor(),
