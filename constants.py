@@ -2,9 +2,9 @@ import os
 
 # 目录
 base_dir = os.path.abspath(os.path.dirname(__file__)) + "/resources"
-flag_dir = os.path.join(base_dir, "/img/flag")
-temp_dir = os.path.join(base_dir, "/img/temp")
-data_dir = os.path.join(base_dir, "/img/data")
+flag_dir = base_dir + "/img/flag"
+temp_dir = base_dir + "/img/temp"
+data_dir = base_dir + "/img/data"
 
 flag_ch_dir = os.path.join(flag_dir, "/ch")
 temp_ch_dir = os.path.join(temp_dir, "/ch")
