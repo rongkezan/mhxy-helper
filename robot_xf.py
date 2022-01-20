@@ -1,36 +1,23 @@
 """
 厢房
 """
-from utils.component import Map, Bag, Mission
-from utils.action import Action
-from utils.camera import Camera
+from utils.component import action, camera, map, bag, mission
 from utils.npc import NPC
 from utils.place import *
 import utils.log as log
 import sys
 
-map = Map()
-bag = Bag()
-mission = Mission()
-
 
 class Xf:
-    def __init__(self):
-        self.action = Action()
-        self.camera = Camera()
-        self.map = Map()
-        self.bag = Bag()
-        self.mission = Mission()
-
     def click_fxf(self, x, y, msg):
         log.info("飞行符点击", msg)
         bag.right_click(1, 5)
-        self.action.move_left_click(x, y)
+        action.move_left_click(x, y)
 
     def click_banner(self, bx, by, x, y, msg):
         log.info("导标旗点击", msg)
         bag.right_click(bx, by)
-        self.action.move_left_click(x, y)
+        action.move_left_click(x, y)
 
     def deliver_letters(self, text):
         school = appear_school(text)
@@ -45,18 +32,18 @@ class Xf:
             mission.click_mission()
         elif school == SCHOOL.NE.value:
             self.click_banner(1, 4, 0, 0, "女儿")
-            self.action.do_find_npc(NPC.ALG_DHW)
+            action.do_find_npc(NPC.ALG_DHW)
             mission.click_mission()
         elif school == SCHOOL.PT.value:
             self.click_banner(1, 1, 0, 0, "普陀山")
             mission.click_mission()
         elif school == SCHOOL.LG.value:
             self.click_banner(1, 4, 0, 0, "龙宫")
-            self.action.do_find_npc(NPC.ALG_DHW)
+            action.do_find_npc(NPC.ALG_DHW)
             mission.click_mission()
         elif school == SCHOOL.DF.value:
             self.click_banner(1, 1, 0, 0, "阴曹地府")
-            self.action.do_find_npc(NPC.YZ)
+            action.do_find_npc(NPC.YZ)
             mission.click_mission()
 
     def target_fight_mission(self, text):
@@ -110,18 +97,18 @@ class Xf:
         text = mission.read_mission()
         if text.__contains__("巡逻"):
             while True:
-                self.action.move_left_click(0, 0)
-                if self.camera.is_fight():
-                    self.action.do_fight5()
+                action.move_left_click(0, 0)
+                if camera.is_fight():
+                    action.do_fight5()
         elif text.__contains__("召唤兽"):
-            self.action.do_find_npc(NPC.BPJGR)
-            self.action.move_left_click(0, 0)
-            self.action.do_find_npc(NPC.BPTDGG)
-            self.action.move_left_click(0, 0)
-            self.action.do_find_npc(NPC.BPZHS)
-            self.action.move_left_click(0, 0)
-            if self.camera.is_fight():
-                self.action.do_fight5()
+            action.do_find_npc(NPC.BPJGR)
+            action.move_left_click(0, 0)
+            action.do_find_npc(NPC.BPTDGG)
+            action.move_left_click(0, 0)
+            action.do_find_npc(NPC.BPZHS)
+            action.move_left_click(0, 0)
+            if camera.is_fight():
+                action.do_fight5()
         elif text.__contains__("送信"):
             self.deliver_letters(text)
         else:
