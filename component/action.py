@@ -5,14 +5,14 @@ from ctypes import windll
 import pyautogui
 import time
 import utils.game_rect as game_rect
-import constants as c
+import constants.path as p
 import component.camera as camera
 import utils.log as log
 
 
 class Action:
     def __init__(self):
-        self.driver = windll.LoadLibrary(c.dd_dll_path)
+        self.driver = windll.LoadLibrary(p.dd_dll_path)
         self.rect = game_rect.get_mh_rect()
         self.camera = camera.Camera()
         st = self.driver.DD_btn(0)
@@ -166,7 +166,7 @@ class Action:
         action1: 人物操作 q-施法 a-攻击 d-防御
         action2: 宠物操作 q-施法 a-攻击 d-防御
         """
-        for t in c.temp_tabs:
+        for t in p.temp_tabs:
             self.move_left_click(t.position[0], t.position[1], True)
             log.info("攻击/施法")
             action1()

@@ -4,7 +4,11 @@
 import os
 import utils.log as log
 import constants.path as path
-from component.factory import action, camera
+from component.action import Action
+from component.camera import Camera
+
+action = Action()
+camera = Camera()
 
 
 class Pick:
@@ -47,9 +51,10 @@ class Pick:
                 yt + self.house_offset[1] + self.bag_shape[1])
             camera.game_shot(shape_left, self.warehouse_left)
             for i in range(20):
-                result = camera.template_match(pic, self.warehouse_left)
-                if result is not None:
-                    x, y = result[0], result[1]
+                camera.shot()
+                shape, score = camera.template_match(pic, self.warehouse_left)
+                if score >= 3:
+                    x, y = shape[0], shape[1]
                     action.move_right_click(shape_left[0] + x, shape_left[1] + y)
                 else:
                     log.info("该仓库不存在物品:", pic)
@@ -82,3 +87,8 @@ class Pick:
             self.switch(b)
             self.get_all_item(self.treasure_map_pic)
             self.treasure_pick()
+
+
+if __name__ == '__main__':
+    pick = Pick()
+    pick.run()

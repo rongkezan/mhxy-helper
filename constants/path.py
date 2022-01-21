@@ -23,7 +23,7 @@ flag_fight = os.path.join(flag_common_dir, 'fight_bar.png')
 flag_auto_fight = os.path.join(flag_common_dir, 'fight_auto.png')
 flag_popup1 = os.path.join(flag_common_dir, 'popup1.png')
 flag_popup2 = os.path.join(flag_common_dir, 'popup2.png')
-flag_mouse = os.path.join(flag_dir, 'mouse.png')
+flag_mouse = os.path.join(flag_common_dir, 'mouse.png')
 flag_yz = [os.path.join(flag_npc_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
 
 temp_game = os.path.join(temp_common_dir, 'game.png')
