@@ -6,7 +6,7 @@ import pyautogui
 import time
 import utils.game_rect as game_rect
 import constants as c
-import utils.camera as camera
+import component.camera as camera
 import utils.log as log
 
 

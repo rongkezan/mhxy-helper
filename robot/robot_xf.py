@@ -1,9 +1,9 @@
 """
 厢房
 """
-from utils.component import action, camera, map, bag, mission
-from utils.npc import NPC
-from utils.place import *
+from component.factory import action, camera, bag, mission
+from constants.npc import NPC
+from constants.place import *
 import utils.log as log
 import sys
 

@@ -1,6 +1,6 @@
-from robot_scene import Scene
-from robot_pick import Pick
-from robot_xf import Xf
+from robot.robot_scene import Scene
+from robot.robot_pick import Pick
+from robot.robot_xf import Xf
 
 mode = 1
 

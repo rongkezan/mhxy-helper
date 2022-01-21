@@ -1,8 +1,9 @@
 """
 场景
 """
+import constants.path as path
 from learn.popup_verify import *
-from utils.component import action, camera
+from component.factory import action, camera
 
 
 class Scene:
@@ -29,7 +30,7 @@ class Scene:
     @staticmethod
     def check_heal():
         info("定期检查人物血蓝")
-        for t in c.temp_tabs:
+        for t in path.temp_tabs:
             action.move_left_click(t.position[0], t.position[1], True)
             if camera.is_need_heal():
                 action.do_heal()
@@ -47,7 +48,7 @@ class Scene:
                 info("非战斗状态，晃悠晃悠")
                 while not camera.is_leader():
                     info("选择队长")
-                    action.move_left_click(c.temp_tabs[0].position[0], c.temp_tabs[0].position[1], True)
+                    action.move_left_click(path.temp_tabs[0].position[0], path.temp_tabs[0].position[1], True)
                 self.move_around()
 
             while camera.is_fight():

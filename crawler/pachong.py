@@ -1,5 +1,3 @@
-import time
-from crawler.calculator import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 

@@ -1,5 +1,5 @@
-from utils.action import *
 import re
+from component.factory import action, camera, mission, maps, bag
 
 places1 = [("jy", "建邺", 1000, 1000),
            ("al", "傲来", 223, 150),
@@ -11,6 +11,7 @@ places1 = [("jy", "建邺", 1000, 1000),
            ("jw", "唐境外", 638, 110),
            ("pt", "普陀山", 1000, 1000),
            ("wz", "庄观", 1000, 1000)]
+
 places2 = [
     ("花果山", 159, 119),
     ("北俱芦洲", 227, 169),

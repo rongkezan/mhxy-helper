@@ -1,90 +1,11 @@
-from utils.action import Action
-from utils.camera import Camera
 import os
-import constants as c
-import utils.log as log
+import constants.path as path
+from component.factory import action, camera
 
 
-class Bag:
+class Maps:
     def __init__(self):
-        self.title_pic = os.path.join(c.flag_dir, "bag_title.png")
-        self.content_pic = os.path.join(c.temp_dir, "bag_content.png")
-        self.stride = 50  # 步长
-        self.x0 = 0  # 背包第一个格子的x坐标
-        self.y0 = 0  # 背包第一个格子的y坐标
-        self.left_top = (0, 0)  # 背包的左上坐标
-
-    def right_click(self, bx, by):
-        if bx > 5 | bx < 1 | by > 4 | by < 1:
-            log.info("背包格子的范围是x∈[1,5] y∈[1,4]")
-            return
-        if not self.__is_bag_open():
-            action.alt_e()
-        self.__init_bag()
-
-        move_x = self.x0 + self.stride * (bx - 1)
-        move_y = self.y0 + self.stride * (by - 1)
-        action.move_left_click(move_x, move_y)
-        if self.__is_bag_open():
-            action.alt_e()
-
-    def is_item_exist(self, item_path):
-        """
-        判断背包物品是否存在
-        """
-        if not self.__is_bag_open():
-            action.alt_e()
-        self.__shot_bag()
-        _, score = camera.template_match(item_path, self.content_pic)
-        if self.__is_bag_open():
-            action.alt_e()
-        if score >= 3:
-            return True
-        return False
-
-    def __init_bag(self):
-        shape, score = camera.template_match(self.title_pic, c.temp_game)
-        if score >= 3:
-            offset = (25, 217)
-            self.x0 = shape[0] + offset[0]
-            self.y0 = shape[1] + offset[1]
-            self.left_top = (shape[0], shape[1])
-        else:
-            log.error("背包未打开")
-
-    def __is_bag_open(self):
-        _, score = camera.template_match(self.title_pic, c.temp_game)
-        return score >= 3
-
-    def __shot_bag(self):
-        camera.game_shot((0, 0, 0, 0), self.content_pic)
-
-
-class Mission:
-    def __init__(self):
-        self.path = ""
-        self.shape = (0, 0, 0, 0)  # 任务追踪栏的shape
-
-    def read(self):
-        log.info("开始读取任务")
-        self.__shot_mission()
-        text = camera.read_text_basic(self.content_path)
-        log.info("任务的内容是:", text)
-        return text
-
-    def click_target(self):
-        pass
-
-    def __shot_mission(self):
-        """
-        任务截图
-        """
-        camera.game_shot(self.shape, self.path)
-
-
-class Map:
-    def __init__(self):
-        self.map_open_flag = os.path.join(c.flag_dir, "map_open.png")
+        self.map_open_flag = os.path.join(path.flag_dir, "map_open.png")
         self.move_x = 0
         self.move_y = 0
 
@@ -211,12 +132,5 @@ class Map:
             action.tab()
 
     def __is_map_open(self):
-        _, score = camera.template_match(self.map_open_flag, c.temp_game)
+        _, score = camera.template_match(self.map_open_flag, path.temp_game)
         return score >= 3
-
-
-action = Action()
-camera = Camera()
-bag = Bag()
-mission = Mission()
-map = Map()
