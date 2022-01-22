@@ -117,6 +117,24 @@ class Camera:
         else:
             return None
 
+    def find_left_top_in_game(self, template_path):
+        self.shot()
+        shape, score = self.template_match(template_path, p.temp_game)
+        if score >= 3:
+            return shape[0], shape[1]
+        else:
+            return None
+
+    def find_xy(self, template_path, img_path):
+        self.shot()
+        shape, score = self.template_match(template_path, img_path)
+        if score >= 3:
+            x = (shape[0] + shape[2]) // 2
+            y = (shape[1] + shape[3]) // 2
+            return x, y
+        else:
+            return None
+
     def shot_monster(self):
         pth = os.path.join(p.temp_dir, "monster.png")
         self.game_shot((100, 100, 510, 415), pth)
