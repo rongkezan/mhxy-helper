@@ -109,7 +109,7 @@ class Pick:
         return None
 
     def run(self):
-        buffer = [2, 3, 4, 5, 6, 7]
+        buffer = [6, 7]
         for b in buffer:
             self.switch(b)
             self.get_all_item(self.treasure_map_pic)
@@ -118,4 +118,4 @@ class Pick:
 
 if __name__ == '__main__':
     pick = Pick()
-    pick.treasure_pick()
+    pick.run()
