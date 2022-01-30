@@ -2,10 +2,10 @@
 宝图分拣
 """
 import os
-import utils.log as log
-import constants.path as p
-from component.action import Action
-from component.camera import Camera
+import auto.utils.log as log
+import constants as p
+from auto.component.action import Action
+from auto.component import Camera
 
 action = Action()
 camera = Camera()

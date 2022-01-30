@@ -1,9 +1,9 @@
 """
 场景
 """
-import constants.path as path
+import constants as path
 from learn.popup_verify import *
-from component.factory import action, camera
+from auto.component import action, camera
 
 
 class Scene:

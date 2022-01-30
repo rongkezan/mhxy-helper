@@ -1,9 +1,9 @@
-from utils.log import info
+from auto.utils.log import info
 import constants as c
 from verify import handle_popup
 import time
 import os
-from utils.component import Map, Bag, Mission
+from auto.utils import Map, Bag, Mission
 
 bag = Bag()
 mission = Mission()

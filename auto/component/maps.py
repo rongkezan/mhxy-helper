@@ -1,11 +1,11 @@
 import os
-import constants.path as path
-from component.factory import action, camera
+from constants import path as p
+from auto.component import action, camera
 
 
 class Maps:
     def __init__(self):
-        self.map_open_flag = os.path.join(path.flag_dir, "map_open.png")
+        self.map_open_flag = os.path.join(p.flag_common_dir, "map_open.png")
         self.move_x = 0
         self.move_y = 0
 

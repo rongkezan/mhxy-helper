@@ -1,9 +1,11 @@
 import shutil
 import os
 import time
-import utils.log as log
-import constants.path as path
-from component.factory import camera
+import auto.utils.log as log
+import constants as path
+from auto.component import Camera
+
+camera = Camera()
 
 
 def task():

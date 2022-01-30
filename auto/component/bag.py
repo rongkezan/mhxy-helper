@@ -1,13 +1,14 @@
 import os
-import utils.log as log
-from component.factory import action, camera
-import constants.path as path
+import auto.utils.log as log
+from auto.component.action import action
+from auto.component.camera import camera
+import constants.path as p
 
 
 class Bag:
     def __init__(self):
-        self.title_pic = os.path.join(path.flag_dir, "bag_title.png")
-        self.content_pic = os.path.join(path.temp_dir, "bag_content.png")
+        self.title_pic = os.path.join(p.flag_common_dir, "bag_title.png")
+        self.content_pic = os.path.join(p.temp_common_dir, "bag_content.png")
         self.stride = 50  # 步长
         self.x0 = 0  # 背包第一个格子的x坐标
         self.y0 = 0  # 背包第一个格子的y坐标
@@ -42,7 +43,7 @@ class Bag:
         return False
 
     def __init_bag(self):
-        shape, score = camera.template_match(self.title_pic, path.temp_game)
+        shape, score = camera.template_match(self.title_pic, p.temp_game)
         if score >= 3:
             offset = (25, 217)
             self.x0 = shape[0] + offset[0]
@@ -52,8 +53,11 @@ class Bag:
             log.error("背包未打开")
 
     def __is_bag_open(self):
-        _, score = camera.template_match(self.title_pic, path.temp_game)
+        _, score = camera.template_match(self.title_pic, p.temp_game)
         return score >= 3
 
     def __shot_bag(self):
         camera.game_shot((0, 0, 0, 0), self.content_pic)
+
+
+bag = Bag()

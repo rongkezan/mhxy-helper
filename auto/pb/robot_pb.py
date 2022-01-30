@@ -2,7 +2,6 @@
 1.get mission -> 2.transfer cargo -> 3.release cargo
 notice: 2,3 maybe meet robber
 """
-from pb.action import *
 
 
 def get_mission():
@@ -11,7 +10,7 @@ def get_mission():
     move_left_click(530, 238)  # 进入镖局
     move_left_click(688, 303)  # 走向镖头
     time.sleep(5)
-    find_npc([os.path.join(c.flag_ch_dir, "bt.png")], "镖头")
+    find_npc([os.p.join(c.flag_ch_dir, "bt.png")], "镖头")
     move_left_click(303, 479)  # 选4级镖
     move_left_click(304, 418)  # 选4级镖二级菜单
     move_left_click(304, 418)  # 关闭对话框

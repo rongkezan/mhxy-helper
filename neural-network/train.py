@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import time
 import os
 import copy
+import constants as p
 from torch.utils.data import DataLoader
 
 plt.ion()  # interactive mode
@@ -30,12 +31,13 @@ data_transforms = {
     ]),
 }
 
-data_dir = '../dataset'
+data_dir = '../../dataset'
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['train', 'val']}
 dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=0) for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 def img_show(inp, title=None):
@@ -167,5 +169,5 @@ if __name__ == '__main__':
 
     model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=25)
 
-    torch.save(model_ft, "model/checkpoint.pth")
+    torch.save(model_ft, os.path.join(p.model_dir, "model/checkpoint.pth"))
     visualize_model(model_ft)

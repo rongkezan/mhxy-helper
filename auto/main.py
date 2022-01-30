@@ -1,7 +1,8 @@
-from robot.robot_scene import Scene
-from robot.robot_pick import Pick
-from robot.robot_xf import Xf
+from auto.robot.robot_scene import Scene
+from auto.robot.robot_pick import Pick
+from auto.robot.robot_xf import Xf
 
+# test
 mode = 1
 
 if __name__ == "__main__":

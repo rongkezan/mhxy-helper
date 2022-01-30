@@ -1,5 +1,5 @@
 import os
-import constants.path as path
+import constants as path
 from enum import Enum
 
 yz = [os.path.join(path.flag_npc_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]

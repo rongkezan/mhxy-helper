@@ -7,6 +7,8 @@ temp_dir = os.path.join(base_dir, "img/temp")
 data_dir = os.path.join(base_dir, "img/data")
 model_dir = os.path.join(base_dir, "model")
 
+print(base_dir)
+
 flag_common_dir = os.path.join(flag_dir, "common")
 flag_npc_dir = os.path.join(flag_dir, "npc")
 
@@ -17,6 +19,7 @@ temp_npc_dir = os.path.join(temp_dir, "npc")
 temp_tab_dir = os.path.join(temp_dir, "tab")
 
 data_crop_dir = os.path.join(data_dir, "crop")
+data_mission_dir = os.path.join(data_dir, "mission")
 
 # 文件路径
 flag_fight = os.path.join(flag_common_dir, 'fight_bar.png')

@@ -1,5 +1,4 @@
 import re
-from component.factory import action, camera, mission, maps, bag
 
 places1 = [("jy", "建邺", 1000, 1000),
            ("al", "傲来", 223, 150),

@@ -4,10 +4,10 @@
 from ctypes import windll
 import pyautogui
 import time
-import utils.game_rect as game_rect
 import constants.path as p
-import component.camera as camera
-import utils.log as log
+from auto.component.camera import camera
+import auto.utils.game_rect as game_rect
+import auto.utils.log as log
 
 
 class Action:
@@ -171,3 +171,6 @@ class Action:
             log.info("攻击/施法")
             action1()
             action2()
+
+
+action = Action()

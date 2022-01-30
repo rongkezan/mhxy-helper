@@ -1,11 +1,12 @@
 import torch
 import os
 import shutil
-import constants.path as path
-import utils.log as log
+import constants as path
+import auto.utils.log as log
+import time
 from PIL import Image
 from torchvision import transforms
-from component.factory import camera, action
+from auto.component import camera, action
 
 model_path = os.path.join(path.model_dir, "checkpoint.pth")
 

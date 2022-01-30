@@ -1,12 +1,10 @@
 """
 厢房
 """
-from component.factory import action, camera, bag, mission
-from constants.npc import NPC
-from constants.place import *
-import utils.log as log
+from auto.component.bag import mission
+from constants import NPC
+import auto.utils.log as log
 import sys
-
 
 class Xf:
     def click_fxf(self, x, y, msg):

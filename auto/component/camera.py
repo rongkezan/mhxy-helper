@@ -3,11 +3,11 @@
 用于捕获游戏截图
 封装了图片相关的方法: 模板匹配，相似度比对，文字识别(百度API)
 """
-import utils.game_rect as game_rect
 import sys
 import cv2 as cv
 import os
 import constants.path as p
+from auto.utils import game_rect
 from PyQt5.QtWidgets import QApplication
 from skimage.metrics import structural_similarity
 from aip import AipOcr
@@ -167,13 +167,13 @@ class Camera:
 
     def is_fight(self):
         path1 = os.path.join(p.temp_dir, 'fight_bar.png')
-        path2 = os.path.join(p.flag_dir, 'fight_bar.png')
+        path2 = os.path.join(p.flag_common_dir, 'fight_bar.png')
         self.game_shot((795, 190, 805, 430), path1)
         score = self.compare_image(path1, path2)
         return score > 0.95
 
     def is_ready_fight(self):
-        pth = os.path.join(p.flag_dir, "fight_tool.png")
+        pth = os.path.join(p.flag_common_dir, "fight_tool.png")
         _, score = self.template_match(pth, p.temp_game)
         return score >= 3
 
@@ -228,3 +228,5 @@ class Camera:
             score = self.compare_image(p.temp_place1, p.temp_place2)
             if score > 0.99:
                 return True
+
+camera = Camera()
