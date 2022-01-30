@@ -134,3 +134,5 @@ class Maps:
     def __is_map_open(self):
         _, score = camera.template_match(self.map_open_flag, path.temp_game)
         return score >= 3
+
+maps = Maps()
