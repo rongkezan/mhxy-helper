@@ -1,17 +1,17 @@
 import os
-import constants as path
+import constants.path as p
 from enum import Enum
 
-yz = [os.path.join(path.flag_npc_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
-alg_dhw = [os.path.join(path.flag_npc_dir, name) for name in ['alg_dhw.png']]
-dtgj_pts = [os.path.join(path.flag_npc_dir, name) for name in ['dtgj_pts.png']]
-dtjw_csjw = [os.path.join(path.flag_npc_dir, name) for name in ['dtjw_csjw.png']]
-bjlz_cac = [os.path.join(path.flag_npc_dir, name) for name in ['bjlz_capath.png']]
-cac_bp = [os.path.join(path.flag_npc_dir, name) for name in ['xwtzg.png']]
-bptdgg = [os.path.join(path.flag_npc_dir, name) for name in ['bptdgg.png']]
-bpjgr = [os.path.join(path.flag_npc_dir, name) for name in ['bpjgr.png']]
-xwtzg = [os.path.join(path.flag_npc_dir, name) for name in ['xwtzg.png']]
-bpzhs = [os.path.join(path.flag_npc_dir, name) for name in ['bpzhs.png']]
+yz = [os.path.join(p.flag_npc_dir, name) for name in ['yz1.png', 'yz2.png', 'yz3.png', 'yz4.png']]
+alg_dhw = [os.path.join(p.flag_npc_dir, name) for name in ['alg_dhw.png']]
+dtgj_pts = [os.path.join(p.flag_npc_dir, name) for name in ['dtgj_pts.png']]
+dtjw_csjw = [os.path.join(p.flag_npc_dir, name) for name in ['dtjw_csjw.png']]
+bjlz_cac = [os.path.join(p.flag_npc_dir, name) for name in ['bjlz_capath.png']]
+cac_bp = [os.path.join(p.flag_npc_dir, name) for name in ['xwtzg.png']]
+bptdgg = [os.path.join(p.flag_npc_dir, name) for name in ['bptdgg.png']]
+bpjgr = [os.path.join(p.flag_npc_dir, name) for name in ['bpjgr.png']]
+xwtzg = [os.path.join(p.flag_npc_dir, name) for name in ['xwtzg.png']]
+bpzhs = [os.path.join(p.flag_npc_dir, name) for name in ['bpzhs.png']]
 
 
 class NPC(Enum):

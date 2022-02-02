@@ -14,7 +14,6 @@ class Action:
     def __init__(self):
         self.driver = windll.LoadLibrary(p.dd_dll_path)
         self.rect = game_rect.get_mh_rect()
-        self.camera = camera.Camera()
         st = self.driver.DD_btn(0)
         if st == 1:
             print("DD Load Success!")
@@ -48,13 +47,13 @@ class Action:
     def move_game(self, x, y):
         x_target, y_target = self.move_direct(x, y)
         time.sleep(0.1)
-        xy_mouse = self.camera.find_mouse_desktop()
+        xy_mouse = camera.find_mouse_desktop()
         if xy_mouse is not None:
             time.sleep(0.1)
             x_rel = x_target - xy_mouse[0]
             y_rel = y_target - xy_mouse[1]
             pyautogui.moveRel(x_rel, y_rel, 0.1)
-            xy_mouse = self.camera.find_mouse_desktop()
+            xy_mouse = camera.find_mouse_desktop()
             if xy_mouse is not None:
                 time.sleep(0.1)
                 x_rel = x_target - xy_mouse[0]
@@ -127,7 +126,7 @@ class Action:
             log.info("寻找" + name + "中...")
             found = False
             for path in paths:
-                result = self.camera.find_xy_in_game(path)
+                result = camera.find_xy_in_game(path)
                 if result is not None:
                     found = True
                     x, y = result[0], result[1]

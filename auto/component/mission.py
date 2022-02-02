@@ -5,6 +5,7 @@ import os
 import shutil
 import time
 import keyboard
+import neural.target.detect as td
 
 
 class Mission:
@@ -20,7 +21,10 @@ class Mission:
         return text
 
     def click_target(self):
-        pass
+        self.__shot_mission()
+        res = td.run()
+        if res is not None:
+            return res
 
     def __shot_mission(self):
         """

@@ -24,9 +24,8 @@ class Bag:
 
         move_x = self.x0 + self.stride * (bx - 1)
         move_y = self.y0 + self.stride * (by - 1)
-        action.move_left_click(move_x, move_y)
-        if self.__is_bag_open():
-            action.alt_e()
+        action.move_right_click(move_x, move_y)
+        action.alt_e()
 
     def is_item_exist(self, item_path):
         """
@@ -43,6 +42,7 @@ class Bag:
         return False
 
     def __init_bag(self):
+        camera.shot()
         shape, score = camera.template_match(self.title_pic, p.temp_game)
         if score >= 3:
             offset = (25, 217)
@@ -53,7 +53,9 @@ class Bag:
             log.error("背包未打开")
 
     def __is_bag_open(self):
+        camera.shot()
         _, score = camera.template_match(self.title_pic, p.temp_game)
+        print(score)
         return score >= 3
 
     def __shot_bag(self):

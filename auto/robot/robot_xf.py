@@ -1,10 +1,15 @@
 """
 厢房
 """
-from auto.component.bag import mission
-from constants import NPC
+from auto.component.mission import mission
+from auto.component.bag import bag
+from auto.component.action import action
+from auto.component.camera import camera
+from constants.npc import NPC
+from constants.place import *
 import auto.utils.log as log
 import sys
+
 
 class Xf:
     def click_fxf(self, x, y, msg):
@@ -78,36 +83,41 @@ class Xf:
             mission.click_mission()
 
     def run(self):
-        # info("点击导标旗")
-        # bag.right_click(4, 4)
-        # move_left_click(517, 233)
-        # do_hide()
-        # info("点击帮派传送人")
-        # move_left_click(329, 222)
-        # move_left_click(212, 394)
-        # info("点击帮派车夫")
-        # move_left_click(307, 321)
-        # move_left_click(432, 417)
-        # info("点击玄武堂总管接任务")
-        # do_find_npc(NPC.CAC_BP.value)
-        # move_left_click(204, 396)
-        log.info("查看任务")
-        text = mission.read_mission()
-        if text.__contains__("巡逻"):
-            while True:
-                action.move_left_click(0, 0)
-                if camera.is_fight():
-                    action.do_fight5()
-        elif text.__contains__("召唤兽"):
-            action.do_find_npc(NPC.BPJGR)
-            action.move_left_click(0, 0)
-            action.do_find_npc(NPC.BPTDGG)
-            action.move_left_click(0, 0)
-            action.do_find_npc(NPC.BPZHS)
-            action.move_left_click(0, 0)
-            if camera.is_fight():
-                action.do_fight5()
-        elif text.__contains__("送信"):
-            self.deliver_letters(text)
-        else:
-            self.target_fight_mission(text)
+        # log.info("点击导标旗")
+        # bag.right_click(5, 1)
+        # action.move_left_click(517, 233)
+        # action.do_hide()
+        # log.info("点击帮派传送人")
+        # action.move_left_click(329, 222)
+        # action.move_left_click(212, 394)
+        # log.info("点击帮派车夫")
+        # action.move_left_click(310, 230)
+        # action.move_left_click(427, 416)
+        log.info("点击玄武堂总管接任务")
+        action.do_find_npc(NPC.CAC_BP.value)
+        # action.move_left_click(204, 396)
+        # log.info("查看任务")
+        # text = mission.read_mission()
+        # if text.__contains__("巡逻"):
+        #     while True:
+        #         action.move_left_click(0, 0)
+        #         if camera.is_fight():
+        #             action.do_fight5()
+        # elif text.__contains__("召唤兽"):
+        #     action.do_find_npc(NPC.BPJGR)
+        #     action.move_left_click(0, 0)
+        #     action.do_find_npc(NPC.BPTDGG)
+        #     action.move_left_click(0, 0)
+        #     action.do_find_npc(NPC.BPZHS)
+        #     action.move_left_click(0, 0)
+        #     if camera.is_fight():
+        #         action.do_fight5()
+        # elif text.__contains__("送信"):
+        #     self.deliver_letters(text)
+        # else:
+        #     self.target_fight_mission(text)
+
+
+if __name__ == '__main__':
+    xf = Xf()
+    xf.run()
