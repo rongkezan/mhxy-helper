@@ -19,7 +19,7 @@ ROOT = Path(p.base_dir)
 
 @torch.no_grad()
 def run(weights=ROOT / 'model/mission_xf.pt',  # model.pt path(s)
-        source=ROOT / 'img/temp/mission',  # file/dir/URL/glob, 0 for webcam
+        source=ROOT / 'img/temp/common/mission.png',  # file/dir/URL/glob, 0 for webcam
         data=ROOT / 'model/mission_xf.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
         conf_thres=0.25,  # confidence threshold
@@ -30,7 +30,7 @@ def run(weights=ROOT / 'model/mission_xf.pt',  # model.pt path(s)
         save_txt=False,  # save results to *.txt
         save_conf=False,  # save confidences in --save-txt labels
         save_crop=False,  # save cropped prediction boxes
-        nosave=False,  # do not save images/videos
+        nosave=True,  # do not save images/videos
         classes=None,  # filter by class: --class 0, or --class 0 2 3
         agnostic_nms=False,  # class-agnostic NMS
         augment=False,  # augmented inference
@@ -55,7 +55,8 @@ def run(weights=ROOT / 'model/mission_xf.pt',  # model.pt path(s)
 
     # Directories
     save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
-    (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
+    if not nosave:
+        (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
 
     # Load model
     device = select_device(device)
@@ -144,7 +145,9 @@ def run(weights=ROOT / 'model/mission_xf.pt',  # model.pt path(s)
                         annotator.box_label(xyxy, label, color=colors(c, True))
                         if save_crop:
                             save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
-
+                    x = (int(xyxy[0]) + int(xyxy[2])) // 2
+                    y = (int(xyxy[1]) + int(xyxy[3])) // 2
+                    return x, y
             # Print time (inference-only)
             LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s)')
 
@@ -184,4 +187,5 @@ def run(weights=ROOT / 'model/mission_xf.pt',  # model.pt path(s)
 
 
 if __name__ == "__main__":
-    run()
+    result = run()
+    print(result)
