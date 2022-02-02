@@ -1,13 +1,11 @@
 import os
 
 # 目录
-base_dir = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), "resources")
+base_dir = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), "resources/")
 flag_dir = os.path.join(base_dir, "img/flag")
 temp_dir = os.path.join(base_dir, "img/temp")
 data_dir = os.path.join(base_dir, "img/data")
 model_dir = os.path.join(base_dir, "model")
-
-print(base_dir)
 
 flag_common_dir = os.path.join(flag_dir, "common")
 flag_npc_dir = os.path.join(flag_dir, "npc")

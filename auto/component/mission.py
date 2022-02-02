@@ -4,6 +4,7 @@ import constants.path as p
 import os
 import shutil
 import time
+import keyboard
 
 
 class Mission:
@@ -28,6 +29,7 @@ class Mission:
         camera.game_shot(self.shape, self.path)
 
     def save_mission(self):
+        log.info("保存任务截图")
         self.__shot_mission()
         shutil.copy(self.path, os.path.join(p.data_mission_dir, str(int(round(time.time() * 1000))) + ".jpg"))
 
@@ -36,4 +38,5 @@ mission = Mission()
 
 
 if __name__ == '__main__':
-    mission.save_mission()
+    keyboard.add_hotkey('f12', mission.save_mission)
+    keyboard.wait()
