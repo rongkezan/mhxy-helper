@@ -42,5 +42,6 @@ mission = Mission()
 
 
 if __name__ == '__main__':
-    keyboard.add_hotkey('f12', mission.save_mission)
-    keyboard.wait()
+    mission.click_target()
+    # keyboard.add_hotkey('f12', mission.save_mission)
+    # keyboard.wait()

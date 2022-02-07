@@ -1,14 +1,15 @@
 import torch
 import os
 import shutil
-import constants as path
+import constants.path as p
 import auto.utils.log as log
 import time
 from PIL import Image
 from torchvision import transforms
-from auto.component import camera, action
+from auto.component.action import action
+from auto.component.camera import camera
 
-model_path = os.path.join(path.model_dir, "checkpoint.pth")
+model_path = os.path.join(p.model_dir, "checkpoint.pth")
 
 
 def handle_popup():
@@ -23,15 +24,15 @@ def handle_popup():
 
 def save_crop4():
     log.info("战斗出现弹框，保存4小人图片")
-    shutil.copy(path.temp_popup, os.path.join(path.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
+    shutil.copy(p.temp_popup, os.path.join(p.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
 
 
 def verify():
     # 将4小人切分存到 path.temp_crop_dir 下，名为: 1.png 2.png 3.png 4.png
-    img = Image.open(path.temp_popup)
+    img = Image.open(p.temp_popup)
     for i in range(4):
         img_crop = img.crop((i * 90, img.size[1] - 120, (i + 1) * 90, img.size[1]))
-        img_crop.save(path.temp_crop4[i])
+        img_crop.save(p.temp_crop4[i])
 
     # 定义神经网络参数
     class_names = ['front', 'others']
@@ -44,9 +45,9 @@ def verify():
 
     # 使用模型识别
     per_dict = dict()
-    files = os.listdir(path.temp_crop_dir)
+    files = os.listdir(p.temp_crop_dir)
     for i in range(4):
-        image = Image.open(path.temp_crop_dir + files[i])
+        image = Image.open(p.temp_crop_dir + files[i])
         image = transform(image)
         image = torch.reshape(image, (1, 3, 120, 90))
         tensor = image.cuda()
@@ -57,5 +58,5 @@ def verify():
         log.info(i, "张图片识别结果:", result, "准确率:", percentage)
         per_dict[i] = percentage
         if index == 0:
-            return path.crop4_verify_offset[i]
-    return path.crop4_verify_offset[min(per_dict)]
+            return p.crop4_verify_offset[i]
+    return p.crop4_verify_offset[min(per_dict)]

@@ -17,6 +17,7 @@ temp_npc_dir = os.path.join(temp_dir, "npc")
 temp_tab_dir = os.path.join(temp_dir, "tab")
 
 data_crop_dir = os.path.join(data_dir, "crop")
+data_game_dir = os.path.join(data_dir, "game")
 data_mission_dir = os.path.join(data_dir, "mission")
 
 # 文件路径

@@ -7,11 +7,10 @@ alg_dhw = [os.path.join(p.flag_npc_dir, name) for name in ['alg_dhw.png']]
 dtgj_pts = [os.path.join(p.flag_npc_dir, name) for name in ['dtgj_pts.png']]
 dtjw_csjw = [os.path.join(p.flag_npc_dir, name) for name in ['dtjw_csjw.png']]
 bjlz_cac = [os.path.join(p.flag_npc_dir, name) for name in ['bjlz_capath.png']]
-cac_bp = [os.path.join(p.flag_npc_dir, name) for name in ['xwtzg.png']]
+xwtzg = [os.path.join(p.flag_npc_dir, name) for name in ['xwtzg1.png', 'xwtzg2.png', 'xwtzg3.png', 'xwtzg4.png']]
 bptdgg = [os.path.join(p.flag_npc_dir, name) for name in ['bptdgg.png']]
 bpjgr = [os.path.join(p.flag_npc_dir, name) for name in ['bpjgr.png']]
-xwtzg = [os.path.join(p.flag_npc_dir, name) for name in ['xwtzg.png']]
-bpzhs = [os.path.join(p.flag_npc_dir, name) for name in ['bpzhs.png']]
+bpshs = [os.path.join(p.flag_npc_dir, name) for name in ['bpshs.png']]
 
 
 class NPC(Enum):
@@ -20,8 +19,7 @@ class NPC(Enum):
     DTGJ_PTS = "大唐国境->普陀山", dtgj_pts
     DTJW_CSJW = "大唐境外->长寿郊外", dtjw_csjw
     BJLZ_CAC = "北俱芦洲->长安城", bjlz_cac
-    CAC_BP = "长安城->帮派", cac_bp
     BPTDGG = "帮派土地公公", bptdgg
     BPJGR = "帮派机关人", bpjgr
-    BPZHS = "帮派召唤兽", bpzhs
+    BPSHS = "帮派召唤兽", bpshs
     XWTZG = "玄武堂总管", xwtzg

@@ -8,6 +8,7 @@ import constants.path as p
 from auto.component.camera import camera
 import auto.utils.game_rect as game_rect
 import auto.utils.log as log
+import neural.target.detect as td
 
 
 class Action:
@@ -139,6 +140,24 @@ class Action:
             else:
                 log.info("未找到" + name + "，继续寻找")
                 time.sleep(5)
+                self.do_hide()
+
+    def do_detect_npc(self, npc):
+        name, paths = npc[0], npc[1]
+        self.do_hide()
+        while True:
+            time.sleep(0.1)
+            log.info("寻找" + name + "中...")
+            camera.shot()
+            result = td.run(weights=td.ROOT / 'model/xwt.pt', source=td.ROOT / 'img/temp/common/game.png')
+            if result is not None:
+                x, y = result[0], result[1]
+                log.info("找到" + name + "，位置:", x, y)
+                self.move_left_click(x, y)
+                break
+            else:
+                log.info("未找到" + name + "，继续寻找")
+                time.sleep(3)
                 self.do_hide()
 
     def do_hide(self):

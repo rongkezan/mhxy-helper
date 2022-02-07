@@ -143,7 +143,7 @@ class Camera:
     def shot_tab(self):
         self.game_shot((20, 33, 780, 53), p.temp_tab_group)
         for t in p.temp_tabs:
-            Image.open(p.temp_tab_group).crop(t.shape).save(t.p)
+            Image.open(p.temp_tab_group).crop(t.shape).save(t.path)
 
     def is_not_same_crop4(self):
         # 得到最新的一张保存的四小人截图
@@ -208,13 +208,13 @@ class Camera:
 
     def is_leader(self):
         self.shot_tab()
-        img = cv.imread(p.temp_tabs[0].p)
+        img = cv.imread(p.temp_tabs[0].path )
         return (img[10][115] == [221, 221, 221]).all()
 
     def is_notify(self):
         self.shot_tab()
         for t in p.temp_tabs:
-            img = cv.imread(t.p)
+            img = cv.imread(t.path)
             if (img[10][115] == [149, 203, 253]).all():
                 return t.position
         return False

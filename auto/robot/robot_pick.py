@@ -3,12 +3,9 @@
 """
 import os
 import auto.utils.log as log
-import constants as p
-from auto.component.action import Action
-from auto.component import Camera
-
-action = Action()
-camera = Camera()
+import constants.path as p
+from auto.component.action import action
+from auto.component.camera import camera
 
 
 class Pick:

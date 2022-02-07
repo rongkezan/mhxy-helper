@@ -2,15 +2,13 @@ import shutil
 import os
 import time
 import auto.utils.log as log
-import constants as path
-from auto.component import Camera
-
-camera = Camera()
+import constants.path as p
+from auto.component.camera import camera
 
 
 def task():
     if camera.is_fight() and camera.is_popup1() and camera.is_not_same_crop4():
-        shutil.copy(path.temp_popup, os.path.join(path.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
+        shutil.copy(p.temp_popup, os.path.join(p.data_crop_dir, str(int(round(time.time() * 1000))) + ".png"))
 
 
 if __name__ == '__main__':
