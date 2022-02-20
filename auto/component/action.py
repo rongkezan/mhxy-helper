@@ -187,7 +187,9 @@ class Action:
         for t in p.temp_tabs:
             self.move_left_click(t.position[0], t.position[1], True)
             log.info("攻击/施法")
+            time.sleep(0.2)
             action1()
+            time.sleep(0.2)
             action2()
 
 

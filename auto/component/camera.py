@@ -200,8 +200,8 @@ class Camera:
         return score >= 3
 
     def is_need_heal(self):
-        self.game_shot((740, 60, 800, 80), os.path.join(p.temp_dir, "status.png"))
-        img = cv.imread(p)
+        self.game_shot((740, 60, 800, 80), os.path.join(p.temp_common_dir, "status.png"))
+        img = cv.imread(os.path.join(p.temp_common_dir, "status.png"))
         if not (img[15][15][0] == 248):
             return True
         return False

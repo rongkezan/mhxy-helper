@@ -47,7 +47,7 @@ def verify():
     per_dict = dict()
     files = os.listdir(p.temp_crop_dir)
     for i in range(4):
-        image = Image.open(p.temp_crop_dir + files[i])
+        image = Image.open(os.path.join(p.temp_crop_dir, files[i]))
         image = transform(image)
         image = torch.reshape(image, (1, 3, 120, 90))
         tensor = image.cuda()
