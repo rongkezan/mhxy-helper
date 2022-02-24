@@ -1,7 +1,6 @@
 """
 场景
 """
-import constants.path as p
 from neural.classify.popup_verify import *
 from auto.component.action import action
 from auto.component.camera import camera
@@ -10,6 +9,7 @@ from auto.component.camera import camera
 class Scene:
     def __init__(self):
         self.move_around_count = 0
+        self.heal_flag = 0
 
     def move_around(self):
         action.tab()
@@ -26,7 +26,7 @@ class Scene:
             action.move_left_click(521, 482)
             self.move_around_count = 1
         action.tab()
-        time.sleep(1)
+        time.sleep(2)
 
     @staticmethod
     def check_heal():
@@ -38,12 +38,11 @@ class Scene:
 
     def run(self):
         log.info("开始刷场景")
-        heal_flag = 0
         while True:
-            heal_flag += 1
+            self.heal_flag += 1
+
             while not camera.is_fight():
-                if heal_flag % 4 == 0:
-                    heal_flag += 1
+                if self.heal_flag % 4 == 0:
                     self.check_heal()
 
                 log.info("非战斗状态，晃悠晃悠")
@@ -54,7 +53,6 @@ class Scene:
 
             while camera.is_fight():
                 log.info("战斗状态")
-
                 # 弹框验证
                 handle_popup()
                 # 循环判断是否有通知，有弹窗通知则循环点击保存，直到没有通知退出循环
@@ -66,7 +64,6 @@ class Scene:
                         handle_popup()
                     else:
                         break
-
                 # 攻击施法
                 if camera.is_ready_fight():
                     action.do_fight5(action.alt_q, action.alt_d)
