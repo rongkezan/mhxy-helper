@@ -192,5 +192,28 @@ class Action:
             time.sleep(0.2)
             action2()
 
+    def input_num(self, num):
+        if num == 70000:
+            self.keyboard1(207)
+            self.keyboard1(210)
+            self.keyboard1(210)
+            self.keyboard1(210)
+            self.keyboard1(210)
+        elif num == 140000:
+            self.keyboard1(201)
+            self.keyboard1(204)
+            self.keyboard1(210)
+            self.keyboard1(210)
+            self.keyboard1(210)
+            self.keyboard1(210)
+        elif num == 210000:
+            self.keyboard1(202)
+            self.keyboard1(201)
+            self.keyboard1(210)
+            self.keyboard1(210)
+            self.keyboard1(210)
+            self.keyboard1(210)
+
+
 
 action = Action()

@@ -5,6 +5,7 @@ base_dir = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__
 flag_dir = os.path.join(base_dir, "img/flag")
 temp_dir = os.path.join(base_dir, "img/temp")
 data_dir = os.path.join(base_dir, "img/data")
+item_dir = os.path.join(base_dir, "img/item")
 model_dir = os.path.join(base_dir, "model")
 
 flag_common_dir = os.path.join(flag_dir, "common")

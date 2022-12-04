@@ -69,6 +69,7 @@ class Camera:
 
     def game_shot(self, shape, path):
         self.shot()
+        # Shape: left top right bottom
         Image.open(p.temp_game).crop(shape).save(path)
 
     def read_text_basic(self, filepath):

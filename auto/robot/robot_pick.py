@@ -106,7 +106,7 @@ class Pick:
         return None
 
     def run(self):
-        buffer = [6, 7]
+        buffer = [3,4,5,6,7]
         for b in buffer:
             self.switch(b)
             self.get_all_item(self.treasure_map_pic)
